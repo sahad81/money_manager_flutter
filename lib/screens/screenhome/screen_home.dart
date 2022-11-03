@@ -3,7 +3,6 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/si_glyph.dart';
 import 'package:moneymanagement/screens/appbaraction/contactus/contactUs.dart';
 import 'package:moneymanagement/screens/appbaraction/today/today.dart';
-import 'package:moneymanagement/screens/appbaraction/transationWithInAmonth/month.dart';
 import 'package:moneymanagement/screens/graph/graph.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,7 @@ class homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TransationDb.instance.allincomeamount;
     return Scaffold(
         backgroundColor: Colors.grey[100],
         appBar:  selectedvaluenotifier.value == 0? AppBar(
@@ -80,7 +80,7 @@ class homescreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
 
@@ -158,7 +158,7 @@ class homescreen extends StatelessWidget {
                                       TextButton(
                                           onPressed: () {
                                             TransationDb.instance
-                                                .restartapptransation();
+                                                .restartapptransaction();
                                             catagories_db.instance
                                                 .restarcatocaryapp();
                                             //   <! second time-->
@@ -197,7 +197,7 @@ class homescreen extends StatelessWidget {
                           Share.share('link not fount');
                         }),
                     //
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
                         alignment: AlignmentDirectional.center,

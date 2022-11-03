@@ -77,7 +77,7 @@ refreshfuntion();
    await catocaryrestart_.clear();
 
    refreshfuntion();
-   print('restart');
+//print('restart');
   }
   
 }

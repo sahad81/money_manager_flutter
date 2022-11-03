@@ -21,7 +21,7 @@ Padding(
   child:   TextFormField(
   controller: name_editing_controler ,
     decoration: const InputDecoration(
-      hintText: 'Add your category',
+      hintText: 'Add category',
   
       contentPadding:EdgeInsets.all(8) ,
   

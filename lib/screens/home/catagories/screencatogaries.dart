@@ -1,11 +1,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
 import 'package:moneymanagement/screens/home/catagories/expenselist.dart';
 import 'package:moneymanagement/screens/home/catagories/incom.dart';
+
 
 class screen_catogaries extends StatefulWidget {
    screen_catogaries({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
   void initState() {
     _tabController=TabController(length: 2, vsync: this);
     catagories_db().refreshfuntion();
+  
     super.initState();
   }
   @override
@@ -37,7 +38,7 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
           controller: _tabController,
           tabs: 
         
-        [
+        const [
           Tab(text: 'INCOME',),
           Tab( text: 'EXPENSE',),
         ]
@@ -45,10 +46,10 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
         Expanded (
           child: TabBarView(
             controller: _tabController ,
-            children:[ 
+            children:const [ 
             
          incomelist(),
-         expenselist(),
+         Expenselist(),
                ] ),
         )
       ],

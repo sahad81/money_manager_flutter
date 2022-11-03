@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
-import 'package:moneymanagement/screens/graph/graph.dart';
-
 
 import 'package:moneymanagement/screens/home/transations/add_Transation/add_transation_screen.dart';
 import 'package:moneymanagement/screens/screenhome/screen_home.dart';
@@ -18,16 +16,16 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(catagoriestypeAdapter().typeId)) {
     Hive.registerAdapter(catagoriestypeAdapter());
   }
-  ;
+
 
   if (!Hive.isAdapterRegistered(catogariesmodelAdapter().typeId)) {
     Hive.registerAdapter(catogariesmodelAdapter());
   }
-  ;
+  
   if (!Hive.isAdapterRegistered(transationmodelAdapter().typeId)) {
     Hive.registerAdapter(transationmodelAdapter());
   }
-  ;
+  
 
   runApp(const MyApp());
 }

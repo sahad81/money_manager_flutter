@@ -18,12 +18,14 @@ class _Graph2State extends State<Graph2> {
 List<MaterialColor> colorList =[
   Colors.red,
   Colors.green,
-  
+  Colors.grey
   
 ];
 List<String>items=[
- 'expense',
- 'income'
+ 'Expense',
+ 'Income'
+ 'Balance'
+
 ];
 List<transation_model>transation=TransationDb.instance.transationlistnotifire.value;
 List<catogaries_model>expenselist=catagories_db.instance.expense_catogarieslistlistner.value;
@@ -42,6 +44,7 @@ String ?selecteditems;
           centerSpaceRadius: 70
 ,
 sectionsSpace: 5,
+sections: []
 // sections: [
 // for(var i=0; i<inccotogary.length;i++)
 // // PieChartSectionData(

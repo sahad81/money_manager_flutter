@@ -3,7 +3,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
@@ -15,9 +15,9 @@ class ExpenseOnly extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    TransationDb.instance.refreshtransation();
+    TransationDb.instance.refreshtransaction();
     catagories_db.instance.refreshfuntion();
-   
+  
     return 
    
      ValueListenableBuilder(valueListenable:TransationDb.instance.transationExpnsenotifire ,

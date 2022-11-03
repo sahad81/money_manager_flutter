@@ -1,8 +1,6 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-import 'package:moneymanagement/screens/home/catagories/incom.dart';
+
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../funtions/catagories_fn_db/transation.dart';
@@ -20,9 +18,11 @@ class _GraphState extends State<Graph> {
 
   int key = 0;
 
-  List<MaterialColor> ColorList = [
-    Colors.red,
+  List<MaterialColor> colorList = [
+    
     Colors.green,
+    Colors.red,
+      Colors.grey
   ];
  
           @override
@@ -34,53 +34,30 @@ class _GraphState extends State<Graph> {
 
   @override
   Widget build(BuildContext context) {
-    TransationDb.instance.refreshtransation();
+    TransationDb.instance.refreshtransaction();
     return ValueListenableBuilder(
         valueListenable: TransationDb.instance.transationlistnotifire,
         builder: (BuildContext cnt, List<transation_model> newlist, Widget? _) {
 
  
-   const double income1 =0 ;
-    const double expense=0;
-    
-                 Future.forEach(newlist, ( transation_model income) {
-                  if(income.type==catagories_type.income){
-                  setState(() {
-                      income1.toDouble() + 1;
-                  });
-                 
-                  }
-                 });
-                    Future.forEach(newlist, ( transation_model expense1) {
-                  if(expense1.type==catagories_type.expense){
-                  
-                   expense.toDouble() + 1;
-                  }
-                 });
+ 
+             
+               
                     Map<String, double> datamab = {
-                  'income': income1,
+                  'Income': TransationDb.instance.allincomeamount(),
                   //catagories_type.income,
-                  'expense': expense
+                  'Expense': TransationDb.instance.allexpenseamount(),
+                  "Balance": TransationDb.instance.balance()
                   // catagories_type.income
                 };
       
           return Scaffold(
               appBar: AppBar(
-                title: Center(child: Text('pieChart ')),
+                title: const Center(child: Text('Chart')),
                 backgroundColor: Colors.black,
               ),
               body:
-              //  ListView.builder(itemBuilder: (context, index)
-              //  {
-              
-               //  final vale = newlist[index];
-
-                 
-                
-                // // var lengthofindex= vale.type;
-                // // lengthofindex=catagories_type.expense;
-
-              //  return
+          
               PieChart(
                  dataMap: datamab,
                   initialAngleInDegree: 0,
@@ -88,16 +65,18 @@ class _GraphState extends State<Graph> {
                   chartType: ChartType.disc,
                   chartRadius: MediaQuery.of(context).size.width / 1.4,
                   ringStrokeWidth: 69,
-                  colorList: ColorList,
+                  colorList: colorList,
                   chartLegendSpacing: 30,
                   chartValuesOptions: const ChartValuesOptions(
-                    showChartValuesOutside: false,
-                    showChartValueBackground: false,
+                    showChartValuesOutside: true,
+                    showChartValueBackground: true,
                     showChartValues: true,
+
                   ),
                   centerText: "spending",
                   legendOptions: const LegendOptions(
                       showLegends: true,
+                      
                       showLegendsInRow: false,
                       legendShape: BoxShape.circle,
                       legendPosition: LegendPosition.bottom,

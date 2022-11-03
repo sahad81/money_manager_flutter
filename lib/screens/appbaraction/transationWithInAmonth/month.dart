@@ -13,7 +13,7 @@ class Month extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    TransationDb.instance.refreshtransation();
+    TransationDb.instance.refreshtransaction();
     catagories_db.instance.refreshfuntion();
    
     return 
