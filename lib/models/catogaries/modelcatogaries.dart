@@ -10,19 +10,19 @@ enum catagories_type {
   income,
 }
 @HiveType(typeId: 1)
-class catogaries_model{
+class Catogariesmodel{
    @HiveField(0)
    final String id;
    @HiveField(1)
   final String name;
   @HiveField(2)
-  final bool is_deleted;
+  final bool isdeleted;
   @HiveField(3)
   final catagories_type type;
   
 
   // ignore: non_constant_identifier_names
-  catogaries_model({required this.id,  required this.name, this.is_deleted =false,required this.type});
+  Catogariesmodel({required this.id,  required this.name, this.isdeleted =false,required this.type});
 
  @override
   String toString() {

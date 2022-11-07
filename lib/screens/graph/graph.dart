@@ -47,33 +47,36 @@ class _GraphState extends State<Graph> {
                   'Income': TransationDb.instance.allincomeamount(),
                   //catagories_type.income,
                   'Expense': TransationDb.instance.allexpenseamount(),
-                  "Balance": TransationDb.instance.balance()
+                  
                   // catagories_type.income
                 };
       
           return Scaffold(
+            backgroundColor: Colors.black87,
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 title: const Center(child: Text('Chart')),
                 backgroundColor: Colors.black,
               ),
               body:
           
               PieChart(
+                
                  dataMap: datamab,
                   initialAngleInDegree: 0,
-                  animationDuration: const Duration(milliseconds: 999),
-                  chartType: ChartType.disc,
+                  animationDuration: const Duration(milliseconds: 2000),
+                  chartType: ChartType.ring,
                   chartRadius: MediaQuery.of(context).size.width / 1.4,
                   ringStrokeWidth: 69,
                   colorList: colorList,
                   chartLegendSpacing: 30,
                   chartValuesOptions: const ChartValuesOptions(
-                    showChartValuesOutside: true,
+                    
                     showChartValueBackground: true,
                     showChartValues: true,
 
                   ),
-                  centerText: "spending",
+                  
                   legendOptions: const LegendOptions(
                       showLegends: true,
                       

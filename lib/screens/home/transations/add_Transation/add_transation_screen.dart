@@ -7,7 +7,6 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
 
-
 class add_transations extends StatefulWidget {
   static const routname = 'add_transaction';
 
@@ -22,15 +21,14 @@ class _add_transationsState extends State<add_transations> {
   );
   DateTime? selecteddate;
   catagories_type? _selectedcatagory;
-  catogaries_model? _selected_catory_model;
+  Catogariesmodel? _selected_catory_model;
   String? _catogariesID;
   var formKey = GlobalKey<FormState>();
   final _purposetexteditingControler = TextEditingController();
   final _AmounttexteditingControler = TextEditingController();
 
-  late final ammount;
   late final String purpose;
-  late final datefirst;
+  DateTime? datefirst;
   late final _parsedAmount;
   //  add_transations({
   //   this.selecteddate,
@@ -63,18 +61,17 @@ class _add_transationsState extends State<add_transations> {
             }
           },
           child: Stack(
-            children: 
-              [SingleChildScrollView(
-                child: Column( children: [
+            children: [
+              SingleChildScrollView(
+                child: Column(children: [
                   sizedb,
                   sizedb,
-                 
+
                   Center(
                     child: Text(
                       'ADD TRANSACTIONS',
                       style: GoogleFonts.lateef(
                           textStyle: const TextStyle(
-                             
                               decorationColor: Colors.black,
                               decorationThickness: 4,
                               decorationStyle: TextDecorationStyle.dashed,
@@ -84,30 +81,24 @@ class _add_transationsState extends State<add_transations> {
                               fontStyle: FontStyle.italic)),
                     ),
                   ),
-              
-              
-                 
-                   
+
                   TextFormField(
-                    controller: _purposetexteditingControler,
-                    validator: ((value) {
-                      if (value!.isEmpty) {
-                        return 'enter purpose of transaction';
-                      }
-                      return null;
-                    }),
-                    decoration: InputDecoration(
-                       
+                      controller: _purposetexteditingControler,
+                      validator: ((value) {
+                        if (value!.isEmpty) {
+                          return 'enter purpose of transaction';
+                        }
+                        return null;
+                      }),
+                      decoration: const InputDecoration(
                         labelText: 'Purpose',
-                        labelStyle: const TextStyle(),
-                    )), 
+                        labelStyle: TextStyle(),
+                      )),
                   sizedb,
                   const SizedBox(
                     height: 10,
                   ),
-              
-                   
-              
+
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -118,19 +109,19 @@ class _add_transationsState extends State<add_transations> {
                     controller: _AmounttexteditingControler,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                    
-                        labelText: 'Amount',
-                        labelStyle: TextStyle(),
-                        ),
+                      labelText: 'Amount',
+                      labelStyle: TextStyle(),
+                    ),
                   ),
                   sizedb,
-                          Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    
                     children: [
                       Row(
                         children: [
                           Radio(
+                              fillColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.black),
                               value: catagories_type.income,
                               groupValue: _selectedcatagory,
                               onChanged: (newvalue) {
@@ -145,6 +136,8 @@ class _add_transationsState extends State<add_transations> {
                       Row(
                         children: [
                           Radio(
+                              fillColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.black),
                               value: catagories_type.expense,
                               groupValue: _selectedcatagory,
                               onChanged: (newvalue) {
@@ -158,25 +151,32 @@ class _add_transationsState extends State<add_transations> {
                       ),
                     ],
                   ),
-                //  sizedb,
-                    Row(
+                  //  sizedb,
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DropdownButton(
-                          style: const TextStyle(color: Colors.blue, fontSize: 17),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 17),
                           hint: const Text(
                             'select category',
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color: Colors.black),
                           ),
                           value: _catogariesID,
+                          focusColor: Colors.black,
+                          borderRadius: BorderRadius.circular(16),
                           items: (_selectedcatagory == catagories_type.income
                                   ? catagories_db().income_catogarieslistlistner
-                                  : catagories_db().expense_catogarieslistlistner)
+                                  : catagories_db()
+                                      .expense_catogarieslistlistner)
                               .value
                               .map((e) {
                             return DropdownMenuItem(
                               value: e.id,
-                              child: Text(e.name),
+                              child: Text(
+                                e.name,
+                                selectionColor: Colors.black,
+                              ),
                               onTap: () {
                                 _selected_catory_model = e;
                               },
@@ -184,29 +184,35 @@ class _add_transationsState extends State<add_transations> {
                           }).toList(),
                           onChanged: (selectedvalue) {
                             setState(() {
+                              catagories_db.instance.refreshfuntion();
                               _catogariesID = selectedvalue as String?;
                             });
                           }),
-                          IconButton(onPressed: (){
-                             showpopupADD(context);
-                          }, icon: Icon(Icons.add))
+                      IconButton(
+                          onPressed: () {
+                            showpopupADD(context);
+                          },
+                          icon: Icon(Icons.add))
                     ],
                   ),
                   sizedb,
                   TextButton.icon(
                       onPressed: () {
-                        calender(context);
+                        calendar(context);
                       },
-                      icon: const Icon(Icons.calendar_today),
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        color: Colors.black,
+                      ),
                       label: Text(
                         selecteddate == null
-                            ? 'select date'
+                            ? '  Select date'
                             : parsedate(
                                 selecteddate!,
                               ).toString(),
-                        style: const TextStyle(color: Colors.blue),
+                        style: const TextStyle(color: Colors.black),
                       )),
-                          
+
                   sizedb,
                   ElevatedButton(
                       onPressed: () {
@@ -214,18 +220,31 @@ class _add_transationsState extends State<add_transations> {
                         if (!isvalid) {
                           return;
                         }
+                        if (_catogariesID == null) {
+                           showpopoep("Select category", Colors.red);
+                        }
+                        if (selecteddate == null) {
+                          showpopoep("Date is required", Colors.red);
+                        
+                        }
+                        if (_selected_catory_model == null) {
+                          return;
+                        }
                         addTransationfuntion();
-              
+
                         //  addtransationtntd();
                       },
                       style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(350, 50),
-                        maximumSize: const Size(350, 50),
-                      ),
+                          minimumSize: const Size(350, 50),
+                          maximumSize: const Size(350, 50),
+                          backgroundColor: Colors.black),
                       child: const Text(
-                        'SUBMIT',
-                        style: TextStyle(fontSize: 20),
-                      ))
+                        'ADD',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      )),
+                  sizedb,
                 ]),
               ),
             ],
@@ -235,7 +254,7 @@ class _add_transationsState extends State<add_transations> {
     );
   }
 
-  calender(BuildContext context) async {
+  calendar(BuildContext context) async {
     datefirst = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -245,18 +264,16 @@ class _add_transationsState extends State<add_transations> {
         return Theme(
             data: Theme.of(context).copyWith(
                 colorScheme: const ColorScheme.light(
-              primary: Colors.amberAccent, // <-- SEE HERE
-              onPrimary: Color(0xffF02E65), // <-- SEE HERE
+              primary: Colors.black, // <-- SEE HERE
+              onPrimary: Colors.white, // <-- SEE HERE
               onSurface: Color.fromARGB(255, 66, 125, 145),
             )),
             child: child!);
       },
     );
-    if (datefirst == null) {
+    if (datefirst! == null) {
       return;
     } else {
-      //  print(datefirst.toString());
-
       setState(() {
         selecteddate = datefirst;
       });
@@ -265,24 +282,9 @@ class _add_transationsState extends State<add_transations> {
 
   Future<void> addTransationfuntion() async {
     purpose = _purposetexteditingControler.text;
-    ammount = _AmounttexteditingControler.text;
-    if (purpose.isEmpty || ammount.isEmpty) {
-      return;
-    }
-    if (_catogariesID == null) {
-      return;
-    }
-    if (selecteddate == null) {
-       showpopoep("Date is required");
-    }
-    if (_selected_catory_model == null) {
-      return;
-    }
+    final ammount = _AmounttexteditingControler.text;
 
     _parsedAmount = double.tryParse(ammount);
-    if (_parsedAmount == null) {
-      return;
-    }
 
     final model = transation_model(
         purpose: purpose,
@@ -291,49 +293,39 @@ class _add_transationsState extends State<add_transations> {
         type: _selectedcatagory!,
         catogoryT: _selected_catory_model!);
 
-//texttext(selecteddate!);
     TransationDb.instance.addtransaction(model);
-    //  print(purpose);
+  
     Navigator.of(context).pop();
 
     TransationDb.instance.refreshtransaction();
-       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 3),
-       content: Text(' Transaction added'),
-         
-             
-         backgroundColor: Colors.green,
+        content: Text(' Transaction added'),
+        margin: EdgeInsets.all(15),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10),
-                
-               )
-      
-      )
-      ));
+            borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ))));
   }
-showpopoep(
-  String popname
-)
-{
-      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-      
+
+  showpopoep(String popname, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: const Duration(seconds: 3),
-       content: Text(popname),
-            
-         backgroundColor: Colors.green,
+        content: Text(popname),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(15),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: color,
         shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10),
-                
-               )
-      
-      )
-      ));
-}
+            borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ))));
+  }
+
   String parsedate(DateTime date) {
     var datelocal = DateFormat.yMMMMEEEEd().format(date);
-//final splitedate=_date.split(' ');
     return datelocal;
-//  return '${splitedate.last}\n${splitedate.first}';
   }
 }

@@ -295,7 +295,7 @@ class _contactUsState extends State<contactUs> {
 
                           internet == false
                               ? showSimpleNotification(
-                                  Text('check your internet conection'),
+                                  const Text('check your internet conection'),
                                   background: Colors.red)
                               : null;
                           internet ? validation() : null;
@@ -303,11 +303,13 @@ class _contactUsState extends State<contactUs> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(150, 50),
                           maximumSize: const Size(150, 50),
+                          backgroundColor: Colors.black
                         ),
                         child: const Text(
-                          'Send',
-                          style: TextStyle(color: Colors.black),
-                        ))
+                          'SEND',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                        const SizedBox(height: 20)
                   ],
                 ),
               ),
@@ -336,4 +338,3 @@ class _contactUsState extends State<contactUs> {
     }
   }
 }
-l

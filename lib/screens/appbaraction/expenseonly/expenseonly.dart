@@ -24,52 +24,42 @@ class ExpenseOnly extends StatelessWidget {
       builder: (BuildContext cnt, List<transation_model> newlist, Widget? _){
       return  
        Scaffold(
-     appBar: AppBar(
-  title:const Text('EXPENSE',style: TextStyle(
-    color: Colors.black
-  ),),
-  centerTitle: true ,
-  
-  
-) ,
+    
          body: ListView.separated(
           padding: const EdgeInsets.only(top: 10,bottom: 10,),
           itemBuilder:(context,index){
             final v_alue =newlist[index];
              
             return 
-           Card(
-            elevation: 0,
-            child: ListTile(
-                 style: ListTileStyle.list,
-                leading: CircleAvatar(child: Text(parsedate(v_alue.date),
-                textAlign: TextAlign.center,),
-                radius:40,
-                backgroundColor: v_alue.type==catagories_type.income? Colors.green : Colors.red
-                ),
-                title:  Padding(
-                  padding: const EdgeInsets.only(bottom: 5,top: 4),
-                  child: Text( "Name: " + v_alue.purpose),
-                ),
-                subtitle:
-                    Column(
-                     
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                 Text('Rs ${(v_alue.ammount)}'),
-                        
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5,top: 6),
-                          child: Text("Category: "+ v_alue.catogoryT.name),
-                        ),
-                      ],
-                    ),
-                
-                ),
-          );
+           ListTile(
+                style: ListTileStyle.list,
+               leading: CircleAvatar(child: Text(parsedate(v_alue.date),
+               textAlign: TextAlign.center,),
+               radius:40,
+               backgroundColor: v_alue.type==catagories_type.income? Colors.green : Colors.red
+               ),
+               title:  Padding(
+                 padding: const EdgeInsets.only(bottom: 5,top: 4),
+                 child: Text( "Name: " + v_alue.purpose),
+               ),
+               subtitle:
+                   Column(
+                    
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                Text('Rs ${(v_alue.ammount)}'),
+                       
+                       Padding(
+                         padding: const EdgeInsets.only(bottom: 5,top: 6),
+                         child: Text("Category: "+ v_alue.catogoryT.name),
+                       ),
+                     ],
+                   ),
+               
+               );
             
             }, separatorBuilder: (cont,index1){
-          return const SizedBox(height: 10,);
+          return const Divider(thickness: 2,);
             }, itemCount: newlist.length),
        );
       

@@ -6,26 +6,26 @@ part of 'modelcatogaries.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class catogariesmodelAdapter extends TypeAdapter<catogaries_model> {
+class CatogariesmodelAdapter extends TypeAdapter<Catogariesmodel> {
   @override
   final int typeId = 1;
 
   @override
-  catogaries_model read(BinaryReader reader) {
+  Catogariesmodel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return catogaries_model(
+    return Catogariesmodel(
       id: fields[0] as String,
       name: fields[1] as String,
-      is_deleted: fields[2] as bool,
+      isdeleted: fields[2] as bool,
       type: fields[3] as catagories_type,
     );
   }
 
   @override
-  void write(BinaryWriter writer, catogaries_model obj) {
+  void write(BinaryWriter writer,Catogariesmodel obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -33,7 +33,7 @@ class catogariesmodelAdapter extends TypeAdapter<catogaries_model> {
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.is_deleted)
+      ..write(obj.isdeleted)
       ..writeByte(3)
       ..write(obj.type);
   }
@@ -44,7 +44,7 @@ class catogariesmodelAdapter extends TypeAdapter<catogaries_model> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is catogariesmodelAdapter &&
+      other is CatogariesmodelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

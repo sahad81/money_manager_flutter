@@ -8,9 +8,9 @@ const catagories_db_name='catogaries_datanase';
 
 abstract class catagories_db_fn{
 
-Future<List <catogaries_model>> getcatogaries();
+Future<List <Catogariesmodel>> getcatogaries();
 
-Future<void> incertCatagories(catogaries_model value);
+Future<void> incertCatagories(Catogariesmodel value);
  Future <void> deletecatagories (String catagoriesid);
  Future<void> deleteallcatogories(List deleteall);
   }
@@ -21,25 +21,25 @@ class catagories_db implements catagories_db_fn{
     return instance; 
   }
 
- ValueNotifier<List<catogaries_model>>income_catogarieslistlistner=ValueNotifier([]);
- ValueNotifier<List<catogaries_model>>expense_catogarieslistlistner=ValueNotifier([]);
+ ValueNotifier<List<Catogariesmodel>>income_catogarieslistlistner=ValueNotifier([]);
+ ValueNotifier<List<Catogariesmodel>>expense_catogarieslistlistner=ValueNotifier([]);
   @override
-  Future<void> incertCatagories(catogaries_model value)async {
-    final categoriesDB= await Hive.openBox<catogaries_model>(catagories_db_name);
+  Future<void> incertCatagories(Catogariesmodel value)async {
+    final categoriesDB= await Hive.openBox<Catogariesmodel>(catagories_db_name);
 await categoriesDB.put(value.id,value);
 refreshfuntion();
   }
   
   @override
-  Future<List<catogaries_model>> getcatogaries() async {
-   final categoriesDB= await Hive.openBox<catogaries_model>(catagories_db_name);
+  Future<List<Catogariesmodel>> getcatogaries() async {
+   final categoriesDB= await Hive.openBox<Catogariesmodel>(catagories_db_name);
    return categoriesDB.values.toList();
   }
 Future<void> refreshfuntion()async{
  final allcatogaries=await getcatogaries();
  income_catogarieslistlistner.value.clear();
  expense_catogarieslistlistner.value.clear();
- await Future.forEach(allcatogaries, (catogaries_model category) {
+ await Future.forEach(allcatogaries, (Catogariesmodel category) {
 if(category.type==catagories_type.income){
   income_catogarieslistlistner.value.add(category);
 }else{
@@ -47,13 +47,15 @@ if(category.type==catagories_type.income){
 }
 
  });
+ // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
  income_catogarieslistlistner.notifyListeners();
+ // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
  expense_catogarieslistlistner.notifyListeners();
 }
 
   @override
   Future<void> deletecatagories(String catagoriesid)async {
-    final _catagories_db =await Hive.openBox<catogaries_model>(catagories_db_name);
+    final _catagories_db =await Hive.openBox<Catogariesmodel>(catagories_db_name);
     _catagories_db.delete(catagoriesid);
     refreshfuntion();
     
@@ -70,7 +72,7 @@ refreshfuntion();
   }
    Future<void>
    restarcatocaryapp() async {
-   final catocaryrestart_=await Hive.openBox<catogaries_model>(catagories_db_name);
+   final catocaryrestart_=await Hive.openBox<Catogariesmodel>(catagories_db_name);
   // transationDb_.deleteAll(iddeleteall);
     income_catogarieslistlistner.value.clear();
     expense_catogarieslistlistner.value.clear();

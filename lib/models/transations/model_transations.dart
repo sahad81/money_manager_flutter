@@ -19,7 +19,7 @@ late final DateTime date;
  final catagories_type type;
 
 @HiveField(4)
-final catogaries_model catogoryT;
+final Catogariesmodel catogoryT;
 
 @HiveField(5)
 String? id; 

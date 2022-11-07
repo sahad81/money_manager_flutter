@@ -21,7 +21,7 @@ class transationmodelAdapter extends TypeAdapter<transation_model> {
       ammount: fields[1] as double,
       date: fields[2] as DateTime,
       type: fields[3] as catagories_type,
-      catogoryT: fields[4] as catogaries_model,
+      catogoryT: fields[4] as Catogariesmodel,
     )
       ..id = fields[5] as String?
       ..idlist = (fields[6] as List?)?.cast<dynamic>();

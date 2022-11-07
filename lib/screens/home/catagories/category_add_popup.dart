@@ -13,7 +13,7 @@ Future<void>showpopupADD(BuildContext context)async{
 
   showDialog(context: context, builder: (cntx){
 return SimpleDialog(
-  title: Text('ADD CATEGORY'),
+  title: const Text('ADD CATEGORY'),
   children: [
   
 Padding(
@@ -22,10 +22,14 @@ Padding(
   controller: name_editing_controler ,
     decoration: const InputDecoration(
       hintText: 'Add category',
-  
+   
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(width: 1, color: Colors.black),
+
+    ),
       contentPadding:EdgeInsets.all(8) ,
   
-      border: OutlineInputBorder()
+     
   
     ),
   
@@ -36,8 +40,8 @@ Padding(
   Padding(padding: const EdgeInsets.all(8),
     child: Row(
       children:  const [
-        radioButton(titile: 'INCOME', type: catagories_type.income),
-         radioButton(titile: 'EXPENSE',type: catagories_type.expense),
+        RadioButton(titile: 'INCOME', type: catagories_type.income),
+         RadioButton(titile: 'EXPENSE',type: catagories_type.expense),
       
       ],
     ),
@@ -49,19 +53,26 @@ Padding(
   
   
   
-  ( onPressed: (){
+  (
+    
+     onPressed: (){
 
 final _name=name_editing_controler.text;
 if(_name.isEmpty)
 {
 return;
 } 
-  final _typ=selected_catagoriesNotifire.value;
-  final _catagory= catogaries_model(id: DateTime.now().microsecondsSinceEpoch.toString(),name: _name,type:_typ);
-  catagories_db() .incertCatagories(_catagory);
+  final typ=selected_catagoriesNotifire.value;
+  final catagory= Catogariesmodel(id: DateTime.now().microsecondsSinceEpoch.toString(),name: _name,type:typ);
+  catagories_db() .incertCatagories(catagory);
+  catagories_db.instance.expense_catogarieslistlistner;
+   catagories_db.instance.income_catogarieslistlistner;
   Navigator.of(cntx).pop();
-
- }, child: Text('ADD')
+  name_editing_controler.clear;
+ catagories_db().refreshfuntion();
+ 
+ },style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.black,), child: const Text('ADD')
   
   ),
 )
@@ -73,13 +84,13 @@ return;
 
 
  
- class radioButton extends StatelessWidget {
+ class RadioButton extends StatelessWidget {
 final String titile;
 final  catagories_type type;
 
 
 
-  const radioButton({Key? key, required this.titile, required this.type}) : super(key: key);
+  const RadioButton({Key? key, required this.titile, required this.type}) : super(key: key);
 
 
   
@@ -91,12 +102,14 @@ final  catagories_type type;
        ValueListenableBuilder(valueListenable: selected_catagoriesNotifire, builder: (BuildContext context,
        catagories_type newcatagory,Widget? _){
       return  Radio<catagories_type>(value:type ,
+        fillColor:
+        MaterialStateColor.resolveWith((states) => Colors.black),
       groupValue:newcatagory,
          onChanged: (value){
           if(value==null){
             return;
           } 
-          print(value);
+  
           selected_catagoriesNotifire.value=value;
           selected_catagoriesNotifire.notifyListeners();
          }
