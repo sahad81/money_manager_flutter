@@ -9,6 +9,7 @@ import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import '../../../funtions/catagories_fn_db/transation.dart';
+import '../../home/transations/transationsationsonly.dart';
 
 class ExpenseOnly extends StatelessWidget {
   const ExpenseOnly({Key? key}) : super(key: key);
@@ -31,32 +32,63 @@ class ExpenseOnly extends StatelessWidget {
             final v_alue =newlist[index];
              
             return 
-           ListTile(
-                style: ListTileStyle.list,
-               leading: CircleAvatar(child: Text(parsedate(v_alue.date),
-               textAlign: TextAlign.center,),
-               radius:40,
-               backgroundColor: v_alue.type==catagories_type.income? Colors.green : Colors.red
-               ),
-               title:  Padding(
-                 padding: const EdgeInsets.only(bottom: 5,top: 4),
-                 child: Text( "Name: " + v_alue.purpose),
-               ),
-               subtitle:
-                   Column(
-                    
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                Text('Rs ${(v_alue.ammount)}'),
-                       
-                       Padding(
-                         padding: const EdgeInsets.only(bottom: 5,top: 6),
-                         child: Text("Category: "+ v_alue.catogoryT.name),
-                       ),
-                     ],
-                   ),
-               
-               );
+    ListTile(
+       onTap: (){
+                              {
+                                showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return SimpleDialog(
+                                        contentPadding:
+                                            const EdgeInsets.all(18),
+                                        title: const Text('Details'),
+                                        children: [
+                                          Text(
+                                              'Purpose : ${v_alue.purpose}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Amount   : ${v_alue.ammount}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Category : ${v_alue.catogoryT.name}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Date      : ${parsedateforpopup(v_alue.date)}'),
+                                        ]);
+                                  }),
+                                );
+                              }
+                            },
+                                leading: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor:
+                                        v_alue.type == catagories_type.income
+                                            ? Colors.green
+                                            : Colors.red,
+                                    child: Text(
+                                      parsedate(v_alue.date),
+                                      textAlign: TextAlign.center,
+                                    )),
+                                title: Text("Name: ${v_alue.purpose}"),
+                                subtitle:
+                                    Text("Category: ${v_alue.catogoryT.name}"),
+                                trailing: v_alue.type == catagories_type.income
+                                    ? Text(
+                                        "+ ₹ ${v_alue.ammount}",
+                                        style: const TextStyle(
+                                            color: Colors.green),
+                                      )
+                                    : Text(
+                                        "- ₹ ${v_alue.ammount}",
+                                        style:
+                                            const TextStyle(color: Colors.red),
+                                      ));
             
             }, separatorBuilder: (cont,index1){
           return const Divider(thickness: 2,);

@@ -19,8 +19,16 @@ class Viewall extends StatefulWidget {
 }
 
 class _ViewallState extends State<Viewall> {
-  var dropdownvalues;
+  var  dropdownvalues;
    List<dynamic> items=["Today","Income","Expense","Month","All"];
+
+
+List<transation_model> filter=[
+  
+];
+void updatelist(String value){
+  
+}
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +64,24 @@ class _ViewallState extends State<Viewall> {
     },
  
     ),
+ ),
+  Padding(
+   padding: const EdgeInsets.all(8.0),
+   child: TextField(
+    style: const TextStyle(color: Colors.white),
+decoration: InputDecoration(
+    filled: true,
+    fillColor: Colors.grey,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+      borderSide: BorderSide.none
+    ),
+    hintText: "Search.....",hintStyle:const TextStyle(color: Colors.black),
+    prefixIcon: const Icon(Icons.search,color: Colors.black,)
+),
+
+
+   ),
  ),
               dropdownvalues==null? 
                   Expanded(
@@ -94,14 +120,14 @@ class _ViewallState extends State<Viewall> {
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: const Text('cancel')),
+                                                  child: const Text('cancel',style: TextStyle(color: Colors.black),)),
                                               TextButton(
                                                   onPressed: () {
                                                     TransationDb.instance
                                                         .deletetransactions(vAlue.id!);
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: const Text('delete')),
+                                                  child: const Text('delete',style: TextStyle(color: Colors.black))),
                                             ]);
                                       });
                                 },
@@ -111,34 +137,63 @@ class _ViewallState extends State<Viewall> {
                             ]),
                             child: 
                              
-                            ListTile(
-                              leading: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: vAlue.type == catagories_type.income
-                                      ? Colors.green
-                                      : Colors.red,
-                                  child: Text(
-                                    parsedate(vAlue.date),
-                                    textAlign: TextAlign.center,
-                                  )),
-                              title: Text("Name: ${vAlue.purpose}"),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text('Rs ${(vAlue.ammount)}'),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5, top: 3),
-                                    child: Text("Category: ${vAlue.catogoryT.name}"),
-                                  ),
-                                ],
-                              ),
-                              // trailing: vAlue.type==catagories_type.income? Icon(CupertinoIcons.down_arrow,color: Colors.green,)
-                              // :Icon(CupertinoIcons.up_arrow,color: Colors.red,)
-                            )
-
+                          ListTile(
+                            onTap: (){
+                              {
+                                showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return SimpleDialog(
+                                        contentPadding:
+                                            const EdgeInsets.all(18),
+                                        title: const Text('Details'),
+                                        children: [
+                                          Text(
+                                              'Purpose : ${vAlue.purpose}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Amount   : ${vAlue.ammount}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Category : ${vAlue.catogoryT.name}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Date      : ${parsedateforpopup(vAlue.date)}'),
+                                        ]);
+                                  }),
+                                );
+                              }
+                            },
+                                leading: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor:
+                                        vAlue.type == catagories_type.income
+                                            ? Colors.green
+                                            : Colors.red,
+                                    child: Text(
+                                      parsedate(vAlue.date),
+                                      textAlign: TextAlign.center,
+                                    )),
+                                title: Text("Name: ${vAlue.purpose}"),
+                                subtitle:
+                                    Text("Category: ${vAlue.catogoryT.name}"),
+                                trailing: vAlue.type == catagories_type.income
+                                    ? Text(
+                                        "+ ₹ ${vAlue.ammount}",
+                                        style: const TextStyle(
+                                            color: Colors.green),
+                                      )
+                                    : Text(
+                                        "- ₹ ${vAlue.ammount}",
+                                        style:
+                                            const TextStyle(color: Colors.red),
+                                      ))
                         
                             
                           );
@@ -210,33 +265,63 @@ class _ViewallState extends State<Viewall> {
                             ]),
                             child: 
                              
-                            ListTile(
-                              leading: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: vAlue.type == catagories_type.income
-                                      ? Colors.green
-                                      : Colors.red,
-                                  child: Text(
-                                    parsedate(vAlue.date),
-                                    textAlign: TextAlign.center,
-                                  )),
-                              title: Text("Name: ${vAlue.purpose}"),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text('Rs ${(vAlue.ammount)}'),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5, top: 3),
-                                    child: Text("Category: ${vAlue.catogoryT.name}"),
-                                  ),
-                                ],
-                              ),
-                              // trailing: vAlue.type==catagories_type.income? Icon(CupertinoIcons.down_arrow,color: Colors.green,)
-                              // :Icon(CupertinoIcons.up_arrow,color: Colors.red,)
-                            )
+                           ListTile(
+                             onTap: (){
+                              {
+                                showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return SimpleDialog(
+                                        contentPadding:
+                                            const EdgeInsets.all(18),
+                                        title: const Text('Details'),
+                                        children: [
+                                          Text(
+                                              'Purpose  : ${vAlue.purpose}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Amount   : ${vAlue.ammount}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Category : ${vAlue.catogoryT.name}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              'Date         : ${parsedateforpopup(vAlue.date)}'),
+                                        ]);
+                                  }),
+                                );
+                              }
+                            },
+                                leading: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor:
+                                        vAlue.type == catagories_type.income
+                                            ? Colors.green
+                                            : Colors.red,
+                                    child: Text(
+                                      parsedate(vAlue.date),
+                                      textAlign: TextAlign.center,
+                                    )),
+                                title: Text("Name: ${vAlue.purpose}"),
+                                subtitle:
+                                    Text("Category: ${vAlue.catogoryT.name}"),
+                                trailing: vAlue.type == catagories_type.income
+                                    ? Text(
+                                        "+ ₹ ${vAlue.ammount}",
+                                        style: const TextStyle(
+                                            color: Colors.green),
+                                      )
+                                    : Text(
+                                        "- ₹ ${vAlue.ammount}",
+                                        style:
+                                            const TextStyle(color: Colors.red),
+                                      ))
 
                         
                             
@@ -293,3 +378,8 @@ String parsedate(DateTime date) {
 
   return '${splitedate.last}\n${splitedate.first}';
 }
+
+  String parsedateforpopup(DateTime date) {
+    var datelocal = DateFormat.yMMMMEEEEd().format(date);
+    return datelocal;
+  }

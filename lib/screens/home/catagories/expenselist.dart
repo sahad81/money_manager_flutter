@@ -27,13 +27,13 @@ final nameofordlete=category.name;
                actions: [
  TextButton(onPressed: (){
                    Navigator.of(context).pop();
-                 }, child: const Text('cancel')),
+                 }, child: const Text('cancel',style: TextStyle(color: Colors.black))),
 
                 TextButton(onPressed: (){
                   catagories_db.instance.deletecatagories(category.id);
                   Navigator.of(context).pop();
                 },
-                 child: const Text('delete')),
+                 child: const Text('delete',style: TextStyle(color: Colors.black))),
                 
                ]
           );

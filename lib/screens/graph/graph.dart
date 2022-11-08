@@ -52,7 +52,7 @@ class _GraphState extends State<Graph> {
                 };
       
           return Scaffold(
-            backgroundColor: Colors.black87,
+            backgroundColor: Colors.white,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: const Center(child: Text('Chart')),
@@ -83,7 +83,7 @@ class _GraphState extends State<Graph> {
                       showLegendsInRow: false,
                       legendShape: BoxShape.circle,
                       legendPosition: LegendPosition.bottom,
-                      legendTextStyle: TextStyle(color: Colors.white)),
+                      legendTextStyle: TextStyle(color: Colors.black)),
                 ) 
               
              

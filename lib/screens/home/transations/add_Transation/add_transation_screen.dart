@@ -93,6 +93,8 @@ class _add_transationsState extends State<add_transations> {
                       decoration: const InputDecoration(
                         labelText: 'Purpose',
                         labelStyle: TextStyle(),
+                        
+                      
                       )),
                   sizedb,
                   const SizedBox(

@@ -28,13 +28,13 @@ class Incomelist extends StatelessWidget {
                actions: [
  TextButton(onPressed: (){
                    Navigator.of(context).pop();
-                 }, child: const Text('cancel')),
+                 }, child: const Text('cancel',style: TextStyle(color: Colors.black),)),
 
                 TextButton(onPressed: (){
                   catagories_db.instance.deletecatagories(category.id);
                   Navigator.of(context).pop();
                 },
-                 child: const Text('delete')),
+                 child: const Text('delete',style: TextStyle(color: Colors.black),)),
                 
                ]
           );
@@ -42,7 +42,7 @@ class Incomelist extends StatelessWidget {
         
         
         );
-        //  catagories_db.instance.deletecatagories(Category.id);
+     
        },)  
        );
   }
@@ -51,7 +51,7 @@ class Incomelist extends StatelessWidget {
      =>
 
      
-     // ignore: prefer_const_literals_to_create_immutables
+  
      Column(children:[ 
      const Padding(
        padding: EdgeInsets.only(left: 15,right: 15),

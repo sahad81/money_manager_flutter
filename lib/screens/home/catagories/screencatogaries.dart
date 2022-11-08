@@ -43,6 +43,7 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
           ),
           
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       
  appBar:  AppBar(
           backgroundColor: Colors.black,
