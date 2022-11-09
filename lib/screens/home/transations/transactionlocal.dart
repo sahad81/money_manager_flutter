@@ -71,7 +71,11 @@ class _transatctionState extends State<transatction> {
                     width: MediaQuery.of(context).size.width * 09,
                     margin: EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
-                        color: Colors.black,
+                   gradient: LinearGradient(
+               colors: [Colors.black54,Colors.black],
+              begin: Alignment.bottomLeft,
+               end: Alignment.topRight,
+          ),
                         borderRadius: BorderRadius.all(Radius.circular(24))),
                     child: Column(
                       children: [
@@ -87,31 +91,29 @@ class _transatctionState extends State<transatction> {
                               color: Colors.white),
                         ),
                         const SizedBox(
-                          height: 12,
+                          height: 2,
                         ),
                         Text(
-                          'Rs  $amountbalance',
+                          '₹  $amountbalance',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 26.00,
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 25,
-                        ),
+                     SizedBox(height: 10),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 35, bottom: 30),
+                                    const EdgeInsets.only(left: 30, bottom: 20),
                                 child: incomeandexpenseAmount(
                                     amountincome, Colors.green, "Income"),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 30, right: 40),
+                                    bottom: 20, right: 30),
                                 child: incomeandexpenseAmount(
                                     amountexpense, Colors.red, "Expense"),
                               ),
@@ -134,8 +136,9 @@ class _transatctionState extends State<transatction> {
                               style: TextStyle(color: Colors.black),
                             ))),
 //Divider(),
-
-                Expanded(
+   newlist.isEmpty?
+   const Expanded(child: Center(child: Text("NO DATA TO SHOW",style: TextStyle(color: Colors.grey ),)))
+   :    Expanded(
                   child: ListView.separated(
                       padding: const EdgeInsets.only(
                         bottom: 10,
@@ -291,9 +294,9 @@ class _transatctionState extends State<transatction> {
         ),
 
         Text(
-          "Rs $amount",
+          "₹ $amount",
           style: TextStyle(
-              fontSize: 20, color: color, fontWeight: FontWeight.w700),
+              fontSize: 20, color: color, fontWeight: FontWeight.w500),
         ),
       ],
     );

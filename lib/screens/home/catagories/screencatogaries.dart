@@ -50,7 +50,7 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
           automaticallyImplyLeading: false,
           title:  const Center(
             child: Text(
-              'MONEY MANAGER',
+              'CATEGORY',
               style: TextStyle(color: Colors.white),
             ),
           )),

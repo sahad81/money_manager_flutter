@@ -22,6 +22,7 @@ class bottimnavigationbar extends StatelessWidget {
                 gap: 8,
                 activeColor: Colors.white,
                 iconSize: 24,
+                
                 padding: const EdgeInsets.all(16),
                 color: Colors.white,
                 tabs: const [

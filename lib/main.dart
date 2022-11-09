@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
+import 'package:moneymanagement/screens/graph/chart.dart';
+import 'package:moneymanagement/screens/graph/chart2.dart';
 
 import 'package:moneymanagement/screens/home/transations/add_Transation/add_transation_screen.dart';
 
@@ -41,7 +43,9 @@ class MyApp extends StatelessWidget {
                 child: MaterialApp(
                     theme: ThemeData(),
                     debugShowCheckedModeBanner: false,
-                    home: const SplashScreen(),
+                    home: const
+                  //  Chart2(),
+                     SplashScreen(),
                     routes: {
                   add_transations.routname: (con) => add_transations(),
                 })));

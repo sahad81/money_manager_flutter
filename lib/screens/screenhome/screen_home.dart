@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:moneymanagement/screens/graph/chart2.dart';
 import 'package:moneymanagement/screens/graph/graph.dart';
 import 'package:moneymanagement/screens/home/catagories/screencatogaries.dart';
 import 'package:moneymanagement/screens/home/transations/transactionlocal.dart';
@@ -18,8 +19,9 @@ class homescreen extends StatelessWidget {
  // Today(),
     transatction(),
     screen_catogaries(),
-    Graph(),
-    const SettingsScreen() 
+    Chart2(),
+  //  Graph(),
+    SettingsScreen() 
   ];
 
   @override

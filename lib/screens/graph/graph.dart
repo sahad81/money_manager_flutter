@@ -7,7 +7,7 @@ import '../../funtions/catagories_fn_db/transation.dart';
 import '../../models/transations/model_transations.dart';
 
 class Graph extends StatefulWidget {
-  Graph({super.key});
+const Graph({super.key});
 
   @override
   State<Graph> createState() => _GraphState();
@@ -55,36 +55,41 @@ class _GraphState extends State<Graph> {
             backgroundColor: Colors.white,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: const Center(child: Text('Chart')),
+                title: const Center(child: Text('CHART')),
                 backgroundColor: Colors.black,
               ),
               body:
           
-              PieChart(
-                
-                 dataMap: datamab,
-                  initialAngleInDegree: 0,
-                  animationDuration: const Duration(milliseconds: 2000),
-                  chartType: ChartType.ring,
-                  chartRadius: MediaQuery.of(context).size.width / 1.4,
-                  ringStrokeWidth: 69,
-                  colorList: colorList,
-                  chartLegendSpacing: 30,
-                  chartValuesOptions: const ChartValuesOptions(
+              Column(
+                children: [
+                  SizedBox(height: 100),
+                  PieChart(
                     
-                    showChartValueBackground: true,
-                    showChartValues: true,
+                     dataMap: datamab,
+                      initialAngleInDegree: 0,
+                      animationDuration: const Duration(milliseconds: 2000),
+                      chartType: ChartType.ring,
+                      chartRadius: MediaQuery.of(context).size.width / 1.4,
+                      ringStrokeWidth: 69,
+                      colorList: colorList,
+                      chartLegendSpacing: 30,
+                      chartValuesOptions: const ChartValuesOptions(
+                        
+                        showChartValueBackground: true,
+                        showChartValues: true,
 
-                  ),
-                  
-                  legendOptions: const LegendOptions(
-                      showLegends: true,
+                      ),
                       
-                      showLegendsInRow: false,
-                      legendShape: BoxShape.circle,
-                      legendPosition: LegendPosition.bottom,
-                      legendTextStyle: TextStyle(color: Colors.black)),
-                ) 
+                      legendOptions: const LegendOptions(
+                          showLegends: true,
+                          
+                          showLegendsInRow: false,
+                          legendShape: BoxShape.circle,
+                          legendPosition: LegendPosition.bottom,
+                          legendTextStyle: TextStyle(color: Colors.black)),
+                    ),
+                ],
+              ) 
               
              
               );
