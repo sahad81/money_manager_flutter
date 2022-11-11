@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -8,34 +9,36 @@ import 'package:validators/validators.dart';
 
 //import 'package:iconify_flutter/icons/zondicons.dart';
 // ignore: camel_case_types
-class contactUs extends StatefulWidget {
-  contactUs({super.key});
+class ContactUs extends StatefulWidget {
+  const ContactUs({super.key});
+
   @override
-  State<contactUs> createState() => _contactUsState();
+  State<ContactUs> createState() => _ContactUsState();
 }
 
-// ignore: camel_case_types
-class _contactUsState extends State<contactUs> {
-  final namecontroler = TextEditingController();
+class _ContactUsState extends State<ContactUs> {
+
+  // controllers for  get typ
+   final namecontroler = TextEditingController();
   final emailcontroler = TextEditingController();
   final messagecontroler = TextEditingController();
   final subcontroler = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
+
   bool isemailcorrect = false;
   bool subcontrolercrt = false;
   bool messagecontrolercrt = false;
   bool suffixchange = false;
   bool isnameiscrt = false;
-//bool focusedmsg=false;
-// bool focusedemail=false;
 
+//for textfiled
   bool focusedmsg = false;
   bool focusname = false;
   bool focusmail = false;
   bool focusedsub = false;
   bool condetion = false;
-//bool for internet;
+//for internet connection
   bool internet = false;
 
 // //------------------------
@@ -47,7 +50,7 @@ class _contactUsState extends State<contactUs> {
     messagecontroler.dispose();
     super.dispose();
   }
-
+// send mail to my email // Email.js
   Future sendmail(BuildContext context) async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
     const sarviesid = "service_z0yu4o8";
@@ -71,6 +74,7 @@ class _contactUsState extends State<contactUs> {
           },
         ));
 
+    /// ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       duration: Duration(seconds: 5),
       content: Text('Email Sanding Succesfully Competed'),
@@ -108,6 +112,7 @@ class _contactUsState extends State<contactUs> {
                           focusname = true;
                         });
                       },
+                      //name------------------------
                       child: TextFormField(
                         onChanged: (val) {
                           setState(() {
@@ -118,7 +123,7 @@ class _contactUsState extends State<contactUs> {
                         decoration: InputDecoration(
                             suffixIcon: focusname
                                 ?
-                                //  consumerl.statusfocus(true) ?
+                             
 
                                 isnameiscrt == false
                                     ? const Icon(
@@ -129,11 +134,11 @@ class _contactUsState extends State<contactUs> {
                                         Icons.done,
                                         color: Colors.green,
                                       )
-                                : SizedBox(),
+                                : const SizedBox(),
                             labelText: 'Name',
                             hintText: 'Name',
-                            icon: Icon(Icons.account_circle),
-                            //  border: OutlineInputBorder()
+                            icon: const Icon(Icons.account_circle),
+                         
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: isnameiscrt == false
@@ -152,6 +157,9 @@ class _contactUsState extends State<contactUs> {
                           },
                         );
                       },
+
+
+                      //email-------------------
                       child: TextFormField(
                         showCursor: true,
                         controller: emailcontroler,
@@ -164,10 +172,11 @@ class _contactUsState extends State<contactUs> {
                           if (value!.isEmpty) {
                             return 'Enter email Adress';
                           }
+                          return null;
                         }),
                         decoration: InputDecoration(
                             suffixIcon:
-//providerveriableforData.focusmail?
+
                                 focusmail
                                     ? isemailcorrect == false
                                         ? const Icon(
@@ -178,10 +187,10 @@ class _contactUsState extends State<contactUs> {
                                             Icons.done,
                                             color: Colors.green,
                                           )
-                                    : SizedBox(),
+                                    : const SizedBox(),
                             labelText: 'Email',
                             hintText: 'Email',
-                            icon: Icon(Icons.email),
+                            icon: const Icon(Icons.email),
                             //  border: OutlineInputBorder()
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -190,7 +199,7 @@ class _contactUsState extends State<contactUs> {
                                         : Colors.green))),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Focus(
@@ -198,7 +207,7 @@ class _contactUsState extends State<contactUs> {
                         setState(() {
                           focusedsub = true;
                         });
-//providerveriableforData.focusedsub;
+//subject--------------------------------------------
                       },
                       child: TextFormField(
                         showCursor: true,
@@ -210,7 +219,7 @@ class _contactUsState extends State<contactUs> {
                         },
                         decoration: InputDecoration(
                             suffixIcon:
-                                // providerveriableforData.focusedsub?
+                              
                                 focusedsub
                                     ? subcontrolercrt == false
                                         ? const Icon(
@@ -224,9 +233,7 @@ class _contactUsState extends State<contactUs> {
                                     : const SizedBox(),
                             labelText: 'Subject',
                             hintText: 'Subject',
-                            icon: Icon(Icons.subject),
-                            //  border: OutlineInputBorder()
-
+                            icon: const Icon(Icons.subject),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: subcontrolercrt == false
@@ -245,6 +252,8 @@ class _contactUsState extends State<contactUs> {
                           },
                         );
                       },
+
+                      //message------------------------------------
                       child: TextFormField(
                         controller: messagecontroler,
                         onChanged: (vali) {
@@ -255,20 +264,20 @@ class _contactUsState extends State<contactUs> {
                         decoration: InputDecoration(
                             suffixIcon: focusedmsg
                                 ?
-                                //    providerveriableforData.focusedmsg?
+                              
                                 messagecontrolercrt == false
                                     ? const Icon(
                                         Icons.close,
                                         color: Colors.red,
                                       )
-                                    : Icon(
+                                    : const Icon(
                                         Icons.done,
                                         color: Colors.green,
                                       )
-                                : SizedBox(),
+                                : const SizedBox(),
                             labelText: 'Message',
                             hintText: 'Message',
-                            icon: Icon(Icons.message),
+                            icon: const Icon(Icons.message),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: messagecontrolercrt == false
@@ -331,7 +340,7 @@ class _contactUsState extends State<contactUs> {
       sendmail(context);
 
       Navigator.push(context, MaterialPageRoute(builder: (c) {
-        return homescreen();
+        return Homescreen();
       }));
     } else {
       return;

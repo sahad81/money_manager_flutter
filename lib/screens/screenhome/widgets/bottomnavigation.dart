@@ -10,7 +10,7 @@ class bottimnavigationbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: homescreen.selectedvaluenotifier,
+      valueListenable: Homescreen.selectedvaluenotifier,
       builder: (BuildContext context, int updateintex, Widget? _) {
         return Container(
           color: Colors.black,
@@ -45,7 +45,7 @@ class bottimnavigationbar extends StatelessWidget {
                 ],
                 selectedIndex: updateintex,
                 onTabChange: (newindex) {
-                  homescreen.selectedvaluenotifier.value = newindex;
+                  Homescreen.selectedvaluenotifier.value = newindex;
                 }),
           ),
         );

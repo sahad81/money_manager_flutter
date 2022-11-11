@@ -8,186 +8,171 @@ import 'package:moneymanagement/models/transations/model_transations.dart';
 
 const trnasactionDbName_ = 'transation__db';
 
- //late List<transation_model> list;
-
-
-abstract class TransationDbFn {
-  Future<List<transation_model>> gettransaction();
-  Future<void> addtransaction(transation_model object);
+abstract class TransactionDbFn {
+  Future<List<TransactionModel>> gettransaction();
+  Future<void> addtransaction(TransactionModel object);
   Future<void> deletetransactions(String id);
   Future<void> restartapptransaction();
-  // int allexpenseamount();
-   
-  //  Future<void>check(transation_model date);
-
 }
 
-//  late List<transation_model> catogary;
-//fi Listd =list;
-class TransationDb implements TransationDbFn {
-  TransationDb._internal();
-  static TransationDb instance = TransationDb._internal();
+class TransactionDb implements TransactionDbFn {
+  TransactionDb._internal();
+  static TransactionDb instance = TransactionDb._internal();
 
-  factory TransationDb() {
+  factory TransactionDb() {
     return instance;
   }
-  ValueNotifier<List<transation_model>> transationlistnotifire =
+  ValueNotifier<List<TransactionModel>> transactionlistnotifire =
       ValueNotifier([]);
-  ValueNotifier<List<transation_model>> transationIncomeonlyNotifire =
+  ValueNotifier<List<TransactionModel>> transactionIncomeonlyNotifire =
       ValueNotifier([]);
-  ValueNotifier<List<transation_model>> transationExpnsenotifire =
+  ValueNotifier<List<TransactionModel>> transactionExpnsenotifire =
       ValueNotifier([]);
-  ValueNotifier<List<transation_model>> transationtodayonlynotifire =
+  ValueNotifier<List<TransactionModel>> transactiontodayonlynotifire =
       ValueNotifier([]);
-  ValueNotifier<List<transation_model>> transationwithinAMonthNotifire =
+  ValueNotifier<List<TransactionModel>> transactionwithinAMonthNotifire =
       ValueNotifier([]);
-  ValueNotifier<List<transation_model>> graapNotifire = ValueNotifier([]);
 
   @override
-  Future<void> addtransaction(transation_model object) async {
-    final db = await Hive.openBox<transation_model>(trnasactionDbName_);
+  Future<void> addtransaction(TransactionModel object) async {
+    final db = await Hive.openBox<TransactionModel>(trnasactionDbName_);
 
     await db.put(object.id, object);
   }
 
   @override
-  Future<List<transation_model>> gettransaction() async {
-    final db = await Hive.openBox<transation_model>(trnasactionDbName_);
+  Future<List<TransactionModel>> gettransaction() async {
+    final db = await Hive.openBox<TransactionModel>(trnasactionDbName_);
 
     return db.values.toList();
   }
 
   @override
   Future<void> deletetransactions(String id) async {
-    final transatinDb =
-        await Hive.openBox<transation_model>(trnasactionDbName_);
+    final transatinDb = await Hive.openBox<TransactionModel>(trnasactionDbName_);
     transatinDb.delete(id);
     refreshtransaction();
-    //  transationIncomeonlyNotifire.notifyListeners();
   }
 
   @override
   Future<void> restartapptransaction() async {
     final transationDb =
-        await Hive.openBox<transation_model>(trnasactionDbName_);
-    // transationDb_.deleteAll(iddeleteall);
+        await Hive.openBox<TransactionModel>(trnasactionDbName_);
 
-    transationlistnotifire.value.clear();
-    transationIncomeonlyNotifire.value.clear();
-    transationExpnsenotifire.value.clear();
-    transationtodayonlynotifire.value.clear();
-    transationwithinAMonthNotifire.value.clear();
-    graapNotifire.value.clear();
+    transactionlistnotifire.value.clear();
+    transactionIncomeonlyNotifire.value.clear();
+    transactionExpnsenotifire.value.clear();
+    transactiontodayonlynotifire.value.clear();
+    transactionwithinAMonthNotifire.value.clear();
+
     await transationDb.clear();
-     
+
     refreshtransaction();
     //  print('reset');
   }
 
   Future<void> refreshtransaction() async {
     final list = await gettransaction();
-   allincomeamount();
+    allincomeamount();
     allexpenseamount();
-    transationExpnsenotifire.addListener(() {allincomeamount(); });
-    transationwithinAMonthNotifire.value.clear();
-    transationIncomeonlyNotifire.value.clear();
-    transationExpnsenotifire.value.clear();
-    transationtodayonlynotifire.value.clear();
-    graapNotifire.value.clear();
+    transactionExpnsenotifire.addListener(() {
+      allincomeamount();
+    });
+    transactionwithinAMonthNotifire.value.clear();
+    transactionIncomeonlyNotifire.value.clear();
+    transactionExpnsenotifire.value.clear();
+    transactiontodayonlynotifire.value.clear();
+
     list.sort((first, second) => second.date.day.compareTo(first.date.day));
-    transationlistnotifire.value.clear();
+    transactionlistnotifire.value.clear();
 
-    transationlistnotifire.value.addAll(list);
-    transationlistnotifire.notifyListeners();
-    
- 
-    await Future.forEach(list, (transation_model catogary) {
-      // hii =catogary;
-      if (catogary.type == catagories_type.income) {
-        //final List<Iterable> typee=catogary;
-        // transationtext.value.clear();
+    transactionlistnotifire.value.addAll(list);
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+    transactionlistnotifire.notifyListeners();
 
-        transationIncomeonlyNotifire.value.add(catogary);
-        transationIncomeonlyNotifire.notifyListeners();
+    await Future.forEach(list, (TransactionModel catogary) {
+      if (catogary.type == CategoriesType.income) {
+        transactionIncomeonlyNotifire.value.add(catogary);
+
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        transactionIncomeonlyNotifire.notifyListeners();
       } else {
         return;
       }
     });
 
-    await Future.forEach(list, (transation_model catogary) {
-      // hii =catogary;
-      if (catogary.type == catagories_type.expense) {
+    await Future.forEach(list, (TransactionModel catogary) {
+      if (catogary.type == CategoriesType.expense) {
         //final List<Iterable> typee=catogary;
         // transationtext.value.clear();
 
-        transationExpnsenotifire.value.add(catogary);
-        transationExpnsenotifire.notifyListeners();
+        transactionExpnsenotifire.value.add(catogary);
+        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        transactionExpnsenotifire.notifyListeners();
       } else {
         return;
       }
     });
-    await Future.forEach(list, (transation_model today) {
-      // hii =catogary;
+    await Future.forEach(list, (TransactionModel today) {
       if (today.date ==
           DateTime(
               DateTime.now().year, DateTime.now().month, DateTime.now().day)) {
-        transationtodayonlynotifire.value.add(today);
-        transationtodayonlynotifire.notifyListeners();
+        transactiontodayonlynotifire.value.add(today);
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        transactiontodayonlynotifire.notifyListeners();
       } else {
         return;
       }
     });
-    await Future.forEach(list, (transation_model month) {
-      // hii =catogary;
-      if (month.date == DateTime(DateTime.now().year, DateTime.now().month)) {
-        transationwithinAMonthNotifire.value.add(month);
-        transationwithinAMonthNotifire.notifyListeners();
+    await Future.forEach(list, (TransactionModel transaction) {
+      // ignore: unrelated_type_equality_checks
+      if (transaction.date.month == DateTime.now().month) {
+        transactionwithinAMonthNotifire.value.add(transaction);
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        transactionwithinAMonthNotifire.notifyListeners();
       } else {
         return;
       }
     });
   }
 
-
   double allincomeamount() {
-    //  var length=listO.length;
-
     var sumincomeAmount = 0;
-    for (var value in transationlistnotifire.value) {
-      if (value.type == catagories_type.income) {
-        sumincomeAmount = sumincomeAmount + value.ammount.toInt();
+    for (var value in transactionlistnotifire.value) {
+      if (value.type == CategoriesType.income) {
+        sumincomeAmount = sumincomeAmount + value.amount.toInt();
       }
     }
     return sumincomeAmount.toDouble();
   }
 
- // @override
   double allexpenseamount() {
     var sumexpenseAmount = 0;
-    for (var value in transationtodayonlynotifire.value) {
-      if (value.type == catagories_type.expense) {
-        sumexpenseAmount = sumexpenseAmount + value.ammount.toInt();
+    for (var value in transactiontodayonlynotifire.value) {
+      if (value.type == CategoriesType.expense) {
+        sumexpenseAmount = sumexpenseAmount + value.amount.toInt();
       }
     }
     return sumexpenseAmount.toDouble();
   }
-  double balance(){
-    var balance1 =0;
-     var sumincomeAmount = 0;
-        var sumexpenseAmount = 0;
-    for (var value in transationtodayonlynotifire.value) {
-      if (value.type == catagories_type.expense) {
-        sumexpenseAmount = sumexpenseAmount + value.ammount.toInt();
-      }
-    }
-   
-    for (var value in transationlistnotifire.value) {
-      if (value.type == catagories_type.income) {
-        sumincomeAmount = sumincomeAmount + value.ammount.toInt();
+
+  double balance() {
+    var balance1 = 0;
+    var sumincomeAmount = 0;
+    var sumexpenseAmount = 0;
+    for (var value in transactiontodayonlynotifire.value) {
+      if (value.type == CategoriesType.expense) {
+        sumexpenseAmount = sumexpenseAmount + value.amount.toInt();
       }
     }
 
-    balance1=sumincomeAmount-sumexpenseAmount;
+    for (var value in transactionlistnotifire.value) {
+      if (value.type == CategoriesType.income) {
+        sumincomeAmount = sumincomeAmount + value.amount.toInt();
+      }
+    }
+
+    balance1 = sumincomeAmount - sumexpenseAmount;
     return balance1.toDouble();
   }
 }

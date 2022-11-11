@@ -1,14 +1,12 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
 import 'package:moneymanagement/funtions/catagories_fn_db/transation.dart';
+import 'package:moneymanagement/screens/contactUs/Contact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../appbaraction/contactus/contactUs.dart';
+
 import '../screen_home.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -29,11 +27,10 @@ class SettingsScreen extends StatelessWidget {
         body: Column(
           children: [
             ListTile(
-                title: Text(
+                title: const Text(
                   " App Reset",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-              
                 onTap: () => showDialog(
                     context: context,
                     builder: ((context) => AlertDialog(
@@ -45,54 +42,53 @@ class SettingsScreen extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                          builder: (context) => homescreen()),
+                                          builder: (context) => Homescreen()),
                                       (route) => false);
                                 },
-                                child: const Text('CANCEL',style: TextStyle(color: Colors.black))),
+                                child: const Text('CANCEL',
+                                    style: TextStyle(color: Colors.black))),
                             TextButton(
                                 onPressed: () {
-                                  TransationDb.instance.restartapptransaction();
-                                  catagories_db.instance.restarcatocaryapp();
+                                  TransactionDb.instance.restartapptransaction();
+                                  CategoriesDb.instance.restarcatocaryapp();
                                   //   <! second time-->
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(builder: (context) {
                                     return const SplashScreen();
                                   }), (route) => false);
-                                 
+
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
-                                           margin: EdgeInsets.all(15),
-        behavior: SnackBarBehavior.floating,
+                                          margin: EdgeInsets.all(15),
+                                          behavior: SnackBarBehavior.floating,
                                           content: Text(
-                                    'app Reseted',
-                                    style: TextStyle(color: Colors.white),
-                                  )));
+                                            'app Reseted',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )));
                                 },
-                                child: const Text('ACCEPT',style: TextStyle(color: Colors.black),))
+                                child: const Text(
+                                  'ACCEPT',
+                                  style: TextStyle(color: Colors.black),
+                                ))
                           ],
                         )))),
-    
             ListTile(
               onTap: () =>
                   Navigator.push(context, MaterialPageRoute(builder: (con) {
-                return contactUs();
+                return const ContactUs();
               })),
               title: const Text(
                 "Contact Us",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-           
             ),
-           
-           
-           
             ListTile(
               onTap: () => Share.share('link not fount'),
               title: const Text(
                 "Share App",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-             
             )
           ],
         ));

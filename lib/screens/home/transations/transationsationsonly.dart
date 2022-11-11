@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-import 'package:moneymanagement/screens/appbaraction/expenseonly/expenseonly.dart';
-import 'package:moneymanagement/screens/appbaraction/today/today.dart';
+import 'package:moneymanagement/screens/filtrisation/expenseonly/expenseonly.dart';
+import 'package:moneymanagement/screens/filtrisation/today/today.dart';
+import 'package:moneymanagement/screens/filtrisation/transationWithInAmonth/month.dart';
 
 import '../../../funtions/catagories_fn_db/transation.dart';
 import '../../../models/transations/model_transations.dart';
-import '../../appbaraction/incomeonly/incomeonly.dart';
+import '../../filtrisation/incomeonly/incomeonly.dart';
 
 class Viewall extends StatefulWidget {
   const Viewall({super.key});
@@ -19,11 +20,12 @@ class Viewall extends StatefulWidget {
 }
 
 class _ViewallState extends State<Viewall> {
+  // ignore: prefer_typing_uninitialized_variables
   var  dropdownvalues;
    List<dynamic> items=["Today","Income","Expense","Month","All"];
 
 
-List<transation_model> filter=[
+List<TransactionModel> filter=[
   
 ];
 void updatelist(String value){
@@ -33,8 +35,8 @@ void updatelist(String value){
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: TransationDb.instance.transationlistnotifire,
-        builder: (BuildContext cnt, List<transation_model> newlist, Widget? _) {
+        valueListenable: TransactionDb.instance.transactionlistnotifire,
+        builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
           return Scaffold(
             body: SafeArea(
               child: Column(
@@ -90,9 +92,9 @@ decoration: InputDecoration(
                         padding: const EdgeInsets.only(
                           bottom: 10,
                         ),
-                        // ignore: non_constant_identifier_names
-                        itemBuilder: (context, Index) {
-                          final vAlue = newlist[Index];
+                     
+                        itemBuilder: (context, index) {
+                          final vAlue = newlist[index];
                           final String purposename = vAlue.purpose;
                           return Slidable(
                             key: Key(vAlue.id!),
@@ -100,7 +102,7 @@ decoration: InputDecoration(
                                 ActionPane(motion: const ScrollMotion(), children: [
                               SlidableAction(
                                 onPressed: (cnt) {
-                                  //TransationDb.instance.deletetransations(vAlue.id!);
+                                 
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -123,7 +125,7 @@ decoration: InputDecoration(
                                                   child: const Text('cancel',style: TextStyle(color: Colors.black),)),
                                               TextButton(
                                                   onPressed: () {
-                                                    TransationDb.instance
+                                                    TransactionDb.instance
                                                         .deletetransactions(vAlue.id!);
                                                     Navigator.of(context).pop();
                                                   },
@@ -154,7 +156,7 @@ decoration: InputDecoration(
                                             height: 10,
                                           ),
                                           Text(
-                                              'Amount   : ${vAlue.ammount}'),
+                                              'Amount   : ${vAlue.amount}'),
                                           const SizedBox(
                                             height: 10,
                                           ),
@@ -173,7 +175,7 @@ decoration: InputDecoration(
                                 leading: CircleAvatar(
                                     radius: 40,
                                     backgroundColor:
-                                        vAlue.type == catagories_type.income
+                                        vAlue.type == CategoriesType.income
                                             ? Colors.green
                                             : Colors.red,
                                     child: Text(
@@ -183,14 +185,14 @@ decoration: InputDecoration(
                                 title: Text("Name: ${vAlue.purpose}"),
                                 subtitle:
                                     Text("Category: ${vAlue.catogoryT.name}"),
-                                trailing: vAlue.type == catagories_type.income
+                                trailing: vAlue.type == CategoriesType.income
                                     ? Text(
-                                        "+ ₹ ${vAlue.ammount}",
+                                        "+ ₹ ${vAlue.amount}",
                                         style: const TextStyle(
                                             color: Colors.green),
                                       )
                                     : Text(
-                                        "- ₹ ${vAlue.ammount}",
+                                        "- ₹ ${vAlue.amount}",
                                         style:
                                             const TextStyle(color: Colors.red),
                                       ))
@@ -204,13 +206,15 @@ decoration: InputDecoration(
                           );
                         },
                         itemCount: newlist.length),
-                  )
-            
+                  ):
+            dropdownvalues=="Month"?
+            const Expanded(child:Month() 
+            )
           //
             :dropdownvalues=="Today"? const Expanded(
               child: Today()) 
                   :dropdownvalues=="Income"?
-                    Expanded(child:  incomeonly())
+                    const Expanded(child:  Incomeonly())
                     :dropdownvalues== "Expense"?
                        const Expanded(child: ExpenseOnly())
                        :dropdownvalues=="All"? Expanded(child: 
@@ -218,9 +222,9 @@ decoration: InputDecoration(
                         padding: const EdgeInsets.only(
                           bottom: 10,
                         ),
-                        // ignore: non_constant_identifier_names
-                        itemBuilder: (context, Index) {
-                          final vAlue = newlist[Index];
+                       
+                        itemBuilder: (context, index) {
+                          final vAlue = newlist[index];
                           final String purposename = vAlue.purpose;
                           return Slidable(
                             key: Key(vAlue.id!),
@@ -228,7 +232,7 @@ decoration: InputDecoration(
                                 ActionPane(motion: const ScrollMotion(), children: [
                               SlidableAction(
                                 onPressed: (cnt) {
-                                  //TransationDb.instance.deletetransations(vAlue.id!);
+                                  
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -251,7 +255,7 @@ decoration: InputDecoration(
                                                   child: const Text('cancel')),
                                               TextButton(
                                                   onPressed: () {
-                                                    TransationDb.instance
+                                                    TransactionDb.instance
                                                         .deletetransactions(vAlue.id!);
                                                     Navigator.of(context).pop();
                                                   },
@@ -282,7 +286,7 @@ decoration: InputDecoration(
                                             height: 10,
                                           ),
                                           Text(
-                                              'Amount   : ${vAlue.ammount}'),
+                                              'Amount   : ${vAlue.amount}'),
                                           const SizedBox(
                                             height: 10,
                                           ),
@@ -301,7 +305,7 @@ decoration: InputDecoration(
                                 leading: CircleAvatar(
                                     radius: 40,
                                     backgroundColor:
-                                        vAlue.type == catagories_type.income
+                                        vAlue.type == CategoriesType.income
                                             ? Colors.green
                                             : Colors.red,
                                     child: Text(
@@ -311,14 +315,14 @@ decoration: InputDecoration(
                                 title: Text("Name: ${vAlue.purpose}"),
                                 subtitle:
                                     Text("Category: ${vAlue.catogoryT.name}"),
-                                trailing: vAlue.type == catagories_type.income
+                                trailing: vAlue.type == CategoriesType.income
                                     ? Text(
-                                        "+ ₹ ${vAlue.ammount}",
+                                        "+ ₹ ${vAlue.amount}",
                                         style: const TextStyle(
                                             color: Colors.green),
                                       )
                                     : Text(
-                                        "- ₹ ${vAlue.ammount}",
+                                        "- ₹ ${vAlue.amount}",
                                         style:
                                             const TextStyle(color: Colors.red),
                                       ))
@@ -357,7 +361,7 @@ Widget incomeandexpenseAmount(
         style:
             TextStyle(fontSize: 22, color: color, fontWeight: FontWeight.w700),
       ),
-      // child: Text("Rs 2000",style: TextStyle(fontSize: 20,color: Colors.white),),
+    
       const SizedBox(
         height: 5,
       ),

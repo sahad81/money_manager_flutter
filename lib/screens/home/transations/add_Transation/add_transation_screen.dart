@@ -7,46 +7,45 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
 
-class add_transations extends StatefulWidget {
-  static const routname = 'add_transaction';
-
-  add_transations({super.key});
+class AddTransactions extends StatefulWidget {
+  const AddTransactions({super.key});
+static const routname = 'add_transaction';
   @override
-  State<add_transations> createState() => _add_transationsState();
+  State<AddTransactions> createState() => _AddTransactionsState();
 }
 
-class _add_transationsState extends State<add_transations> {
+class _AddTransactionsState extends State<AddTransactions> {
   Widget sizedb = const SizedBox(
     height: 20,
   );
   DateTime? selecteddate;
-  catagories_type? _selectedcatagory;
-  Catogariesmodel? _selected_catory_model;
+  CategoriesType? _selectedcategory;
+  CategoriesModel? _selectedcategorymodel;
   String? _catogariesID;
   var formKey = GlobalKey<FormState>();
   final _purposetexteditingControler = TextEditingController();
-  final _AmounttexteditingControler = TextEditingController();
+  final _amounttexteditingControler = TextEditingController();
 
   late final String purpose;
   DateTime? datefirst;
+  // ignore: prefer_typing_uninitialized_variables
   late final _parsedAmount;
-  //  add_transations({
-  //   this.selecteddate,
-  //  });
+
 
   @override
   void initState() {
-    _selectedcatagory = catagories_type.income;
+    _selectedcategory = CategoriesType.income;
 
     super.initState();
   }
 
+  // ignore: unused_field
   bool _isValid = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
+  
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -108,7 +107,7 @@ class _add_transationsState extends State<add_transations> {
                       }
                       return null;
                     },
-                    controller: _AmounttexteditingControler,
+                    controller: _amounttexteditingControler,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Amount',
@@ -124,11 +123,11 @@ class _add_transationsState extends State<add_transations> {
                           Radio(
                               fillColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.black),
-                              value: catagories_type.income,
-                              groupValue: _selectedcatagory,
+                              value: CategoriesType.income,
+                              groupValue: _selectedcategory,
                               onChanged: (newvalue) {
                                 setState(() {
-                                  _selectedcatagory = catagories_type.income;
+                                  _selectedcategory = CategoriesType.income;
                                   _catogariesID = null;
                                 });
                               }),
@@ -140,11 +139,11 @@ class _add_transationsState extends State<add_transations> {
                           Radio(
                               fillColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.black),
-                              value: catagories_type.expense,
-                              groupValue: _selectedcatagory,
+                              value: CategoriesType.expense,
+                              groupValue: _selectedcategory,
                               onChanged: (newvalue) {
                                 setState(() {
-                                  _selectedcatagory = catagories_type.expense;
+                                  _selectedcategory = CategoriesType.expense;
                                   _catogariesID = null;
                                 });
                               }),
@@ -167,10 +166,10 @@ class _add_transationsState extends State<add_transations> {
                           value: _catogariesID,
                           focusColor: Colors.black,
                           borderRadius: BorderRadius.circular(16),
-                          items: (_selectedcatagory == catagories_type.income
-                                  ? catagories_db().income_catogarieslistlistner
-                                  : catagories_db()
-                                      .expense_catogarieslistlistner)
+                          items: (_selectedcategory == CategoriesType.income
+                                  ? CategoriesDb().incomecategorieslistlistner
+                                  : CategoriesDb()
+                                      .expensecategorieslistlistner)
                               .value
                               .map((e) {
                             return DropdownMenuItem(
@@ -180,13 +179,13 @@ class _add_transationsState extends State<add_transations> {
                                 selectionColor: Colors.black,
                               ),
                               onTap: () {
-                                _selected_catory_model = e;
+                                _selectedcategorymodel = e;
                               },
                             );
                           }).toList(),
                           onChanged: (selectedvalue) {
                             setState(() {
-                              catagories_db.instance.refreshfuntion();
+                              CategoriesDb.instance.refreshfuntion();
                               _catogariesID = selectedvalue as String?;
                             });
                           }),
@@ -194,7 +193,7 @@ class _add_transationsState extends State<add_transations> {
                           onPressed: () {
                             showpopupADD(context);
                           },
-                          icon: Icon(Icons.add))
+                          icon: const Icon(Icons.add))
                     ],
                   ),
                   sizedb,
@@ -229,12 +228,12 @@ class _add_transationsState extends State<add_transations> {
                           showpopoep("Date is required", Colors.red);
                         
                         }
-                        if (_selected_catory_model == null) {
+                        if (_selectedcategorymodel == null) {
                           return;
                         }
                         addTransationfuntion();
 
-                        //  addtransationtntd();
+                       
                       },
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size(350, 50),
@@ -273,6 +272,7 @@ class _add_transationsState extends State<add_transations> {
             child: child!);
       },
     );
+    // ignore: unnecessary_null_comparison
     if (datefirst! == null) {
       return;
     } else {
@@ -284,22 +284,22 @@ class _add_transationsState extends State<add_transations> {
 
   Future<void> addTransationfuntion() async {
     purpose = _purposetexteditingControler.text;
-    final ammount = _AmounttexteditingControler.text;
+    final ammount = _amounttexteditingControler.text;
 
     _parsedAmount = double.tryParse(ammount);
 
-    final model = transation_model(
+    final model = TransactionModel(
         purpose: purpose,
-        ammount: _parsedAmount,
+        amount: _parsedAmount,
         date: selecteddate!,
-        type: _selectedcatagory!,
-        catogoryT: _selected_catory_model!);
+        type: _selectedcategory!,
+        catogoryT: _selectedcategorymodel!);
 
-    TransationDb.instance.addtransaction(model);
+    TransactionDb.instance.addtransaction(model);
   
     Navigator.of(context).pop();
 
-    TransationDb.instance.refreshtransaction();
+    TransactionDb.instance.refreshtransaction();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 3),
         content: Text(' Transaction added'),

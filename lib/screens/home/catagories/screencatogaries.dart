@@ -8,22 +8,19 @@ import 'package:moneymanagement/screens/home/catagories/expenselist.dart';
 import 'package:moneymanagement/screens/home/catagories/incom.dart';
 
 
-class screen_catogaries extends StatefulWidget {
-   screen_catogaries({Key? key}) : super(key: key);
- 
-
+class ScreenCategory extends StatefulWidget {
+  const ScreenCategory({super.key});
 
   @override
-  State<screen_catogaries> createState() => _screen_catogariesState();
+  State<ScreenCategory> createState() => _ScreenCategoryState();
 }
 
-class _screen_catogariesState extends State<screen_catogaries> with SingleTickerProviderStateMixin {
- 
- late TabController _tabController;
+class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProviderStateMixin{
+  late TabController _tabController;
 @override
   void initState() {
     _tabController=TabController(length: 2, vsync: this);
-    catagories_db().refreshfuntion();
+    CategoriesDb().refreshfuntion();
   
     super.initState();
   }
@@ -72,9 +69,9 @@ class _screen_catogariesState extends State<screen_catogaries> with SingleTicker
           Expanded (
             child: TabBarView(
               controller: _tabController ,
-              children: [ 
+              children: const [ 
               
-           const Incomelist(),
+           Incomelist(),
            Expenselist(),
                  ] ),
           )

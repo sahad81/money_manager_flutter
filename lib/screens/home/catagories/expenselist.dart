@@ -6,13 +6,13 @@ import '../../../models/catogaries/modelcatogaries.dart';
 
 
 class Expenselist extends StatelessWidget {
-  Expenselist({Key? key}) : super(key: key);
+const  Expenselist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
    return 
-     ValueListenableBuilder(valueListenable:catagories_db().expense_catogarieslistlistner ,
-      builder: (BuildContext conxt, List<Catogariesmodel>newlist , Widget?_) {
+     ValueListenableBuilder(valueListenable:CategoriesDb().expensecategorieslistlistner ,
+      builder: (BuildContext conxt, List<CategoriesModel>newlist , Widget?_) {
       return  ListView.separated(itemBuilder: ((context, index) {
         final category =newlist[index];
       return 
@@ -30,7 +30,7 @@ final nameofordlete=category.name;
                  }, child: const Text('cancel',style: TextStyle(color: Colors.black))),
 
                 TextButton(onPressed: (){
-                  catagories_db.instance.deletecatagories(category.id);
+                  CategoriesDb.instance.deletecategories(category.id);
                   Navigator.of(context).pop();
                 },
                  child: const Text('delete',style: TextStyle(color: Colors.black))),

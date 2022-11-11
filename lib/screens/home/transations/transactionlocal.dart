@@ -8,53 +8,52 @@ import 'package:moneymanagement/screens/home/transations/transationsationsonly.d
 
 import '../../../models/transations/model_transations.dart';
 import 'add_Transation/add_transation_screen.dart';
-
-class transatction extends StatefulWidget {
-  transatction({Key? key}) : super(key: key);
+class Transaction extends StatefulWidget {
+  const Transaction({super.key});
 
   @override
-  State<transatction> createState() => _transatctionState();
+  State<Transaction> createState() => _TransactionState();
 }
 
-class _transatctionState extends State<transatction> {
-  late double amountbalance = 0;
+class _TransactionState extends State<Transaction> {
+   late double amountbalance = 0;
   late double amountincome = 0;
   late double amountexpense = 0;
-  // ignore: unused_element
+
 
   @override
   void initState() {
-    catagories_db().refreshfuntion();
+    CategoriesDb().refreshfuntion();
 
     super.initState();
   }
 
-// ignore: prefer_typinguninitialized_variables
+
   @override
   Widget build(BuildContext context) {
-    TransationDb.instance.refreshtransaction();
-    catagories_db.instance.refreshfuntion();
+    TransactionDb.instance.refreshtransaction();
+    CategoriesDb.instance.refreshfuntion();
 
     return ValueListenableBuilder(
-        valueListenable: TransationDb.instance.transationlistnotifire,
-        builder: (BuildContext cnt, List<transation_model> newlist, Widget? _) {
-          amountincome = TransationDb.instance.allincomeamount();
-          amountexpense = TransationDb.instance.allexpenseamount();
-          amountbalance = TransationDb.instance.balance();
+        valueListenable: TransactionDb.instance.transactionlistnotifire,
+        builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
+          amountincome = TransactionDb.instance.allincomeamount();
+          amountexpense = TransactionDb.instance.allexpenseamount();
+          amountbalance = TransactionDb.instance.balance();
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.black,
               title: const Text(
                 'MONEY MANAGER',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,),
               ),
               centerTitle: true,
             ),
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () {
-                Navigator.of(context).pushNamed(add_transations.routname);
+                Navigator.of(context).pushNamed(AddTransactions.routname);
               },
               child: const Icon(
                 Icons.add,
@@ -69,7 +68,7 @@ class _transatctionState extends State<transatction> {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 09,
-                    margin: EdgeInsets.only(left: 12, right: 12, top: 12),
+                    margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
                    gradient: LinearGradient(
                colors: [Colors.black54,Colors.black],
@@ -86,6 +85,7 @@ class _transatctionState extends State<transatction> {
                           'Total Balance',
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                            
                               fontSize: 22.00,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
@@ -101,7 +101,7 @@ class _transatctionState extends State<transatction> {
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-                     SizedBox(height: 10),
+                     const SizedBox(height: 10),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -128,7 +128,7 @@ class _transatctionState extends State<transatction> {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return Viewall();
+                                return const Viewall();
                               }));
                             },
                             child: const Text(
@@ -143,9 +143,9 @@ class _transatctionState extends State<transatction> {
                       padding: const EdgeInsets.only(
                         bottom: 10,
                       ),
-                      // ignore: non_constant_identifier_names
-                      itemBuilder: (context, Index) {
-                        final vAlue = newlist[Index];
+                     
+                      itemBuilder: (context, index) {
+                        final vAlue = newlist[index];
                         final String purposename = vAlue.purpose;
                         return Slidable(
                             key: Key(vAlue.id!),
@@ -154,7 +154,7 @@ class _transatctionState extends State<transatction> {
                                 children: [
                                   SlidableAction(
                                     onPressed: (cnt) {
-                                      //TransationDb.instance.deletetransations(vAlue.id!);
+                                    
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
@@ -184,7 +184,7 @@ class _transatctionState extends State<transatction> {
                                                       )),
                                                   TextButton(
                                                       onPressed: () {
-                                                        TransationDb.instance
+                                                        TransactionDb.instance
                                                             .deletetransactions(
                                                                 vAlue.id!);
                                                         Navigator.of(context)
@@ -219,7 +219,7 @@ class _transatctionState extends State<transatction> {
                                             height: 10,
                                           ),
                                           Text(
-                                              'Amount   : ${vAlue.ammount}'),
+                                              'Amount   : ${vAlue.amount}'),
                                           const SizedBox(
                                             height: 10,
                                           ),
@@ -239,7 +239,7 @@ class _transatctionState extends State<transatction> {
                                 leading: CircleAvatar(
                                     radius: 40,
                                     backgroundColor:
-                                        vAlue.type == catagories_type.income
+                                        vAlue.type == CategoriesType.income
                                             ? Colors.green
                                             : Colors.red,
                                     child: Text(
@@ -249,14 +249,14 @@ class _transatctionState extends State<transatction> {
                                 title: Text("Name: ${vAlue.purpose}"),
                                 subtitle:
                                     Text("Category: ${vAlue.catogoryT.name}"),
-                                trailing: vAlue.type == catagories_type.income
+                                trailing: vAlue.type == CategoriesType.income
                                     ? Text(
-                                        "+ ₹ ${vAlue.ammount}",
+                                        "+ ₹ ${vAlue.amount}",
                                         style: const TextStyle(
                                             color: Colors.green),
                                       )
                                     : Text(
-                                        "- ₹ ${vAlue.ammount}",
+                                        "- ₹ ${vAlue.amount}",
                                         style:
                                             const TextStyle(color: Colors.red),
                                       ))

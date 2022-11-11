@@ -34,19 +34,19 @@ class _GraphState extends State<Graph> {
 
   @override
   Widget build(BuildContext context) {
-    TransationDb.instance.refreshtransaction();
+    TransactionDb.instance.refreshtransaction();
     return ValueListenableBuilder(
-        valueListenable: TransationDb.instance.transationlistnotifire,
-        builder: (BuildContext cnt, List<transation_model> newlist, Widget? _) {
+        valueListenable: TransactionDb.instance.transactionlistnotifire,
+        builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
 
  
  
              
                
                     Map<String, double> datamab = {
-                  'Income': TransationDb.instance.allincomeamount(),
+                  'Income': TransactionDb.instance.allincomeamount(),
                   //catagories_type.income,
-                  'Expense': TransationDb.instance.allexpenseamount(),
+                  'Expense': TransactionDb.instance.allexpenseamount(),
                   
                   // catagories_type.income
                 };
@@ -62,7 +62,7 @@ class _GraphState extends State<Graph> {
           
               Column(
                 children: [
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                   PieChart(
                     
                      dataMap: datamab,

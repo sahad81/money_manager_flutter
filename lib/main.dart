@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
-import 'package:moneymanagement/screens/graph/chart.dart';
-import 'package:moneymanagement/screens/graph/chart2.dart';
 
 import 'package:moneymanagement/screens/home/transations/add_Transation/add_transation_screen.dart';
 
-import 'package:moneymanagement/screens/screenhome/screen_home.dart';
+
 import 'package:moneymanagement/screens/splash_scrren.dart';
 
 import 'package:overlay_support/overlay_support.dart';
@@ -18,16 +16,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  if (!Hive.isAdapterRegistered(catagoriestypeAdapter().typeId)) {
-    Hive.registerAdapter(catagoriestypeAdapter());
+  if (!Hive.isAdapterRegistered(CategoriestypeAdapter().typeId)) {
+    Hive.registerAdapter(CategoriestypeAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(CatogariesmodelAdapter().typeId)) {
-    Hive.registerAdapter(CatogariesmodelAdapter());
+  if (!Hive.isAdapterRegistered(CategriesmodelAdapter().typeId)) {
+    Hive.registerAdapter(CategriesmodelAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(transationmodelAdapter().typeId)) {
-    Hive.registerAdapter(transationmodelAdapter());
+  if (!Hive.isAdapterRegistered(TransactionmodelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionmodelAdapter());
   }
 
   runApp(const MyApp());
@@ -47,7 +45,7 @@ class MyApp extends StatelessWidget {
                   //  Chart2(),
                      SplashScreen(),
                     routes: {
-                  add_transations.routname: (con) => add_transations(),
+                  AddTransactions.routname: (con) => const AddTransactions(),
                 })));
   }
 }

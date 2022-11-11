@@ -11,8 +11,8 @@ class Incomelist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return  ValueListenableBuilder(valueListenable:catagories_db().income_catogarieslistlistner ,
-      builder: (BuildContext conxt, List<Catogariesmodel>newlist , Widget?_) {
+   return  ValueListenableBuilder(valueListenable:CategoriesDb().incomecategorieslistlistner ,
+      builder: (BuildContext conxt, List<CategoriesModel>newlist , Widget?_) {
       return  ListView.separated(itemBuilder: ((context, index) {
         final category =newlist[index];
       return 
@@ -31,7 +31,7 @@ class Incomelist extends StatelessWidget {
                  }, child: const Text('cancel',style: TextStyle(color: Colors.black),)),
 
                 TextButton(onPressed: (){
-                  catagories_db.instance.deletecatagories(category.id);
+                  CategoriesDb.instance.deletecategories(category.id);
                   Navigator.of(context).pop();
                 },
                  child: const Text('delete',style: TextStyle(color: Colors.black),)),
@@ -52,8 +52,8 @@ class Incomelist extends StatelessWidget {
 
      
   
-     Column(children:[ 
-     const Padding(
+     Column(children:const [ 
+     Padding(
        padding: EdgeInsets.only(left: 15,right: 15),
        child: Divider(thickness: 2,),
      ),

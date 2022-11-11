@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:charts_flutter_new/flutter.dart' as Chartp;
+import 'package:charts_flutter_new/flutter.dart' as chartp;
 import 'package:moneymanagement/funtions/catagories_fn_db/transation.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 
@@ -17,24 +17,24 @@ class _Chart2State extends State<Chart2> {
   Widget build(BuildContext context) {
 
   final List<Graphhh> data = [
-    Graphhh("income",TransationDb.instance.allincomeamount(), Colors.green),
-    Graphhh("expense", TransationDb.instance.allexpenseamount(), Color.fromRGBO(244, 67, 54, 1))
+    Graphhh("income",TransactionDb.instance.allincomeamount(), Colors.green),
+    Graphhh("expense", TransactionDb.instance.allexpenseamount(), const Color.fromRGBO(244, 67, 54, 1))
   ];
 
-    TransationDb.instance.refreshtransaction;
+    TransactionDb.instance.refreshtransaction;
 return
  ValueListenableBuilder(
       
-        valueListenable: TransationDb.instance.transationlistnotifire,
-        builder: (BuildContext cnt, List<transation_model> newlist, Widget? _) {
-      List<Chartp.Series<Graphhh, String>> series = [
-      Chartp.Series(
+        valueListenable: TransactionDb.instance.transactionlistnotifire,
+        builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
+      List<chartp.Series<Graphhh, String>> series = [
+      chartp.Series(
           data: data,
           id: "graph",
           domainFn: (Graphhh h, _) => h.text,
           measureFn: (Graphhh h, _) => h.value,
           colorFn: (Graphhh h, _) =>
-              Chartp.ColorUtil.fromDartColor(h.colors))
+              chartp.ColorUtil.fromDartColor(h.colors))
     ];
 
     
@@ -57,7 +57,7 @@ return
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: Chartp.BarChart(series)),
+              child: chartp.BarChart(series)),
         ),
       ),
     );

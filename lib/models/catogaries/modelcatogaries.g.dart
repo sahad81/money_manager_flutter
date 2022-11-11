@@ -6,26 +6,26 @@ part of 'modelcatogaries.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CatogariesmodelAdapter extends TypeAdapter<Catogariesmodel> {
+class CategriesmodelAdapter extends TypeAdapter<CategoriesModel> {
   @override
   final int typeId = 1;
 
   @override
-  Catogariesmodel read(BinaryReader reader) {
+  CategoriesModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Catogariesmodel(
+    return CategoriesModel(
       id: fields[0] as String,
       name: fields[1] as String,
       isdeleted: fields[2] as bool,
-      type: fields[3] as catagories_type,
+      type: fields[3] as CategoriesType,
     );
   }
 
   @override
-  void write(BinaryWriter writer,Catogariesmodel obj) {
+  void write(BinaryWriter writer,CategoriesModel obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -44,34 +44,34 @@ class CatogariesmodelAdapter extends TypeAdapter<Catogariesmodel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CatogariesmodelAdapter &&
+      other is CategriesmodelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class catagoriestypeAdapter extends TypeAdapter<catagories_type> {
+class CategoriestypeAdapter extends TypeAdapter<CategoriesType> {
   @override
   final int typeId = 2;
 
   @override
-  catagories_type read(BinaryReader reader) {
+  CategoriesType read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return catagories_type.expense;
+        return CategoriesType.expense;
       case 1:
-        return catagories_type.income;
+        return CategoriesType.income;
       default:
-        return catagories_type.expense;
+        return CategoriesType.expense;
     }
   }
 
   @override
-  void write(BinaryWriter writer, catagories_type obj) {
+  void write(BinaryWriter writer, CategoriesType obj) {
     switch (obj) {
-      case catagories_type.expense:
+      case CategoriesType.expense:
         writer.writeByte(0);
         break;
-      case catagories_type.income:
+      case CategoriesType.income:
         writer.writeByte(1);
         break;
     }
@@ -83,7 +83,7 @@ class catagoriestypeAdapter extends TypeAdapter<catagories_type> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is catagoriestypeAdapter &&
+      other is CategoriestypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
