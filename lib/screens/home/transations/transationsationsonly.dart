@@ -7,6 +7,7 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/screens/filtrisation/expenseonly/expenseonly.dart';
 import 'package:moneymanagement/screens/filtrisation/today/today.dart';
 import 'package:moneymanagement/screens/filtrisation/transationWithInAmonth/month.dart';
+import 'package:moneymanagement/screens/home/transations/transactionlocal.dart';
 
 import '../../../funtions/catagories_fn_db/transation.dart';
 import '../../../models/transations/model_transations.dart';
@@ -31,7 +32,19 @@ List<TransactionModel> filter=[
 void updatelist(String value){
   
 }
+ValueNotifier<List<TransactionModel>> transactions =
+    TransactionDb.instance.transactionlistnotifire;
 
+
+void searchfuntion(String keywords){
+ 
+if(keywords.isEmpty){
+  filter=transactions as List<TransactionModel>;
+}
+
+}
+
+TextEditingController? seachcontroloer=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -70,6 +83,8 @@ void updatelist(String value){
   Padding(
    padding: const EdgeInsets.all(8.0),
    child: TextField(
+    controller: seachcontroloer,
+    onChanged: (value)=>searchfuntion(value),
     style: const TextStyle(color: Colors.white),
 decoration: InputDecoration(
     filled: true,

@@ -13,19 +13,15 @@ class SplashScreen extends StatelessWidget {
     return AnimatedSplashScreen(
         splash: SingleChildScrollView(
           child: Column(
-            children: const [
+            children:[
               Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Iconsax.wallet_money,
-                  size: 60,
-                  color: Colors.black,
-                ),
+                padding: const EdgeInsets.all(8.0),
+                child:Image.asset("assets/images/splash/Frame.png",height: 150,width: 150,),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   "M O N E Y  M A N A G E R",

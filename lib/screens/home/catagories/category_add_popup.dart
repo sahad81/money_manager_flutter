@@ -57,7 +57,7 @@ Padding(
   (
     
      onPressed: (){
-
+CategoriesDb.instance.refreshfuntion();
 final name=nameEditingControler.text;
 if(name.isEmpty)
 {

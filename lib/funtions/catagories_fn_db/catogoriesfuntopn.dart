@@ -41,6 +41,7 @@ class CategoriesDb implements CatagoriesDbFn {
     final allcategories = await getcatogaries();
     incomecategorieslistlistner.value.clear();
     expensecategorieslistlistner.value.clear();
+   
     await Future.forEach(allcategories, (CategoriesModel category) {
       if (category.type == CategoriesType.income) {
         incomecategorieslistlistner.value.add(category);

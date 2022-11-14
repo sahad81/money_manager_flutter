@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
@@ -9,7 +10,7 @@ import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart'
 
 class AddTransactions extends StatefulWidget {
   const AddTransactions({super.key});
-static const routname = 'add_transaction';
+  static const routname = 'add_transaction';
   @override
   State<AddTransactions> createState() => _AddTransactionsState();
 }
@@ -31,7 +32,6 @@ class _AddTransactionsState extends State<AddTransactions> {
   // ignore: prefer_typing_uninitialized_variables
   late final _parsedAmount;
 
-
   @override
   void initState() {
     _selectedcategory = CategoriesType.income;
@@ -45,10 +45,9 @@ class _AddTransactionsState extends State<AddTransactions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.only(left: 40,right: 40,top: 70),
         child: Form(
           key: formKey,
           onChanged: () {
@@ -79,28 +78,15 @@ class _AddTransactionsState extends State<AddTransactions> {
                               fontWeight: FontWeight.w800,
                               fontStyle: FontStyle.italic)),
                     ),
+                    
                   ),
-
-                  TextFormField(
-                      controller: _purposetexteditingControler,
-                      validator: ((value) {
-                        if (value!.isEmpty) {
-                          return 'enter purpose of transaction';
-                        }
-                        return null;
-                      }),
-                      decoration: const InputDecoration(
-                        labelText: 'Purpose',
-                        labelStyle: TextStyle(),
-                        
-                      
-                      )),
-                  sizedb,
+                    
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
 
                   TextFormField(
+                    maxLength: 8,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'enter Amount';
@@ -109,9 +95,10 @@ class _AddTransactionsState extends State<AddTransactions> {
                     },
                     controller: _amounttexteditingControler,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
+                    decoration:  const InputDecoration(
                       labelText: 'Amount',
                       labelStyle: TextStyle(),
+                       
                     ),
                   ),
                   sizedb,
@@ -152,11 +139,13 @@ class _AddTransactionsState extends State<AddTransactions> {
                       ),
                     ],
                   ),
-                  //  sizedb,
+                  sizedb,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DropdownButton(
+                         underline: const SizedBox(),
+                          onTap: () => CategoriesDb.instance.refreshfuntion(),
                           style: const TextStyle(
                               color: Colors.black, fontSize: 17),
                           hint: const Text(
@@ -168,8 +157,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                           borderRadius: BorderRadius.circular(16),
                           items: (_selectedcategory == CategoriesType.income
                                   ? CategoriesDb().incomecategorieslistlistner
-                                  : CategoriesDb()
-                                      .expensecategorieslistlistner)
+                                  : CategoriesDb().expensecategorieslistlistner)
                               .value
                               .map((e) {
                             return DropdownMenuItem(
@@ -179,12 +167,19 @@ class _AddTransactionsState extends State<AddTransactions> {
                                 selectionColor: Colors.black,
                               ),
                               onTap: () {
+                                setState(() {
+                                  TransactionDb.instance.refreshtransaction();
+                                  CategoriesDb.instance.refreshfuntion();
+                                });
                                 _selectedcategorymodel = e;
                               },
                             );
                           }).toList(),
                           onChanged: (selectedvalue) {
                             setState(() {
+                              CategoriesDb
+                                  .instance.expensecategorieslistlistner;
+                              TransactionDb.instance.refreshtransaction();
                               CategoriesDb.instance.refreshfuntion();
                               _catogariesID = selectedvalue as String?;
                             });
@@ -213,6 +208,22 @@ class _AddTransactionsState extends State<AddTransactions> {
                               ).toString(),
                         style: const TextStyle(color: Colors.black),
                       )),
+                  TextFormField(
+                      maxLength: 15,
+                      controller: _purposetexteditingControler,
+                      // validator: ((value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'enter notes of transaction';
+                      //   }
+                      //   return null;
+                      // }),
+                      decoration: const InputDecoration(
+                        labelText: 'Note...',
+                        labelStyle: TextStyle(),
+                      )),
+                  sizedb,
+
+                  //  sizedb,
 
                   sizedb,
                   ElevatedButton(
@@ -222,18 +233,15 @@ class _AddTransactionsState extends State<AddTransactions> {
                           return;
                         }
                         if (_catogariesID == null) {
-                           showpopoep("Select category", Colors.red);
+                          showpopoep("Select category", Colors.red);
                         }
                         if (selecteddate == null) {
                           showpopoep("Date is required", Colors.red);
-                        
                         }
                         if (_selectedcategorymodel == null) {
                           return;
                         }
                         addTransationfuntion();
-
-                       
                       },
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size(350, 50),
@@ -265,8 +273,8 @@ class _AddTransactionsState extends State<AddTransactions> {
         return Theme(
             data: Theme.of(context).copyWith(
                 colorScheme: const ColorScheme.light(
-              primary: Colors.black, // <-- SEE HERE
-              onPrimary: Colors.white, // <-- SEE HERE
+              primary: Colors.black,
+              onPrimary: Colors.white,
               onSurface: Color.fromARGB(255, 66, 125, 145),
             )),
             child: child!);
@@ -296,7 +304,7 @@ class _AddTransactionsState extends State<AddTransactions> {
         catogoryT: _selectedcategorymodel!);
 
     TransactionDb.instance.addtransaction(model);
-  
+
     Navigator.of(context).pop();
 
     TransactionDb.instance.refreshtransaction();

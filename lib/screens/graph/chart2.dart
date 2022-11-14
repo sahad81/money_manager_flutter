@@ -45,7 +45,7 @@ return
   
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: const Center(child: Text('CHART')),
+                title: const Center(child: Text('MONEY MANAGER')),
                 backgroundColor: Colors.black,
               ),
       backgroundColor: Colors.grey.shade200,

@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: const Text(
-            'Settings',
+            'MONEY MANAGER',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,

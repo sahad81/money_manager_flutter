@@ -132,13 +132,11 @@ class _TransactionState extends State<Transaction> {
                               }));
                             },
                             child: const Text(
-                              'view all',
+                              'View all',
                               style: TextStyle(color: Colors.black),
                             ))),
 //Divider(),
-   newlist.isEmpty?
-   const Expanded(child: Center(child: Text("NO DATA TO SHOW",style: TextStyle(color: Colors.grey ),)))
-   :    Expanded(
+   if (newlist.isEmpty) const Expanded(child: Center(child: Text("NO DATA TO SHOW",style: TextStyle(color: Colors.grey ),))) else Expanded(
                   child: ListView.separated(
                       padding: const EdgeInsets.only(
                         bottom: 10,
@@ -146,7 +144,7 @@ class _TransactionState extends State<Transaction> {
                      
                       itemBuilder: (context, index) {
                         final vAlue = newlist[index];
-                        final String purposename = vAlue.purpose;
+                        final String categoryname = vAlue.catogoryT.name;
                         return Slidable(
                             key: Key(vAlue.id!),
                             startActionPane: ActionPane(
@@ -165,7 +163,7 @@ class _TransactionState extends State<Transaction> {
                                                       TextStyle(fontSize: 18),
                                                 ),
                                                 content: Text(
-                                                  'are you sure to delete $purposename transaction?',
+                                                  'are you sure to delete $categoryname transaction?',
                                                   style: const TextStyle(
                                                       color: Color.fromARGB(
                                                           255, 32, 28, 28)),
@@ -202,70 +200,68 @@ class _TransactionState extends State<Transaction> {
                                     icon: Icons.delete,
                                   )
                                 ]),
-                            child: ListTile(
-                                 onTap: (){
-                              {
-                                showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return SimpleDialog(
-                                        contentPadding:
-                                            const EdgeInsets.all(18),
-                                        title: const Text('Details'),
-                                        children: [
-                                          Text(
-                                              'Purpose : ${vAlue.purpose}'),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                              'Amount   : ${vAlue.amount}'),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                              'Category : ${vAlue.catogoryT.name}'),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                              'Date      : ${parsedateforpopup(vAlue.date)}'),
-                                        ]);
-                                  }),
-                                );
-                              }
-                            },
-
-                                leading: CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor:
-                                        vAlue.type == CategoriesType.income
-                                            ? Colors.green
-                                            : Colors.red,
-                                    child: Text(
-                                      parsedate(vAlue.date),
-                                      textAlign: TextAlign.center,
-                                    )),
-                                title: Text("Name: ${vAlue.purpose}"),
-                                subtitle:
-                                    Text("Category: ${vAlue.catogoryT.name}"),
-                                trailing: vAlue.type == CategoriesType.income
-                                    ? Text(
-                                        "+ ₹ ${vAlue.amount}",
-                                        style: const TextStyle(
-                                            color: Colors.green),
-                                      )
-                                    : Text(
-                                        "- ₹ ${vAlue.amount}",
-                                        style:
-                                            const TextStyle(color: Colors.red),
-                                      ))
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8,right: 8,bottom: 5),
+                              child: Card(
+                                child: ListTile(
+                                     onTap: (){
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: ((context) {
+                                        return SimpleDialog(
+                                            contentPadding:
+                                                const EdgeInsets.all(18),
+                                            title: const Text('Details'),
+                                            children: [
+                                              Text(
+                                                  'Notes      : ${vAlue.purpose}'),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  'Amount   : ${vAlue.amount}'),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  'Category : ${vAlue.catogoryT.name}'),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  'Date         : ${parsedateforpopup(vAlue.date)}'),
+                                            ]);
+                                      }),
+                                    );
+                                  }
+                                },
+                              subtitle: Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: Text("${parsedateforpopup(vAlue.date)}"),
+                              ),
+                                    title:
+                                     Text("Category: ${vAlue.catogoryT.name}"),
+                                  
+                                    trailing:
+                                       
+                                     vAlue.type == CategoriesType.income
+                                        ? Text(
+                                            "+ Rs ${vAlue.amount}",
+                                            style: const TextStyle(
+                                                color: Colors.green),
+                                          )
+                                        : Text(
+                                            "- Rs ${vAlue.amount}",
+                                            style:
+                                                const TextStyle(color: Colors.red),
+                                          )),
+                              ),
+                            )
                                       );
                       },
                       separatorBuilder: (cont, index1) {
-                        return const Divider(
-                          thickness: 2,
-                        );
+                        return SizedBox();
                       },
                       itemCount: newlist.length < 5 ? newlist.length : 5),
                 ),
@@ -303,10 +299,8 @@ class _TransactionState extends State<Transaction> {
   }
 
   //----------------//parsedate//-------------------
-  String parsedate(DateTime date) {
-    var dateo = DateFormat.MMMd().format(date);
-    final splitedate = dateo.split(' ');
-
-    return '${splitedate.last}\n${splitedate.first}';
+   String parsedate(DateTime date) {
+    var datelocal = DateFormat.yMMMMEEEEd().format(date);
+    return datelocal;
   }
 }

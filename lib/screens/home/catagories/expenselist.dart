@@ -16,7 +16,7 @@ const  Expenselist({Key? key}) : super(key: key);
       return  ListView.separated(itemBuilder: ((context, index) {
         final category =newlist[index];
       return 
-       ListTile(title:Text(category.name,style: const TextStyle(fontWeight: FontWeight.bold),) ,
+       ListTile(title:Text(category.name ,) ,
        trailing:IconButton(icon:const Icon(Icons.delete),onPressed: () {
 final nameofordlete=category.name;
         showDialog(context: context, builder: (BuildContext context){
