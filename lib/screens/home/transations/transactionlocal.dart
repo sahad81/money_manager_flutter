@@ -8,6 +8,7 @@ import 'package:moneymanagement/screens/home/transations/transationsationsonly.d
 
 import '../../../models/transations/model_transations.dart';
 import 'add_Transation/add_transation_screen.dart';
+
 class Transaction extends StatefulWidget {
   const Transaction({super.key});
 
@@ -16,10 +17,9 @@ class Transaction extends StatefulWidget {
 }
 
 class _TransactionState extends State<Transaction> {
-   late double amountbalance = 0;
+  late double amountbalance = 0;
   late double amountincome = 0;
   late double amountexpense = 0;
-
 
   @override
   void initState() {
@@ -27,7 +27,6 @@ class _TransactionState extends State<Transaction> {
 
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,9 @@ class _TransactionState extends State<Transaction> {
               backgroundColor: Colors.black,
               title: const Text(
                 'MONEY MANAGER',
-                style: TextStyle(color: Colors.white,),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
               centerTitle: true,
             ),
@@ -63,18 +64,17 @@ class _TransactionState extends State<Transaction> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             body: Column(
-              //  mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 09,
                     margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
-                   gradient: LinearGradient(
-               colors: [Colors.black54,Colors.black],
-              begin: Alignment.bottomLeft,
-               end: Alignment.topRight,
-          ),
+                        gradient: LinearGradient(
+                          colors: [Colors.black54, Colors.black],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                        ),
                         borderRadius: BorderRadius.all(Radius.circular(24))),
                     child: Column(
                       children: [
@@ -85,7 +85,6 @@ class _TransactionState extends State<Transaction> {
                           'Total Balance',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            
                               fontSize: 22.00,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
@@ -101,7 +100,7 @@ class _TransactionState extends State<Transaction> {
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-                     const SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -136,135 +135,140 @@ class _TransactionState extends State<Transaction> {
                               style: TextStyle(color: Colors.black),
                             ))),
 //Divider(),
-   if (newlist.isEmpty) const Expanded(child: Center(child: Text("NO DATA TO SHOW",style: TextStyle(color: Colors.grey ),))) else Expanded(
-                  child: ListView.separated(
-                      padding: const EdgeInsets.only(
-                        bottom: 10,
-                      ),
-                     
-                      itemBuilder: (context, index) {
-                        final vAlue = newlist[index];
-                        final String categoryname = vAlue.catogoryT.name;
-                        return Slidable(
-                            key: Key(vAlue.id!),
-                            startActionPane: ActionPane(
-                                motion: const ScrollMotion(),
-                                children: [
-                                  SlidableAction(
-                                    onPressed: (cnt) {
-                                    
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                                title: const Text(
-                                                  'Delete',
-                                                  style:
-                                                      TextStyle(fontSize: 18),
-                                                ),
-                                                content: Text(
-                                                  'are you sure to delete $categoryname transaction?',
-                                                  style: const TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 32, 28, 28)),
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: const Text(
-                                                        'cancel',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      )),
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        TransactionDb.instance
-                                                            .deletetransactions(
-                                                                vAlue.id!);
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: const Text(
-                                                          'delete',
+                if (newlist.isEmpty)
+                  const Expanded(
+                      child: Center(
+                          child: Text(
+                    "NO DATA TO SHOW",
+                    style: TextStyle(color: Colors.grey),
+                  )))
+                else
+                  Expanded(
+                    child: ListView.separated(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        itemBuilder: (context, index) {
+                          final vAlue = newlist[index];
+                          final String categoryname = vAlue.catogoryT.name;
+                          return Slidable(
+                              key: Key(vAlue.id!),
+                              startActionPane: ActionPane(
+                                  motion: const ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (cnt) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  title: const Text(
+                                                    'Delete',
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                  ),
+                                                  content: Text(
+                                                    'are you sure to delete $categoryname transaction?',
+                                                    style: const TextStyle(
+                                                        color: Color.fromARGB(
+                                                            255, 32, 28, 28)),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text(
+                                                          'cancel',
                                                           style: TextStyle(
-                                                              color: Colors
-                                                                  .black))),
-                                                ]);
-                                          });
-                                    },
-                                    label: 'delete',
-                                    icon: Icons.delete,
-                                  )
-                                ]),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8,right: 8,bottom: 5),
-                              child: Card(
-                                child: ListTile(
-                                     onTap: (){
-                                  {
-                                    showDialog(
-                                      context: context,
-                                      builder: ((context) {
-                                        return SimpleDialog(
-                                            contentPadding:
-                                                const EdgeInsets.all(18),
-                                            title: const Text('Details'),
-                                            children: [
-                                              Text(
-                                                  'Notes      : ${vAlue.purpose}'),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                  'Amount   : ${vAlue.amount}'),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                  'Category : ${vAlue.catogoryT.name}'),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                  'Date         : ${parsedateforpopup(vAlue.date)}'),
-                                            ]);
-                                      }),
-                                    );
-                                  }
-                                },
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Text("${parsedateforpopup(vAlue.date)}"),
-                              ),
-                                    title:
-                                     Text("Category: ${vAlue.catogoryT.name}"),
-                                  
-                                    trailing:
-                                       
-                                     vAlue.type == CategoriesType.income
-                                        ? Text(
-                                            "+ Rs ${vAlue.amount}",
-                                            style: const TextStyle(
-                                                color: Colors.green),
-                                          )
-                                        : Text(
-                                            "- Rs ${vAlue.amount}",
-                                            style:
-                                                const TextStyle(color: Colors.red),
-                                          )),
-                              ),
-                            )
-                                      );
-                      },
-                      separatorBuilder: (cont, index1) {
-                        return SizedBox();
-                      },
-                      itemCount: newlist.length < 5 ? newlist.length : 5),
-                ),
+                                                              color:
+                                                                  Colors.black),
+                                                        )),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          TransactionDb.instance
+                                                              .deletetransactions(
+                                                                  vAlue.id!);
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text(
+                                                            'delete',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))),
+                                                  ]);
+                                            });
+                                      },
+                                      label: 'delete',
+                                      icon: Icons.delete,
+                                    )
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8, right: 8, bottom: 5),
+                                child: Card(
+                                  child: ListTile(
+                                      onTap: () {
+                                        {
+                                          showDialog(
+                                            context: context,
+                                            builder: ((context) {
+                                              return SimpleDialog(
+                                                  contentPadding:
+                                                      const EdgeInsets.all(18),
+                                                  title: const Text('Details'),
+                                                  children: [
+                                                    Text(
+                                                        'Notes      : ${vAlue.purpose}'),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                        'Amount   : ${vAlue.amount}'),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                        'Category : ${vAlue.catogoryT.name}'),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                        'Date         : ${parsedateforpopup(vAlue.date)}'),
+                                                  ]);
+                                            }),
+                                          );
+                                        }
+                                      },
+                                      subtitle: Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                            parsedateforpopup(vAlue.date)),
+                                      ),
+                                      title: Text(
+                                          "Category: ${vAlue.catogoryT.name}"),
+                                      trailing:
+                                          vAlue.type == CategoriesType.income
+                                              ? Text(
+                                                  "+ Rs ${vAlue.amount}",
+                                                  style: const TextStyle(
+                                                      color: Colors.green),
+                                                )
+                                              : Text(
+                                                  "- Rs ${vAlue.amount}",
+                                                  style: const TextStyle(
+                                                      color: Colors.red),
+                                                )),
+                                ),
+                              ));
+                        },
+                        separatorBuilder: (cont, index1) {
+                          return const SizedBox();
+                        },
+                        itemCount: newlist.length < 5 ? newlist.length : 5),
+                  ),
               ],
             ),
           );
@@ -299,7 +303,7 @@ class _TransactionState extends State<Transaction> {
   }
 
   //----------------//parsedate//-------------------
-   String parsedate(DateTime date) {
+  String parsedate(DateTime date) {
     var datelocal = DateFormat.yMMMMEEEEd().format(date);
     return datelocal;
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
@@ -46,220 +46,225 @@ class _AddTransactionsState extends State<AddTransactions> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(left: 40,right: 40,top: 70),
-        child: Form(
-          key: formKey,
-          onChanged: () {
-            final isValid = formKey.currentState!.validate();
-            if (_isValid = isValid) {
-              setState(() {
-                _isValid = isValid;
-              });
-            }
-          },
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(children: [
-                  sizedb,
-                  sizedb,
+          child: Form(
+            key: formKey,
+            onChanged: () {
+              final isValid = formKey.currentState!.validate();
+              if (_isValid = isValid) {
+                setState(() {
+                  _isValid = isValid;
+                });
+              }
+            },
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(children: [
+                    sizedb,
+                    sizedb,
 
-                  Center(
-                    child: Text(
-                      'ADD TRANSACTIONS',
-                      style: GoogleFonts.lateef(
-                          textStyle: const TextStyle(
-                              decorationColor: Colors.black,
-                              decorationThickness: 4,
-                              decorationStyle: TextDecorationStyle.dashed,
-                              fontSize: 35,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w800,
-                              fontStyle: FontStyle.italic)),
+                    Center(
+                      child: Text(
+                        'ADD TRANSACTIONS',
+                        style: GoogleFonts.lateef(
+                            textStyle: const TextStyle(
+                                decorationColor: Colors.black,
+                                decorationThickness: 4,
+                                decorationStyle: TextDecorationStyle.dashed,
+                                fontSize: 35,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                                fontStyle: FontStyle.italic)),
+                      ),
+                      
                     ),
-                    
-                  ),
-                    
-                  const SizedBox(
-                    height: 30,
-                  ),
+                      
+                    const SizedBox(
+                      height: 30,
+                    ),
 
-                  TextFormField(
-                    maxLength: 8,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'enter Amount';
-                      }
-                      return null;
-                    },
-                    controller: _amounttexteditingControler,
-                    keyboardType: TextInputType.number,
-                    decoration:  const InputDecoration(
-                      labelText: 'Amount',
-                      labelStyle: TextStyle(),
-                       
-                    ),
-                  ),
-                  sizedb,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                              fillColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.black),
-                              value: CategoriesType.income,
-                              groupValue: _selectedcategory,
-                              onChanged: (newvalue) {
-                                setState(() {
-                                  _selectedcategory = CategoriesType.income;
-                                  _catogariesID = null;
-                                });
-                              }),
-                          const Text('INCOME')
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                              fillColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.black),
-                              value: CategoriesType.expense,
-                              groupValue: _selectedcategory,
-                              onChanged: (newvalue) {
-                                setState(() {
-                                  _selectedcategory = CategoriesType.expense;
-                                  _catogariesID = null;
-                                });
-                              }),
-                          const Text('EXPENSE'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  sizedb,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      DropdownButton(
-                         underline: const SizedBox(),
-                          onTap: () => CategoriesDb.instance.refreshfuntion(),
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 17),
-                          hint: const Text(
-                            'select category',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          value: _catogariesID,
-                          focusColor: Colors.black,
-                          borderRadius: BorderRadius.circular(16),
-                          items: (_selectedcategory == CategoriesType.income
-                                  ? CategoriesDb().incomecategorieslistlistner
-                                  : CategoriesDb().expensecategorieslistlistner)
-                              .value
-                              .map((e) {
-                            return DropdownMenuItem(
-                              value: e.id,
-                              child: Text(
-                                e.name,
-                                selectionColor: Colors.black,
+                    
+                       Padding(
+                         padding: const EdgeInsets.only(left: 40,right: 40),
+                         child: Column(
+                           children: [
+                          
+                             TextFormField(
+                              maxLength: 8,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'enter Amount';
+                                }
+                                return null;
+                              },
+                              controller: _amounttexteditingControler,
+                              keyboardType: TextInputType.number,
+                              decoration:  const InputDecoration(
+                                labelText: 'Amount',
+                                labelStyle: TextStyle(),
+                                 
                               ),
-                              onTap: () {
+                      ),
+                           
+                         
+                    
+                    sizedb,
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                          Row(
+                            children: [
+                              Radio(
+                                  fillColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.black),
+                                  value: CategoriesType.income,
+                                  groupValue: _selectedcategory,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      _selectedcategory = CategoriesType.income;
+                                      _catogariesID = null;
+                                    });
+                                  }),
+                              const Text('Income')
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                  fillColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.black),
+                                  value: CategoriesType.expense,
+                                  groupValue: _selectedcategory,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      _selectedcategory = CategoriesType.expense;
+                                      _catogariesID = null;
+                                    });
+                                  }),
+                              const Text('Expense'),
+                            ],
+                          ),
+                      ],
+                    ),
+                    sizedb,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                          DropdownButton(
+                             underline: const SizedBox(),
+                              onTap: () => CategoriesDb.instance.refreshfuntion(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
+                              hint: const Text(
+                                'select category',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              value: _catogariesID,
+                              focusColor: Colors.black,
+                              borderRadius: BorderRadius.circular(16),
+                              items: (_selectedcategory == CategoriesType.income
+                                      ? CategoriesDb().incomecategorieslistlistner
+                                      : CategoriesDb().expensecategorieslistlistner)
+                                  .value
+                                  .map((e) {
+                                return DropdownMenuItem(
+                                  value: e.id,
+                                  child: Text(
+                                    e.name,
+                                    selectionColor: Colors.black,
+                                  ),
+                                  
+                                  onTap: () {
+                                    setState(() {
+                                      TransactionDb.instance.refreshtransaction();
+                                      CategoriesDb.instance.refreshfuntion();
+                                    });
+                                    _selectedcategorymodel = e;
+                                  },
+                                  
+                                );
+                              }).toList(),
+                              onChanged: (selectedvalue) {
                                 setState(() {
+                                  CategoriesDb
+                                      .instance.expensecategorieslistlistner;
                                   TransactionDb.instance.refreshtransaction();
                                   CategoriesDb.instance.refreshfuntion();
+                                  _catogariesID = selectedvalue as String?;
                                 });
-                                _selectedcategorymodel = e;
+                              }),
+                          IconButton(
+                              onPressed: () {
+                                showpopupADD(context);
                               },
-                            );
-                          }).toList(),
-                          onChanged: (selectedvalue) {
-                            setState(() {
-                              CategoriesDb
-                                  .instance.expensecategorieslistlistner;
-                              TransactionDb.instance.refreshtransaction();
-                              CategoriesDb.instance.refreshfuntion();
-                              _catogariesID = selectedvalue as String?;
-                            });
-                          }),
-                      IconButton(
+                              icon: const Icon(Icons.add))
+                      ],
+                    ),
+                    sizedb,
+                    TextButton.icon(
                           onPressed: () {
-                            showpopupADD(context);
+                            calendar(context);
                           },
-                          icon: const Icon(Icons.add))
-                    ],
-                  ),
-                  sizedb,
-                  TextButton.icon(
-                      onPressed: () {
-                        calendar(context);
-                      },
-                      icon: const Icon(
-                        Icons.calendar_today,
-                        color: Colors.black,
-                      ),
-                      label: Text(
-                        selecteddate == null
-                            ? '  Select date'
-                            : parsedate(
-                                selecteddate!,
-                              ).toString(),
-                        style: const TextStyle(color: Colors.black),
-                      )),
-                  TextFormField(
-                      maxLength: 15,
-                      controller: _purposetexteditingControler,
-                      // validator: ((value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'enter notes of transaction';
-                      //   }
-                      //   return null;
-                      // }),
-                      decoration: const InputDecoration(
-                        labelText: 'Note...',
-                        labelStyle: TextStyle(),
-                      )),
-                  sizedb,
+                          icon: const Icon(
+                            Icons.calendar_today,
+                            color: Colors.black,
+                          ),
+                          label: Text(
+                            selecteddate == null
+                                ? '  Select date'
+                                : parsedate(
+                                    selecteddate!,
+                                  ).toString(),
+                            style: const TextStyle(color: Colors.black),
+                          )),
+                    TextFormField(
+                          maxLength: 15,
+                          controller: _purposetexteditingControler,
+             
+                          decoration: const InputDecoration(
+                            labelText: 'Note...',
+                            labelStyle: TextStyle(),
+                          )),
+                    sizedb,
 
-                  //  sizedb,
+                    //  sizedb,
 
-                  sizedb,
-                  ElevatedButton(
-                      onPressed: () {
-                        final isvalid = formKey.currentState!.validate();
-                        if (!isvalid) {
-                          return;
-                        }
-                        if (_catogariesID == null) {
-                          showpopoep("Select category", Colors.red);
-                        }
-                        if (selecteddate == null) {
-                          showpopoep("Date is required", Colors.red);
-                        }
-                        if (_selectedcategorymodel == null) {
-                          return;
-                        }
-                        addTransationfuntion();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(350, 50),
-                          maximumSize: const Size(350, 50),
-                          backgroundColor: Colors.black),
-                      child: const Text(
-                        'ADD',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                  sizedb,
-                ]),
-              ),
-            ],
-          ),
-        ),
-      )),
+                    sizedb,
+                    ElevatedButton(
+                          onPressed: () {
+                            final isvalid = formKey.currentState!.validate();
+                            if (!isvalid) {
+                              return;
+                            }
+                            if (_catogariesID == null) {
+                              showpopoep("Select category", Colors.red);
+                            }
+                            if (selecteddate == null) {
+                              showpopoep("Date is required", Colors.red);
+                            }
+                            if (_selectedcategorymodel == null) {
+                              return;
+                            }
+                            addTransationfuntion();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(350, 50),
+                              maximumSize: const Size(350, 50),
+                              backgroundColor: Colors.black),
+                          child: const Text(
+                            'ADD',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          )),
+                    sizedb,]),
+                       )
+                  ]),
+                ),
+              ],
+            ),
+          )),
     );
   }
 
@@ -302,6 +307,12 @@ class _AddTransactionsState extends State<AddTransactions> {
         date: selecteddate!,
         type: _selectedcategory!,
         catogoryT: _selectedcategorymodel!);
+
+        // amount= 10
+        // data= 1/2/333/
+        // type = rr
+        // id = 1
+
 
     TransactionDb.instance.addtransaction(model);
 

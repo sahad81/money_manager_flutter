@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanagement/screens/graph/chart2.dart';
 
+
 import 'package:moneymanagement/screens/home/catagories/screencatogaries.dart';
 import 'package:moneymanagement/screens/home/transations/transactionlocal.dart';
 import 'package:moneymanagement/screens/screenhome/settingsscreen/settingsscreen.dart';
@@ -18,9 +19,14 @@ class Homescreen extends StatelessWidget {
     // Today(),
      const Transaction(),
     const ScreenCategory(),
-    const Chart2(),
+   
+    //const Chart2(),
     //  Graph(),
-    const SettingsScreen()
+    const 
+    Chart2(),
+    // Dchart(),
+   //Piechart()    
+ const  SettingsScreen()
   ];
 
   get context => null;
@@ -28,7 +34,7 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TransactionDb.instance.allincomeamount;
-    return Scaffold(
+    return Scaffold( 
       backgroundColor: Colors.black,
       bottomNavigationBar: const bottimnavigationbar(),
       body: WillPopScope(

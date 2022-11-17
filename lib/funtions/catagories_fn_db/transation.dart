@@ -78,13 +78,13 @@ class TransactionDb implements TransactionDbFn {
     transactionExpnsenotifire.addListener(() {
       allincomeamount();
     });
-    transactionwithinAMonthNotifire.value.clear();
+  
+    list.sort((first, second) => second.date.compareTo(first.date));
+    transactionlistnotifire.value.clear();
+  transactionwithinAMonthNotifire.value.clear();
     transactionIncomeonlyNotifire.value.clear();
     transactionExpnsenotifire.value.clear();
     transactiontodayonlynotifire.value.clear();
-
-    list.sort((first, second) => second.date.day.compareTo(first.date.day));
-    transactionlistnotifire.value.clear();
 
     transactionlistnotifire.value.addAll(list);
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member

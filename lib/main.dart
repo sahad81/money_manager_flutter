@@ -39,12 +39,15 @@ class MyApp extends StatelessWidget {
     return Builder(
         builder: (context) => OverlaySupport.global(
                 child: MaterialApp(
-                    theme: ThemeData(),
+                  
+                    theme: ThemeData(primaryColor: Colors.black),
                     debugShowCheckedModeBanner: false,
-                    home: const
+                    home: 
                   //  Chart2(),
-                     SplashScreen(),
-                    routes: {
+                  //
+                 const SplashScreen(),
+                //Chart2(),
+                    routes: { 
                   AddTransactions.routname: (con) => const AddTransactions(),
                 })));
   }

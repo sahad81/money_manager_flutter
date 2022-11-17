@@ -1,13 +1,20 @@
 
 import 'package:flutter/material.dart';
+import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
+import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../funtions/catagories_fn_db/transation.dart';
 import '../../models/transations/model_transations.dart';
 
+// ignore: must_be_immutable
 class Graph extends StatefulWidget {
-const Graph({super.key});
+ Graph({super.key});
+
+
+  List<CategoriesModel> incomecategorylist =
+      CategoriesDb.instance.incomecategorieslistlistner.value;
 
   @override
   State<Graph> createState() => _GraphState();
@@ -25,13 +32,10 @@ class _GraphState extends State<Graph> {
       Colors.grey
   ];
  
-          @override
-  void initState() {
-  
-    super.initState();
-  }       
-             
-
+        
+  List<CategoriesModel> incomecategorylist =
+      CategoriesDb.instance.incomecategorieslistlistner.value;
+ 
   @override
   Widget build(BuildContext context) {
     TransactionDb.instance.refreshtransaction();
@@ -39,16 +43,16 @@ class _GraphState extends State<Graph> {
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
 
- 
- 
+
              
                
                     Map<String, double> datamab = {
-                  'Income': TransactionDb.instance.allincomeamount(),
+                      
+           "income": TransactionDb.instance.allincomeamount(),
                   //catagories_type.income,
                   'Expense': TransactionDb.instance.allexpenseamount(),
                   
-                  // catagories_type.income
+                  // catagories_type.income    
                 };
       
           return Scaffold(
@@ -72,7 +76,7 @@ class _GraphState extends State<Graph> {
                       chartRadius: MediaQuery.of(context).size.width / 1.4,
                       ringStrokeWidth: 69,
                       colorList: colorList,
-                      chartLegendSpacing: 30,
+                      chartLegendSpacing: 100,
                       chartValuesOptions: const ChartValuesOptions(
                         
                         showChartValueBackground: true,

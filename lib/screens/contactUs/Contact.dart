@@ -7,8 +7,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'dart:convert';
 import 'package:validators/validators.dart';
 
-//import 'package:iconify_flutter/icons/zondicons.dart';
-// ignore: camel_case_types
+
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
 
@@ -18,7 +17,7 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
 
-  // controllers for  get typ
+  
    final namecontroler = TextEditingController();
   final emailcontroler = TextEditingController();
   final messagecontroler = TextEditingController();
