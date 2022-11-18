@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/transation.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
 import 'package:moneymanagement/screens/contactUs/Contact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:share_plus/share_plus.dart';

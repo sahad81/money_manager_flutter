@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
 
-import 'package:moneymanagement/screens/home/transations/add_Transation/add_transation_screen.dart';
 
 
 import 'package:moneymanagement/screens/splash_scrren.dart';
@@ -16,16 +16,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  if (!Hive.isAdapterRegistered(CategoriestypeAdapter().typeId)) {
-    Hive.registerAdapter(CategoriestypeAdapter());
+  if (!Hive.isAdapterRegistered(CategoriesTypeAdapter().typeId)) {
+    Hive.registerAdapter(CategoriesTypeAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(CategriesmodelAdapter().typeId)) {
-    Hive.registerAdapter(CategriesmodelAdapter());
+  if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
+    Hive.registerAdapter(CategoriesModelAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(TransactionmodelAdapter().typeId)) {
-    Hive.registerAdapter(TransactionmodelAdapter());
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
   }
 
   runApp(const MyApp());

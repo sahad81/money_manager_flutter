@@ -1,14 +1,15 @@
 
 import 'package:flutter/material.dart';
-import 'package:moneymanagement/screens/graph/chart2.dart';
+import 'package:moneymanagement/screens/graph/total_chart.dart';
+import 'package:moneymanagement/screens/home/catagories/screencategories.dart';
 
 
-import 'package:moneymanagement/screens/home/catagories/screencatogaries.dart';
-import 'package:moneymanagement/screens/home/transations/transactionlocal.dart';
+
+import 'package:moneymanagement/screens/home/transactions/transactionlocal.dart';
 import 'package:moneymanagement/screens/screenhome/settingsscreen/settingsscreen.dart';
 import 'package:moneymanagement/screens/screenhome/widgets/bottomnavigation.dart';
 
-import '../../funtions/catagories_fn_db/transation.dart';
+import '../../funtions/categories_fn_db/transaction.dart';
 
 class Homescreen extends StatelessWidget {
   Homescreen({Key? key}) : super(key: key);

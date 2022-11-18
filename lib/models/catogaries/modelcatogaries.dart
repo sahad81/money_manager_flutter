@@ -1,7 +1,6 @@
 
 import 'package:hive_flutter/hive_flutter.dart';
-part 'modelcatogaries.g.dart';
-
+ part 'modelcatogaries.g.dart';
 @HiveType(typeId: 2)
 enum CategoriesType {
   @HiveField(0)

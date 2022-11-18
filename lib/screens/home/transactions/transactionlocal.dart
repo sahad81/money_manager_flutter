@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/transation.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-import 'package:moneymanagement/screens/home/transations/transationsationsonly.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
+import 'package:moneymanagement/screens/home/transactions/transationsationsonly.dart';
 
 import '../../../models/transations/model_transations.dart';
-import 'add_Transation/add_transation_screen.dart';
 
 class Transaction extends StatefulWidget {
   const Transaction({super.key});
@@ -54,7 +54,12 @@ class _TransactionState extends State<Transaction> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () {
-                Navigator.of(context).pushNamed(AddTransactions.routname);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (con) {
+                    return const AddTransactions();
+                  }),
+                );
               },
               child: const Icon(
                 Icons.add,
@@ -244,8 +249,8 @@ class _TransactionState extends State<Transaction> {
                                       },
                                       subtitle: Padding(
                                         padding: const EdgeInsets.only(top: 8),
-                                        child: Text(
-                                            parsedateforpopup(vAlue.date)),
+                                        child:
+                                            Text(parsedateforpopup(vAlue.date)),
                                       ),
                                       title: Text(
                                           "Category: ${vAlue.catogoryT.name}"),

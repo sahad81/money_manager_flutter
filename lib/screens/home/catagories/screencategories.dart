@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
 import 'package:moneymanagement/screens/home/catagories/expenselist.dart';
-import 'package:moneymanagement/screens/home/catagories/incom.dart';
+import 'package:moneymanagement/screens/home/catagories/incomlist.dart';
 
 
 class ScreenCategory extends StatefulWidget {

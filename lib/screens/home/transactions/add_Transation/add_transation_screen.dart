@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/transation.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
@@ -239,9 +239,12 @@ class _AddTransactionsState extends State<AddTransactions> {
                             }
                             if (_catogariesID == null) {
                               showpopoep("Select category", Colors.red);
+                                 return;
+
                             }
                             if (selecteddate == null) {
                               showpopoep("Date is required", Colors.red);
+                              return;
                             }
                             if (_selectedcategorymodel == null) {
                               return;

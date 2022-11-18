@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagement/funtions/catagories_fn_db/catogoriesfuntopn.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/screens/graph/d_chart.dart';
 

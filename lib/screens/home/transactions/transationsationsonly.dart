@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
-import '../../../funtions/catagories_fn_db/transation.dart';
+import '../../../funtions/categories_fn_db/transaction.dart';
 import '../../../models/transations/model_transations.dart';
 
 class Viewall extends StatefulWidget {

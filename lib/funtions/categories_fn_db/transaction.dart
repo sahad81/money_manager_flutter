@@ -24,6 +24,7 @@ class TransactionDb implements TransactionDbFn {
   }
   ValueNotifier<List<TransactionModel>> transactionlistnotifire =
       ValueNotifier([]);
+  //=========notifire for filtrisation===========================\\
   ValueNotifier<List<TransactionModel>> transactionIncomeonlyNotifire =
       ValueNotifier([]);
   ValueNotifier<List<TransactionModel>> transactionExpnsenotifire =
@@ -49,7 +50,8 @@ class TransactionDb implements TransactionDbFn {
 
   @override
   Future<void> deletetransactions(String id) async {
-    final transatinDb = await Hive.openBox<TransactionModel>(trnasactionDbName_);
+    final transatinDb =
+        await Hive.openBox<TransactionModel>(trnasactionDbName_);
     transatinDb.delete(id);
     refreshtransaction();
   }
@@ -75,13 +77,15 @@ class TransactionDb implements TransactionDbFn {
     final list = await gettransaction();
     allincomeamount();
     allexpenseamount();
+    todayexpensetotalamout();
+    todayallincomeTransactionAmount();
     transactionExpnsenotifire.addListener(() {
       allincomeamount();
     });
-  
+
     list.sort((first, second) => second.date.compareTo(first.date));
     transactionlistnotifire.value.clear();
-  transactionwithinAMonthNotifire.value.clear();
+    transactionwithinAMonthNotifire.value.clear();
     transactionIncomeonlyNotifire.value.clear();
     transactionExpnsenotifire.value.clear();
     transactiontodayonlynotifire.value.clear();
@@ -90,52 +94,39 @@ class TransactionDb implements TransactionDbFn {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     transactionlistnotifire.notifyListeners();
 
-    await Future.forEach(list, (TransactionModel catogary) {
-      if (catogary.type == CategoriesType.income) {
-        transactionIncomeonlyNotifire.value.add(catogary);
+    await Future.forEach(list, (TransactionModel data) {
+      //==filtrisaction for todaytransaction============================================
+      if (data.date ==
+          DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day)) {
+        transactiontodayonlynotifire.value.add(data);
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        transactiontodayonlynotifire.notifyListeners();
+      }
+      //===============filtrisation for monthly transactions==============================
+      if (data.date.month == DateTime.now().month) {
+        transactionwithinAMonthNotifire.value.add(data);
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        transactionwithinAMonthNotifire.notifyListeners();
+      }
+
+//===========total income=================
+      if (data.type == CategoriesType.income) {
+        transactionIncomeonlyNotifire.value.add(data);
 
         // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
         transactionIncomeonlyNotifire.notifyListeners();
-      } else {
-        return;
       }
-    });
-
-    await Future.forEach(list, (TransactionModel catogary) {
-      if (catogary.type == CategoriesType.expense) {
-        //final List<Iterable> typee=catogary;
-        // transationtext.value.clear();
-
-        transactionExpnsenotifire.value.add(catogary);
+      //================total expense======================
+      else {
+        transactionExpnsenotifire.value.add(data);
         // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
         transactionExpnsenotifire.notifyListeners();
-      } else {
-        return;
-      }
-    });
-    await Future.forEach(list, (TransactionModel today) {
-      if (today.date ==
-          DateTime(
-              DateTime.now().year, DateTime.now().month, DateTime.now().day)) {
-        transactiontodayonlynotifire.value.add(today);
-        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-        transactiontodayonlynotifire.notifyListeners();
-      } else {
-        return;
-      }
-    });
-    await Future.forEach(list, (TransactionModel transaction) {
-      // ignore: unrelated_type_equality_checks
-      if (transaction.date.month == DateTime.now().month) {
-        transactionwithinAMonthNotifire.value.add(transaction);
-        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-        transactionwithinAMonthNotifire.notifyListeners();
-      } else {
-        return;
       }
     });
   }
 
+//   ===============all income total amount==================
   double allincomeamount() {
     var sumincomeAmount = 0;
     for (var value in transactionlistnotifire.value) {
@@ -146,6 +137,7 @@ class TransactionDb implements TransactionDbFn {
     return sumincomeAmount.toDouble();
   }
 
+//  ===============all expense total amount==================
   double allexpenseamount() {
     var sumexpenseAmount = 0;
     for (var value in transactiontodayonlynotifire.value) {
@@ -174,5 +166,48 @@ class TransactionDb implements TransactionDbFn {
 
     balance1 = sumincomeAmount - sumexpenseAmount;
     return balance1.toDouble();
+  }
+
+  double todayallincomeTransactionAmount() {
+    double sumincometodaytransaction = 0;
+    for (var value in transactiontodayonlynotifire.value) {
+      if (value.type == CategoriesType.income) {
+        sumincometodaytransaction =
+            sumincometodaytransaction + value.amount.toInt();
+      }
+    }
+
+    return sumincometodaytransaction;
+  }
+
+  double todayexpensetotalamout() {
+    double sumexpensetoday = 0;
+    for (var value in transactiontodayonlynotifire.value) {
+      if (value.type == CategoriesType.expense) {
+        sumexpensetoday = sumexpensetoday + value.amount.toInt();
+      }
+    }
+
+    return sumexpensetoday;
+  }
+   double monthlyexpenseamount() {
+    double sumexpensetoday = 0;
+    for (var value in transactionwithinAMonthNotifire.value) {
+      if (value.type == CategoriesType.expense) {
+        sumexpensetoday = sumexpensetoday + value.amount.toInt();
+      }
+    }
+
+    return sumexpensetoday;
+  }
+   double monthlyincomeamount() {
+    double sumexpensetoday = 0;
+    for (var value in transactionwithinAMonthNotifire.value) {
+      if (value.type == CategoriesType.income) {
+        sumexpensetoday = sumexpensetoday + value.amount.toInt();
+      }
+    }
+
+    return sumexpensetoday;
   }
 }

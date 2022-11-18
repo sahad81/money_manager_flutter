@@ -6,7 +6,7 @@ part of 'modelcatogaries.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CategriesmodelAdapter extends TypeAdapter<CategoriesModel> {
+class CategoriesModelAdapter extends TypeAdapter<CategoriesModel> {
   @override
   final int typeId = 1;
 
@@ -25,7 +25,7 @@ class CategriesmodelAdapter extends TypeAdapter<CategoriesModel> {
   }
 
   @override
-  void write(BinaryWriter writer,CategoriesModel obj) {
+  void write(BinaryWriter writer, CategoriesModel obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -44,12 +44,12 @@ class CategriesmodelAdapter extends TypeAdapter<CategoriesModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CategriesmodelAdapter &&
+      other is CategoriesModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class CategoriestypeAdapter extends TypeAdapter<CategoriesType> {
+class CategoriesTypeAdapter extends TypeAdapter<CategoriesType> {
   @override
   final int typeId = 2;
 
@@ -83,7 +83,7 @@ class CategoriestypeAdapter extends TypeAdapter<CategoriesType> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CategoriestypeAdapter &&
+      other is CategoriesTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
