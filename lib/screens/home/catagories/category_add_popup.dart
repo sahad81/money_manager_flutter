@@ -77,7 +77,7 @@ Future<void> showpopupADD(BuildContext context) async {
                   if (!isvald) {
                     return;
                   } else {
-                    CategoriesDb.instance.refreshfuntion();
+                   
                     final name = nameEditingControler.text;
 
                     final typ = selectedCategoriesNotifire.value;
@@ -86,6 +86,8 @@ Future<void> showpopupADD(BuildContext context) async {
                         name: name,
                         type: typ);
                     CategoriesDb().incertCategories(catagory);
+                  
+                     CategoriesDb.instance.refreshfuntion();
                     CategoriesDb.instance.expensecategorieslistlistner;
                     CategoriesDb.instance.incomecategorieslistlistner;
                     Navigator.of(cntx).pop();

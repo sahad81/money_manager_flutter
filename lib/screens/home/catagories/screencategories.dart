@@ -6,6 +6,7 @@ import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
 import 'package:moneymanagement/screens/home/catagories/expenselist.dart';
 import 'package:moneymanagement/screens/home/catagories/incomlist.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
 
 
 class ScreenCategory extends StatefulWidget {
@@ -25,14 +26,13 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
     super.initState();
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   
     return Scaffold(
     
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: () {
-       
-              showpopupADD(context);
+  
             }
       ,
           child: const Icon(
