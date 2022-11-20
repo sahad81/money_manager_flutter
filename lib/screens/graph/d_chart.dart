@@ -1,10 +1,15 @@
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 
+
+
+
+
+//now its not working\\ 
 class Dchart extends StatefulWidget {
   const Dchart({super.key});
   @override

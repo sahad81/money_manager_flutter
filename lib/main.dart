@@ -4,8 +4,6 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
 
-
-
 import 'package:moneymanagement/screens/splash_scrren.dart';
 
 import 'package:overlay_support/overlay_support.dart';
@@ -39,15 +37,12 @@ class MyApp extends StatelessWidget {
     return Builder(
         builder: (context) => OverlaySupport.global(
                 child: MaterialApp(
-                  
-                    theme: ThemeData(primaryColor: Colors.black),
+                    theme: ThemeData(primarySwatch: Colors.grey),
                     debugShowCheckedModeBanner: false,
                     home: 
-                  //  Chart2(),
-                  //
-                 const SplashScreen(),
-                //Chart2(),
-                    routes: { 
+                  
+                     const SplashScreen(),
+                    routes: {
                   AddTransactions.routname: (con) => const AddTransactions(),
                 })));
   }

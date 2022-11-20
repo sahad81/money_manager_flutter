@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-
-import '../../../funtions/categories_fn_db/transaction.dart';
+import '../../../funtions/transactionfn/transaction.dart';
 import '../../../models/transations/model_transations.dart';
 
 class Viewall extends StatefulWidget {
@@ -22,6 +20,8 @@ class _ViewallState extends State<Viewall> {
 
   List<TransactionModel> filter = [];
   void updatelist(String value) {}
+
+  //-----------filtered list----------------
   List<TransactionModel> transactions =
       TransactionDb.instance.transactionlistnotifire.value;
   List<TransactionModel> incometranscaction =
@@ -62,7 +62,8 @@ class _ViewallState extends State<Viewall> {
                 Align(
                   alignment: Alignment.center,
                   child: DropdownButton(
-                    elevation: 10,
+                    underline:const SizedBox(),
+                    elevation: 1,
                     value: dropdownvalues,
                     hint: const Text(
                       'All Transactions',
@@ -96,9 +97,6 @@ class _ViewallState extends State<Viewall> {
                           dropdowntransaction = incometranscaction;
                         }
                       });
-                    },
-                    onTap: () {
-                      setState(() {});
                     },
                   ),
                 ),
@@ -248,7 +246,6 @@ class _ViewallState extends State<Viewall> {
           );
         });
   }
-
 
 //================search===============\\
   void searchfuntion(String keywords) {

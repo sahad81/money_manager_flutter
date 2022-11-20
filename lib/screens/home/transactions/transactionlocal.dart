@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
 import 'package:moneymanagement/screens/home/transactions/transationsationsonly.dart';
@@ -163,6 +163,7 @@ class _TransactionState extends State<Transaction> {
                                   children: [
                                     SlidableAction(
                                       onPressed: (cnt) {
+                                        //-------for delete transacttions--------
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -217,6 +218,7 @@ class _TransactionState extends State<Transaction> {
                                   child: ListTile(
                                       onTap: () {
                                         {
+                                          //--------------- show details-----------------------
                                           showDialog(
                                             context: context,
                                             builder: ((context) {
@@ -280,6 +282,7 @@ class _TransactionState extends State<Transaction> {
         });
   }
 
+//----------------ui for show income and expense-------------------
   Widget incomeandexpenseAmount(
     double amount,
     Color color,
@@ -293,11 +296,9 @@ class _TransactionState extends State<Transaction> {
           style: TextStyle(
               fontSize: 22, color: color, fontWeight: FontWeight.w700),
         ),
-        // child: Text("Rs 2000",style: TextStyle(fontSize: 20,color: Colors.white),),
         const SizedBox(
           height: 5,
         ),
-
         Text(
           "₹ $amount",
           style: TextStyle(

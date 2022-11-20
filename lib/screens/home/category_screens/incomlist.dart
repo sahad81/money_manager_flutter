@@ -26,12 +26,12 @@ class Incomelist extends StatelessWidget {
                     ))),
                   ],
                 )
+                //---------showing income category list------------------//
               : ListView.separated(
                   itemBuilder: ((context, index) {
                     final category = newlist[index];
                     return
-                        //newlist.isEmpty?
-
+             
                         Padding(
                       padding:
                           const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -42,6 +42,7 @@ class Incomelist extends StatelessWidget {
                               icon: const Icon(Icons.delete),
                               onPressed: () {
                                 final nameofordlete = category.name;
+                                //--------- deleting category------------------//
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {

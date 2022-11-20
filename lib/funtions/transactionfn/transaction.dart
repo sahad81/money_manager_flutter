@@ -140,7 +140,7 @@ class TransactionDb implements TransactionDbFn {
 //  ===============all expense total amount==================
   double allexpenseamount() {
     var sumexpenseAmount = 0;
-    for (var value in transactiontodayonlynotifire.value) {
+    for (var value in transactionlistnotifire.value) {
       if (value.type == CategoriesType.expense) {
         sumexpenseAmount = sumexpenseAmount + value.amount.toInt();
       }
@@ -182,7 +182,7 @@ class TransactionDb implements TransactionDbFn {
 
   double todayexpensetotalamout() {
     double sumexpensetoday = 0;
-    for (var value in transactionlistnotifire.value) {
+    for (var value in transactiontodayonlynotifire.value) {
       if (value.type == CategoriesType.expense) {
         sumexpensetoday = sumexpensetoday + value.amount.toInt();
       }

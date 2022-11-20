@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/graph/d_chart.dart';
-import 'package:moneymanagement/screens/home/catagories/category_add_popup.dart';
+import 'package:moneymanagement/screens/home/category_screens/category_add_popup.dart';
 
 class AddTransactions extends StatefulWidget {
   const AddTransactions({super.key});
@@ -25,7 +25,7 @@ class _AddTransactionsState extends State<AddTransactions> {
   CategoriesModel? _selectedcategorymodel;
   String? _catogariesID;
   var formKey = GlobalKey<FormState>();
-   var formKey2 = GlobalKey<FormState>();
+  var formKey2 = GlobalKey<FormState>();
   final _purposetexteditingControler = TextEditingController();
   final _amounttexteditingControler = TextEditingController();
 
@@ -43,134 +43,7 @@ class _AddTransactionsState extends State<AddTransactions> {
 
   // ignore: unused_field
   bool _isValid = false;
-  addcategory(BuildContext context){
-   showDialog(
-                                context: context,
-                                builder: (cntx) {
-                                  return SimpleDialog(
-                                    title: const Text('ADD CATEGORY'),
-                                    children: [
-                                      Form(
-                                        key: formKey2,
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: TextFormField(
-                                                maxLength: 12,
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                controller:
-                                                    nameEditingControler,
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return "enter category name";
-                                                  } else {
-                                                    for (var i = 0;
-                                                        i <
-                                                            incomecategorylist
-                                                                .length;
-                                                        i++) {
-                                                      if (value.toLowerCase() ==
-                                                          incomecategorylist[i]
-                                                              .name
-                                                              .toLowerCase()) {
-                                                        return 'Alredy exit';
-                                                      }
-                                                      for (var i = 0;
-                                                          i <
-                                                              expensecategorylist
-                                                                  .length;
-                                                          i++) {
-                                                        if (value
-                                                                .toLowerCase() ==
-                                                            expensecategorylist[
-                                                                    i]
-                                                                .name
-                                                                .toLowerCase()) {
-                                                          return 'Alredy exit';
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                  const InputDecoration(
-                                                    hintText: 'Add category',
-                                                    focusColor: Colors.black,
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                    contentPadding:
-                                                        EdgeInsets.all(8),
-                                                  );
-                                                  return null;
-                                                })),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Row(
-                                          children: const [
-                                            RadioButton(
-                                                titile: 'INCOME',
-                                                type: CategoriesType.income),
-                                            RadioButton(
-                                                titile: 'EXPENSE',
-                                                type: CategoriesType.expense),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              final isvald = formKey2
-                                                  .currentState!
-                                                  .validate();
 
-                                              if (!isvald) {
-                                                return;
-                                              } else {
-                                                final name =
-                                                    nameEditingControler.text;
-
-                                                final typ =
-                                                    selectedCategoriesNotifire
-                                                        .value;
-                                                final catagory = CategoriesModel(
-                                                    id: DateTime.now()
-                                                        .microsecondsSinceEpoch
-                                                        .toString(),
-                                                    name: name,
-                                                    type: typ);
-
-                                                CategoriesDb()
-                                                    .incertCategories(catagory);
-
-                                                setState(() {
-                                                  CategoriesDb.instance
-                                                      .refreshfuntion();
-                                                });
-                                                CategoriesDb.instance
-                                                    .expensecategorieslistlistner;
-                                                CategoriesDb.instance
-                                                    .incomecategorieslistlistner;
-                                                Navigator.of(cntx).pop();
-                                                nameEditingControler.clear;
-                                                CategoriesDb().refreshfuntion();
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.black,
-                                            ),
-                                            child: const Text('ADD')),
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,21 +84,24 @@ class _AddTransactionsState extends State<AddTransactions> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40),
                   child: Column(children: [
+//---------amounttextfiled------------------//
+
                     TextFormField(
-                      maxLength: 8,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'enter Amount';
-                        }
-                        return null;
-                      },
-                      controller: _amounttexteditingControler,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Amount',
-                        labelStyle: TextStyle(),
-                      ),
-                    ),
+                        maxLength: 8,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'enter Amount';
+                          }
+                          return null;
+                        },
+                        controller: _amounttexteditingControler,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                        //  hintText: "Amount",
+                    labelText: "Enter Amount"
+                                )
+                                
+                                ),
 
                     sizedb,
 
@@ -270,6 +146,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        //---------selection category  field------------------//
                         DropdownButton(
                             underline: const SizedBox(),
                             onTap: () => CategoriesDb.instance.refreshfuntion(),
@@ -314,12 +191,16 @@ class _AddTransactionsState extends State<AddTransactions> {
                             }),
                         IconButton(
                             onPressed: () {
-                           addcategory(context);
+                              //------------add new category---------------/
+                              addcategory(context);
                             },
                             icon: const Icon(Icons.add))
                       ],
                     ),
                     sizedb,
+
+//---------select date of transaction------------------//
+
                     TextButton.icon(
                         onPressed: () {
                           calendar(context);
@@ -336,12 +217,15 @@ class _AddTransactionsState extends State<AddTransactions> {
                                 ).toString(),
                           style: const TextStyle(color: Colors.black),
                         )),
+
+//================notes================//
+
                     TextFormField(
                         maxLength: 15,
                         controller: _purposetexteditingControler,
                         decoration: const InputDecoration(
                           labelText: 'Note...',
-                          labelStyle: TextStyle(),
+                       
                         )),
                     sizedb,
 
@@ -350,6 +234,8 @@ class _AddTransactionsState extends State<AddTransactions> {
                     sizedb,
                     ElevatedButton(
                         onPressed: () {
+//----------------validation spot------------------//
+
                           final isvalid = formKey.currentState!.validate();
                           if (!isvalid) {
                             return;
@@ -372,9 +258,10 @@ class _AddTransactionsState extends State<AddTransactions> {
                             maximumSize: const Size(350, 50),
                             backgroundColor: Colors.black),
                         child: const Text(
-                          'ADD',
+                          'Submit',
                           style: TextStyle(
                             fontSize: 20,
+                            color: Colors.white
                           ),
                         )),
                     sizedb,
@@ -387,6 +274,106 @@ class _AddTransactionsState extends State<AddTransactions> {
       )),
     );
   }
+
+  //---------add new category funtion------------------//
+  addcategory(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (cntx) {
+        return SimpleDialog(
+          title: const Text('ADD CATEGORY'),
+          children: [
+            Form(
+              key: formKey2,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                      maxLength: 12,
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: nameEditingControler,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "enter category name";
+                        } else {
+                          for (var i = 0; i < incomecategorylist.length; i++) {
+                            if (value.toLowerCase() ==
+                                incomecategorylist[i].name.toLowerCase()) {
+                              return 'Alredy exit';
+                            }
+                            for (var i = 0;
+                                i < expensecategorylist.length;
+                                i++) {
+                              if (value.toLowerCase() ==
+                                  expensecategorylist[i].name.toLowerCase()) {
+                                return 'Alredy exit';
+                              }
+                            }
+                          }
+                        }
+                        const InputDecoration(
+                          hintText: 'Add category',
+                          focusColor: Colors.black,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.black,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.all(8),
+                        );
+                        return null;
+                      })),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: const [
+                  RadioButton(titile: 'INCOME', type: CategoriesType.income),
+                  RadioButton(titile: 'EXPENSE', type: CategoriesType.expense),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton(
+                  onPressed: () {
+                    final isvald = formKey2.currentState!.validate();
+
+                    if (!isvald) {
+                      return;
+                    } else {
+                      final name = nameEditingControler.text;
+
+                      final typ = selectedCategoriesNotifire.value;
+                      final catagory = CategoriesModel(
+                          id: DateTime.now().microsecondsSinceEpoch.toString(),
+                          name: name,
+                          type: typ);
+
+                      CategoriesDb().incertCategories(catagory);
+
+                      setState(() {
+                        CategoriesDb.instance.refreshfuntion();
+                      });
+                      CategoriesDb.instance.expensecategorieslistlistner;
+                      CategoriesDb.instance.incomecategorieslistlistner;
+                      Navigator.of(cntx).pop();
+                      nameEditingControler.clear;
+                      CategoriesDb().refreshfuntion();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+                  child: const Text('ADD',style: TextStyle(color: Colors.white),)),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  //--------- for selection of date of transaction------------------//
 
   calendar(BuildContext context) async {
     datefirst = await showDatePicker(
@@ -405,6 +392,7 @@ class _AddTransactionsState extends State<AddTransactions> {
             child: child!);
       },
     );
+
     // ignore: unnecessary_null_comparison
     if (datefirst! == null) {
       return;
@@ -415,8 +403,7 @@ class _AddTransactionsState extends State<AddTransactions> {
     }
   }
 
-
-
+//--------- add to hive database------------------//
   Future<void> addTransationfuntion() async {
     purpose = _purposetexteditingControler.text;
     final ammount = _amounttexteditingControler.text;
@@ -429,11 +416,6 @@ class _AddTransactionsState extends State<AddTransactions> {
         date: selecteddate!,
         type: _selectedcategory!,
         catogoryT: _selectedcategorymodel!);
-
-    // amount= 10
-    // data= 1/2/333/
-    // type = rr
-    // id = 1
 
     TransactionDb.instance.addtransaction(model);
 
@@ -451,8 +433,9 @@ class _AddTransactionsState extends State<AddTransactions> {
           Radius.circular(10),
         ))));
   }
+  //--------- showing the errers in snackbar------------------//
 
-void showpopoep(String popname, Color color) {
+  void showpopoep(String popname, Color color) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: const Duration(seconds: 3),
         content: Text(popname),
@@ -465,6 +448,7 @@ void showpopoep(String popname, Color color) {
           Radius.circular(10),
         ))));
   }
+  //---------parse date------------------//
 
   String parsedate(DateTime date) {
     var datelocal = DateFormat.yMMMMEEEEd().format(date);

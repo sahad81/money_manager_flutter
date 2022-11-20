@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/screens/contactUs/Contact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:share_plus/share_plus.dart';
-
-
 import '../screen_home.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,28 +11,31 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      Future<bool> showexitdiloge() async {
-    return await showDialog(
-        context: context,
-        builder: (co) {
-          return AlertDialog(
-            title: const Text("Exit app"),
-            content: const Text("Do you want to exit this app?"),
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: const Text("No",)),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: const Text("Yes"))
-            ],
-          );
-        });
-  }
+    Future<bool> showexitdiloge() async {
+      return await showDialog(
+          context: context,
+          builder: (co) {
+            return AlertDialog(
+              title: const Text("Exit app"),
+              content: const Text("Do you want to exit this app?"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: const Text(
+                      "No",
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child: const Text("Yes"))
+              ],
+            );
+          });
+    }
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -53,7 +53,6 @@ class SettingsScreen extends StatelessWidget {
               ListTile(
                   title: const Text(
                     " App Reset",
-                   
                   ),
                   onTap: () => showDialog(
                       context: context,
@@ -66,29 +65,30 @@ class SettingsScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
-                                            builder: (context) => Homescreen()),
+                                            builder: (context) => const Homescreen()),
                                         (route) => false);
                                   },
                                   child: const Text('CANCEL',
                                       style: TextStyle(color: Colors.black))),
                               TextButton(
                                   onPressed: () {
-                                    TransactionDb.instance.restartapptransaction();
+                                    TransactionDb.instance
+                                        .restartapptransaction();
                                     CategoriesDb.instance.restarcatocaryapp();
                                     //   <! second time-->
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) {
                                       return const SplashScreen();
                                     }), (route) => false);
-        
+
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                             margin: EdgeInsets.all(15),
                                             behavior: SnackBarBehavior.floating,
                                             content: Text(
                                               'app Reseted',
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )));
                                   },
                                   child: const Text(
@@ -104,18 +104,16 @@ class SettingsScreen extends StatelessWidget {
                 })),
                 title: const Text(
                   "Contact Us",
-                
                 ),
               ),
               ListTile(
                 onTap: () => Share.share('link not fount'),
                 title: const Text(
                   "Share App",
-               
                 ),
               )
             ],
           ),
         ));
   }
-} 
+}

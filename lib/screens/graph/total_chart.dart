@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:charts_flutter_new/flutter.dart' as chartp;
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/transaction.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/graph/todey_month_chart.dart';
@@ -18,6 +18,8 @@ class Chart2 extends StatefulWidget {
 class _Chart2State extends State<Chart2> {
   List<CategoriesModel> incomecategorylist =
       CategoriesDb.instance.incomecategorieslistlistner.value;
+
+ // ignore: prefer_typing_uninitialized_variables
  var dropdownvalue;
  
   @override

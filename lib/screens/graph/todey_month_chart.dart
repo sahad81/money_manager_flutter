@@ -4,7 +4,7 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 
-import '../../funtions/categories_fn_db/transaction.dart';
+import '../../funtions/transactionfn/transaction.dart';
 import '../../models/transations/model_transations.dart';
 
 // ignore: must_be_immutable

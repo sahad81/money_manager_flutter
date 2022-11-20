@@ -42,6 +42,7 @@ class Expenselist extends StatelessWidget {
                           icon: const Icon(Icons.delete),
                           onPressed: () {
                             final nameofordlete = category.name;
+                            //---------deleting expense category------------------//
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {

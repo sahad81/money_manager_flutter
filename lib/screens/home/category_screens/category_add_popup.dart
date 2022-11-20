@@ -98,7 +98,7 @@ Future<void> showpopupADD(BuildContext context) async {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                 ),
-                child: const Text('ADD')),
+                child: const Text('ADD',style: TextStyle(color: Colors.white),)),
           )
         ],
       );

@@ -36,7 +36,7 @@ class bottimnavigationbar extends StatelessWidget {
                   ),
                   GButton(
                     icon: Icons.bar_chart,
-                    text: 'Chart',
+                    text: 'Statics',
                   ),
                   GButton(
                     icon: Icons.settings_outlined,
