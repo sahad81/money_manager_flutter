@@ -76,7 +76,7 @@ class _ContactUsState extends State<ContactUs> {
     /// ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       duration: Duration(seconds: 5),
-      content: Text('Email Sanding Succesfully Competed'),
+      content: Text('Email Sending succesfully competed'),
       backgroundColor: Colors.green,
     ));
     return responce.statusCode;
@@ -169,7 +169,7 @@ class _ContactUsState extends State<ContactUs> {
                         },
                         validator: ((value) {
                           if (value!.isEmpty) {
-                            return 'Enter email Adress';
+                            return 'Enter email address';
                           }
                           return null;
                         }),
@@ -333,7 +333,7 @@ class _ContactUsState extends State<ContactUs> {
         subcontrolercrt) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 3),
-        content: Text(' Sandig Email.....'),
+        content: Text(' Sandig email.....'),
         backgroundColor: Colors.green,
       ));
       sendmail(context);

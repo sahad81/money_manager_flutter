@@ -5,7 +5,7 @@ import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
-import 'package:moneymanagement/screens/home/transactions/transationsationsonly.dart';
+import 'package:moneymanagement/screens/home/transactions/transaction_all.dart';
 
 import '../../../models/transations/model_transations.dart';
 
@@ -75,16 +75,12 @@ class _TransactionState extends State<Transaction> {
                     width: MediaQuery.of(context).size.width * 09,
                     margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.black54, Colors.black],
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topRight,
-                        ),
+                     color: Colors.black87,
                         borderRadius: BorderRadius.all(Radius.circular(24))),
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 18,
+                          height: 8,
                         ),
                         const Text(
                           'Total Balance',
@@ -95,7 +91,7 @@ class _TransactionState extends State<Transaction> {
                               color: Colors.white),
                         ),
                         const SizedBox(
-                          height: 2,
+                          height: 1,
                         ),
                         Text(
                           '₹  $amountbalance',
@@ -113,13 +109,13 @@ class _TransactionState extends State<Transaction> {
                                 padding:
                                     const EdgeInsets.only(left: 30, bottom: 20),
                                 child: incomeandexpenseAmount(
-                                    amountincome, Colors.green, "Income"),
+                                    amountincome, Colors.white,Colors.green, "Income"),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     bottom: 20, right: 30),
                                 child: incomeandexpenseAmount(
-                                    amountexpense, Colors.red, "Expense"),
+                                    amountexpense, Colors.white,Colors.red, "Expense"),
                               ),
                             ]),
                       ],
@@ -285,6 +281,7 @@ class _TransactionState extends State<Transaction> {
 //----------------ui for show income and expense-------------------
   Widget incomeandexpenseAmount(
     double amount,
+    Color color2,
     Color color,
     String incomeorexpense,
   ) {
@@ -294,7 +291,7 @@ class _TransactionState extends State<Transaction> {
         Text(
           incomeorexpense,
           style: TextStyle(
-              fontSize: 22, color: color, fontWeight: FontWeight.w700),
+              fontSize: 22, color: color, ),
         ),
         const SizedBox(
           height: 5,
@@ -302,7 +299,7 @@ class _TransactionState extends State<Transaction> {
         Text(
           "₹ $amount",
           style: TextStyle(
-              fontSize: 20, color: color, fontWeight: FontWeight.w500),
+              fontSize: 20, color: color2, ),
         ),
       ],
     );

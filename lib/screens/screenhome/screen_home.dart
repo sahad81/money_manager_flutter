@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:moneymanagement/screens/graph/total_chart.dart';
 import 'package:moneymanagement/screens/home/category_screens/screencategories.dart';
 
-import 'package:moneymanagement/screens/home/transactions/transactionlocal.dart';
+import 'package:moneymanagement/screens/home/transactions/Home_balanceCard.dart';
 import 'package:moneymanagement/screens/screenhome/settingsscreen/settingsscreen.dart';
 import 'package:moneymanagement/screens/screenhome/widgets/bottomnavigation.dart';
 
