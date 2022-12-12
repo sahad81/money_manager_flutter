@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
-import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 
@@ -8,44 +6,29 @@ import '../../funtions/transactionfn/transaction.dart';
 import '../../models/transations/model_transations.dart';
 
 // ignore: must_be_immutable
-class Graph extends StatefulWidget {
-  Graph(
-      {super.key,
-      required this.incomeamount,
-      required this.expenseamount,
-      });
+class Graph extends StatelessWidget {
+  Graph({
+    super.key,
+    required this.incomeamount,
+    required this.expenseamount,
+  });
 
   final double incomeamount;
- 
+
   final double expenseamount;
-
-  List<CategoriesModel> incomecategorylist =
-      CategoriesDb.instance.incomecategorieslistlistner.value;
-
-  @override
-  State<Graph> createState() => _GraphState();
-}
-
-class _GraphState extends State<Graph> {
-  int key = 0;
 
   List<MaterialColor> colorList = [Colors.green, Colors.red, Colors.grey];
 
-  List<CategoriesModel> incomecategorylist =
-      CategoriesDb.instance.incomecategorieslistlistner.value;
-
   @override
-  Widget build(BuildContext context ) {
+  Widget build(BuildContext context) {
     TransactionDb.instance.refreshtransaction();
     return ValueListenableBuilder(
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
-                    Map<String, double> datamab = {
-
-           "income":widget.incomeamount,
-                  'Expense':widget.expenseamount
-
-                };
+          Map<String, double> datamab = {
+            "income": incomeamount,
+            'Expense': expenseamount
+          };
 
           return Column(
             children: [

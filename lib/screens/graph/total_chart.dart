@@ -6,30 +6,21 @@ import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
+import 'package:moneymanagement/screens/graph/staticprovider.dart';
 import 'package:moneymanagement/screens/graph/todey_month_chart.dart';
+import 'package:provider/provider.dart';
 
-class Chart2 extends StatefulWidget {
-  const Chart2({super.key});
+class Chart2 extends StatelessWidget {
+   Chart2({super.key});
 
-  @override
-  State<Chart2> createState() => _Chart2State();
-}
-
-class _Chart2State extends State<Chart2> {
-  List<CategoriesModel> incomecategorylist =
-      CategoriesDb.instance.incomecategorieslistlistner.value;
-
- // ignore: prefer_typing_uninitialized_variables
- var dropdownvalue;
  
-  @override
-  void initState() {
 
-    dropdownvalue = 1;
 
-    super.initState();
-  }
+  
+ // ignore: prefer_typing_uninitialized_variables
 
+ // dropdownvalue = 1;
+ 
   @override
   Widget build(BuildContext context) {
     final List<Graphhh> data = [
@@ -39,6 +30,7 @@ class _Chart2State extends State<Chart2> {
     ];
     TransactionDb.instance.refreshtransaction;
     return ValueListenableBuilder(
+      
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
           List<chartp.Series<Graphhh, String>> series = [
@@ -50,33 +42,34 @@ class _Chart2State extends State<Chart2> {
                 colorFn: (Graphhh h, _) =>
                     chartp.ColorUtil.fromDartColor(h.colors))
           ];
-
+    //Provider.of<Staticprovider>(context,listen: false).oninit();
           return Scaffold(
+            
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: const Center(child: Text('MONEY MANAGER')),
+              title: const Center(child: Text('MONEY MANAGER',style: TextStyle(color: Colors.white),)),
               backgroundColor: Colors.black,
             ),
             backgroundColor: Colors.grey.shade200,
             body: Column(
               children: [
-                DropdownButton(
-                    elevation: 5,
-                    dropdownColor: Colors.grey,
-                    underline: const SizedBox(),
-                    value: dropdownvalue,
-                    items: const [
-                      DropdownMenuItem(value: 1, child: Text("Total")),
-                      DropdownMenuItem(value: 2, child: Text("today")),
-                      DropdownMenuItem(value: 3, child: Text("Monthly")),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                          dropdownvalue = value;
-                      });
-                    
-                    }),
-                dropdownvalue == 2
+                Consumer<Staticprovider>(
+                  builder: (context, value, child) => 
+                   DropdownButton(
+                      elevation: 5,
+                      dropdownColor: Colors.grey,
+                      underline: const SizedBox(),
+                      value: value.dropdownvalue,
+                      items: const [
+                        DropdownMenuItem(value: 1, child: Text("Total")),
+                        DropdownMenuItem(value: 2, child: Text("today")),
+                        DropdownMenuItem(value: 3, child: Text("Monthly")),
+                      ],
+                      onChanged: (valuee) {
+                      value.onchange(valuee);
+                      }),
+                ),
+             Provider.of<Staticprovider>(context,listen: false).dropdownvalue    == 2
                     ? Expanded(
                         child: Graph(
                         expenseamount:
@@ -84,7 +77,7 @@ class _Chart2State extends State<Chart2> {
                         incomeamount: TransactionDb.instance
                             .todayallincomeTransactionAmount(),
                       ))
-                    : dropdownvalue == 3
+                    :  Provider.of<Staticprovider>(context,listen: false).dropdownvalue  == 3
                         ? Expanded(
                             child: Graph(
                                 incomeamount: TransactionDb.instance

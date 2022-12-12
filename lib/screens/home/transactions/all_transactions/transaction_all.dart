@@ -2,49 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-import '../../../funtions/transactionfn/transaction.dart';
-import '../../../models/transations/model_transations.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/provider_add_transaction.dart';
+import 'package:moneymanagement/screens/home/transactions/all_transactions/all_transaction_provider.dart';
+import 'package:provider/provider.dart';
+import '../../../../funtions/transactionfn/transaction.dart';
+import '../../../../models/transations/model_transations.dart';
 
-class Viewall extends StatefulWidget {
-  const Viewall({super.key});
+ 
 
-  @override
-  State<Viewall> createState() => _ViewallState();
-}
 
-class _ViewallState extends State<Viewall> {
-  List<TransactionModel> dropdowntransaction = [];
-  // ignore: prefer_typing_uninitialized_variables
-  var dropdownvalues;
-  List<dynamic> items = ["Today", "Income", "Expense", "Month", "All"];
+class Viewall extends StatelessWidget {
+   Viewall({super.key});
+ TextEditingController? seachcontroloer = TextEditingController();
+ 
 
-  List<TransactionModel> filter = [];
-  void updatelist(String value) {}
-
-  //-----------filtered list----------------
-  List<TransactionModel> transactions =
-      TransactionDb.instance.transactionlistnotifire.value;
-  List<TransactionModel> incometranscaction =
-      TransactionDb.instance.transactionIncomeonlyNotifire.value;
-  List<TransactionModel> expenseTransactionList =
-      TransactionDb.instance.transactionExpnsenotifire.value;
-  List<TransactionModel> todaytransactionList =
-      TransactionDb.instance.transactiontodayonlynotifire.value;
-  List<TransactionModel> monthTreansactionlist =
-      TransactionDb.instance.transactionwithinAMonthNotifire.value;
-
-  @override
-  void initState() {
-    dropdowntransaction = transactions;
-    super.initState();
-  }
-
-  TextEditingController? seachcontroloer = TextEditingController();
-  @override
+   @override
   Widget build(BuildContext context) {
+
+
     return ValueListenableBuilder(
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
+          
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -61,50 +40,37 @@ class _ViewallState extends State<Viewall> {
               child: Column(mainAxisSize: MainAxisSize.max, children: [
                 Align(
                   alignment: Alignment.center,
-                  child: DropdownButton(
-                    underline:const SizedBox(),
-                    elevation: 1,
-                    value: dropdownvalues,
-                    hint: const Text(
-                      'All Transactions',
-                      style: TextStyle(color: Colors.black),
+                  child: Consumer<ProviderAllTransaction>(
+                    builder: (context, value, child) => 
+                     DropdownButton(
+                      underline:const SizedBox(),
+                      elevation: 1,
+                      value: value.dropdownvalues,
+                      hint: const Text(
+                        'All Transactions',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      dropdownColor: Colors.white,
+                      items: value.items
+                          .map((dynamic vAlue) => DropdownMenuItem(
+                                value: vAlue,
+                                child: Text(
+                                  vAlue,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (newL) {
+                    value.filter(newL);
+                      },
                     ),
-                    dropdownColor: Colors.white,
-                    items: items
-                        .map((dynamic vAlue) => DropdownMenuItem(
-                              value: vAlue,
-                              child: Text(
-                                vAlue,
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                            ))
-                        .toList(),
-                    onChanged: (newL) {
-                      setState(() {
-                        dropdownvalues = newL!.toString();
-                        if (dropdownvalues == null) {
-                          dropdowntransaction = transactions;
-                        } else if (dropdownvalues == "Expense") {
-                          dropdowntransaction = expenseTransactionList;
-                        } else if (dropdownvalues == "Today") {
-                          dropdowntransaction = todaytransactionList;
-                        } else if (dropdownvalues == "Month") {
-                          dropdowntransaction = monthTreansactionlist;
-                        } else if (dropdownvalues == "All") {
-                          dropdowntransaction = transactions;
-                        }
-                        if (dropdownvalues == "Income") {
-                          dropdowntransaction = incometranscaction;
-                        }
-                      });
-                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     controller: seachcontroloer,
-                    onChanged: (value) => searchfuntion(value),
+                    onChanged: (value) => searchfuntion(value,context),
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                         filled: true,
@@ -118,7 +84,7 @@ class _ViewallState extends State<Viewall> {
                           Icons.search,
                           color: Colors.black,
                         )),
-                  ),
+                  ),                                                                                        
                 ),
                 Expanded(
                   child: Padding(
@@ -128,7 +94,7 @@ class _ViewallState extends State<Viewall> {
                           bottom: 10,
                         ),
                         itemBuilder: (context, index) {
-                          final vAlue = dropdowntransaction[index];
+                          final vAlue = Provider.of<ProviderAllTransaction>(context).dropdowntransaction[index];
                           final String purposename = vAlue.purpose;
                           return Slidable(
                               key: Key(vAlue.id!),
@@ -238,7 +204,7 @@ class _ViewallState extends State<Viewall> {
                         separatorBuilder: (cont, index1) {
                           return const SizedBox();
                         },
-                        itemCount: dropdowntransaction.length),
+                        itemCount: Provider.of<ProviderAllTransaction>(context).dropdowntransaction.length),
                   ),
                 )
               ]),
@@ -248,20 +214,20 @@ class _ViewallState extends State<Viewall> {
   }
 
 //================search===============\\
-  void searchfuntion(String keywords) {
+  void searchfuntion(String keywords ,BuildContext context) {
+    final provider =Provider.of<ProviderAllTransaction>(context,listen: false);
     if (keywords.isEmpty) {
-      filter = transactions;
+      provider.filterr = provider.transactions;
     } else {
-      filter = transactions
+      provider.filterr = provider.transactions
           .where((element) => element.catogoryT.name
               .trim()
               .toLowerCase()
               .contains(keywords.trim().toLowerCase()))
           .toList();
     }
-    setState(() {
-      dropdowntransaction = filter;
-    });
+provider.filternotify();
+
   }
 }
 
@@ -277,3 +243,10 @@ String parsedateforpopup(DateTime date) {
   var datelocal = DateFormat.yMMMMEEEEd().format(date);
   return datelocal;
 }
+
+
+
+ 
+
+
+ 

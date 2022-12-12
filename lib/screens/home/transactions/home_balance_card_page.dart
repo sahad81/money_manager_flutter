@@ -4,32 +4,24 @@ import 'package:intl/intl.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
+
 import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
-import 'package:moneymanagement/screens/home/transactions/transaction_all.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/provider_add_transaction.dart';
+import 'package:moneymanagement/screens/home/transactions/all_transactions/all_transaction_provider.dart';
+import 'package:moneymanagement/screens/home/transactions/all_transactions/transaction_all.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/transations/model_transations.dart';
 
-class Transaction extends StatefulWidget {
-  const Transaction({super.key});
-
-  @override
-  State<Transaction> createState() => _TransactionState();
-}
-
-class _TransactionState extends State<Transaction> {
+class Transaction extends StatelessWidget {
+   Transaction({super.key});
   late double amountbalance = 0;
   late double amountincome = 0;
   late double amountexpense = 0;
 
-  @override
-  void initState() {
-    CategoriesDb().refreshfuntion();
-
-    super.initState();
-  }
-
-  @override
+ @override
   Widget build(BuildContext context) {
+  
     TransactionDb.instance.refreshtransaction();
     CategoriesDb.instance.refreshfuntion();
 
@@ -40,6 +32,7 @@ class _TransactionState extends State<Transaction> {
           amountexpense = TransactionDb.instance.allexpenseamount();
           amountbalance = TransactionDb.instance.balance();
           return Scaffold(
+          
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.black,
@@ -54,10 +47,11 @@ class _TransactionState extends State<Transaction> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () {
+   Provider.of<Addtrasactionprovider>(context,listen: false).initstate();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (con) {
-                    return const AddTransactions();
+                    return AddTransactions();
                   }),
                 );
               },
@@ -75,7 +69,7 @@ class _TransactionState extends State<Transaction> {
                     width: MediaQuery.of(context).size.width * 09,
                     margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
-                     color: Colors.black87,
+                        color: Colors.black87,
                         borderRadius: BorderRadius.all(Radius.circular(24))),
                     child: Column(
                       children: [
@@ -108,33 +102,38 @@ class _TransactionState extends State<Transaction> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 30, bottom: 20),
-                                child: incomeandexpenseAmount(
-                                    amountincome, Colors.white,Colors.green, "Income"),
+                                child: incomeandexpenseAmount(amountincome,
+                                    Colors.white, Colors.green, "Income"),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     bottom: 20, right: 30),
-                                child: incomeandexpenseAmount(
-                                    amountexpense, Colors.white,Colors.red, "Expense"),
+                                child: incomeandexpenseAmount(amountexpense,
+                                    Colors.white, Colors.red, "Expense"),
                               ),
                             ]),
                       ],
                     )),
                 newlist.isEmpty
                     ? const SizedBox()
-                    : Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const Viewall();
-                              }));
-                            },
-                            child: const Text(
-                              'View all',
-                              style: TextStyle(color: Colors.black),
-                            ))),
+                  
+                   :
+                       Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                              onPressed: () {
+                               
+                   Provider.of<ProviderAllTransaction>(context,listen: false).initstate();
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return  Viewall();
+                                }));
+                              },
+                              child: const Text(
+                                'View all',
+                                style: TextStyle(color: Colors.black),
+                              ))),
+                  
 //Divider(),
                 if (newlist.isEmpty)
                   const Expanded(
@@ -291,7 +290,9 @@ class _TransactionState extends State<Transaction> {
         Text(
           incomeorexpense,
           style: TextStyle(
-              fontSize: 22, color: color, ),
+            fontSize: 22,
+            color: color,
+          ),
         ),
         const SizedBox(
           height: 5,
@@ -299,7 +300,9 @@ class _TransactionState extends State<Transaction> {
         Text(
           "₹ $amount",
           style: TextStyle(
-              fontSize: 20, color: color2, ),
+            fontSize: 20,
+            color: color2,
+          ),
         ),
       ],
     );

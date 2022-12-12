@@ -1,3 +1,44 @@
+
+//=================stateless==========================
+
+// import 'package:flutter/material.dart';
+// import 'package:moneymanagement/screens/home/category_screens/expenselist.dart';
+// import 'package:moneymanagement/screens/home/category_screens/incomlist.dart';
+
+// class ScreenCategory extends StatelessWidget {
+//   const ScreenCategory({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return DefaultTabController(
+//       length: 2,
+//       child: Scaffold(
+//         appBar: AppBar(
+//           backgroundColor: Colors.black,
+//           bottom: const TabBar(
+//             indicatorColor: Colors.white,
+//             labelColor: Colors.white,
+//             tabs: [
+             
+//               Tab(text: "INCOME"),
+//               Tab(text: "EXPENSE"),
+//             ],
+//           ),
+//           title:  Container(
+//             width: MediaQuery.of(context).size.width,
+//             color: Colors.yellow,
+//               child: Text(
+//             'MONEY MANAGER',
+//             style: TextStyle(color: Colors.white),
+//           )),
+//         ),
+//         body: const TabBarView(
+//           children: [Incomelist(), Expenselist()],
+//         ),
+//       ),
+//     );
+//   }
+// }
 import 'package:flutter/material.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/screens/home/category_screens/category_add_popup.dart';

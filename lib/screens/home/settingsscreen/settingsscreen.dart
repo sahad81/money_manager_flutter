@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/screens/contactUs/Contact.dart';
+import 'package:moneymanagement/screens/contactUs/providercontact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../screen_home.dart';
+import '../../screenhome/screen_home.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -65,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
-                                            builder: (context) => const Homescreen()),
+                                            builder: (context) =>  Homescreen()),
                                         (route) => false);
                                   },
                                   child: const Text('CANCEL',
@@ -98,10 +100,12 @@ class SettingsScreen extends StatelessWidget {
                             ],
                           )))),
               ListTile(
-                onTap: () =>
+                onTap: () {
+                Provider.of<Contactprovider>(context,listen: false).onpressed(false);
+                Provider.of<Contactprovider>(context,listen: false).start();
                     Navigator.push(context, MaterialPageRoute(builder: (con) {
-                  return const ContactUs();
-                })),
+                  return  Contact();
+                }));},
                 title: const Text(
                   "Contact Us",
                 ),

@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
+
+
+import 'package:moneymanagement/screens/contactUs/providercontact.dart';
+import 'package:moneymanagement/screens/graph/staticprovider.dart';
 import 'package:moneymanagement/screens/home/transactions/add_Transation/add_transation_screen.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/provider_add_transaction.dart';
+import 'package:moneymanagement/screens/home/transactions/all_transactions/all_transaction_provider.dart';
 
 import 'package:moneymanagement/screens/splash_scrren.dart';
 
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +33,18 @@ Future<void> main() async {
     Hive.registerAdapter(TransactionModelAdapter());
   }
 
-  runApp(const MyApp());
+  runApp(
+MultiProvider(providers: [
+ChangeNotifierProvider(create: (_)=>Addtrasactionprovider(),
+),
+ChangeNotifierProvider(create: (_)=> Contactprovider()),
+ChangeNotifierProvider(create: (_)=> ProviderAllTransaction()),
+ChangeNotifierProvider(create: (_)=> Staticprovider())
+],
+child: const MyApp(),
+)
+
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +61,7 @@ class MyApp extends StatelessWidget {
                   
                      const SplashScreen(),
                     routes: {
-                  AddTransactions.routname: (con) => const AddTransactions(),
+                  AddTransactions.routname: (con) =>  AddTransactions(),
                 })));
   }
 }

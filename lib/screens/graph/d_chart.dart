@@ -10,23 +10,13 @@ import 'package:moneymanagement/models/transations/model_transations.dart';
 
 
 //now its not working\\ 
-class Dchart extends StatefulWidget {
-  const Dchart({super.key});
-  @override
-  State<Dchart> createState() => _DchartState();
-}
+class Dchart extends StatelessWidget {
+   Dchart({super.key});
 
-List<CategoriesModel> incomecategorylist =
-    CategoriesDb.instance.incomecategorieslistlistner.value;
-
-    List<CategoriesModel> expensecategorylist =
-    CategoriesDb.instance.expensecategorieslistlistner.value;
     
 List<TransactionModel> incometransaction =
     TransactionDb.instance.transactionIncomeonlyNotifire.value;
-
-class _DchartState extends State<Dchart> {
-  var sum = 0;
+     var sum = 0;
   var sum2 = 0;
 
   @override
@@ -72,5 +62,4 @@ class _DchartState extends State<Dchart> {
         ),
       ),
     );
-  }
-}
+  }}

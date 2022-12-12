@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
+import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/screens/graph/d_chart.dart';
 
 import '../../../models/catogaries/modelcatogaries.dart';
@@ -14,7 +15,7 @@ class Expenselist extends StatelessWidget {
         builder:
             (BuildContext conxt, List<CategoriesModel> newlist, Widget? _) {
           return 
-          expensecategorylist.isEmpty?
+          TransactionDb.instance.incomecategorylist.isEmpty?
           Column(
             children: const [
               Expanded(

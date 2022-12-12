@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
@@ -152,7 +153,7 @@ class TransactionDb implements TransactionDbFn {
     var balance1 = 0;
     var sumincomeAmount = 0;
     var sumexpenseAmount = 0;
-    for (var value in transactiontodayonlynotifire.value) {
+    for (var value in transactionlistnotifire.value) {
       if (value.type == CategoriesType.expense) {
         sumexpenseAmount = sumexpenseAmount + value.amount.toInt();
       }
@@ -212,4 +213,13 @@ class TransactionDb implements TransactionDbFn {
 
     return sumexpensetoday;
   }
+
+
+
+//=====================lists==============
+List<CategoriesModel> incomecategorylist =
+    CategoriesDb.instance.incomecategorieslistlistner.value;
+
+    List<CategoriesModel> expensecategorylist =
+    CategoriesDb.instance.expensecategorieslistlistner.value;
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -8,56 +10,36 @@ import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 import 'package:moneymanagement/screens/graph/d_chart.dart';
 import 'package:moneymanagement/screens/home/category_screens/category_add_popup.dart';
+import 'package:moneymanagement/screens/home/transactions/add_Transation/provider_add_transaction.dart';
+import 'package:provider/provider.dart';
 
-class AddTransactions extends StatefulWidget {
-  const AddTransactions({super.key});
+class AddTransactions extends StatelessWidget {
+  AddTransactions({super.key});
   static const routname = 'add_transaction';
-  @override
-  State<AddTransactions> createState() => _AddTransactionsState();
-}
-
-class _AddTransactionsState extends State<AddTransactions> {
   Widget sizedb = const SizedBox(
-    height: 20,
-  );
-  DateTime? selecteddate;
-  CategoriesType? _selectedcategory;
+     height: 20,
+   );
+
   CategoriesModel? _selectedcategorymodel;
-  String? _catogariesID;
+
   var formKey = GlobalKey<FormState>();
   var formKey2 = GlobalKey<FormState>();
   final _purposetexteditingControler = TextEditingController();
   final _amounttexteditingControler = TextEditingController();
 
   late final String purpose;
-  DateTime? datefirst;
-  // ignore: prefer_typing_uninitialized_variables
-  late final _parsedAmount;
 
-  @override
-  void initState() {
-    _selectedcategory = CategoriesType.income;
 
-    super.initState();
-  }
-
-  // ignore: unused_field
-  bool _isValid = false;
+ // ignore: prefer_typing_uninitialized_variables
+ late final _parsedAmount;
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
           child: Form(
         key: formKey,
-        onChanged: () {
-          final isValid = formKey.currentState!.validate();
-          if (_isValid = isValid) {
-            setState(() {
-              _isValid = isValid;
-            });
-          }
-        },
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -96,99 +78,94 @@ class _AddTransactionsState extends State<AddTransactions> {
                         },
                         controller: _amounttexteditingControler,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                        //  hintText: "Amount",
-                    labelText: "Enter Amount"
-                                )
-                                
-                                ),
+                        decoration:
+                            const InputDecoration(labelText: "Enter Amount")),
 
                     sizedb,
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                                fillColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.black),
-                                value: CategoriesType.income,
-                                groupValue: _selectedcategory,
-                                onChanged: (newvalue) {
-                                  setState(() {
-                                    _selectedcategory = CategoriesType.income;
-                                    _catogariesID = null;
-                                  });
-                                }),
-                            const Text('Income')
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                                fillColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.black),
-                                value: CategoriesType.expense,
-                                groupValue: _selectedcategory,
-                                onChanged: (newvalue) {
-                                  setState(() {
-                                    _selectedcategory = CategoriesType.expense;
-                                    _catogariesID = null;
-                                  });
-                                }),
-                            const Text('Expense'),
-                          ],
-                        ),
-                      ],
+                    Consumer<Addtrasactionprovider>(
+                      builder: (context, value, child) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                  fillColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.black),
+                                  value: CategoriesType.income,
+                                  groupValue: value.selectedcategory,
+                                  onChanged: (newvalue) {
+                                    value.selectedincometype();
+                                    value.catogariesID = null;
+                                  }),
+                              const Text('Income')
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                  fillColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.black),
+                                  value: CategoriesType.expense,
+                                  groupValue: value.selectedcategory,
+                                  onChanged: (newvalue) {
+                                    value.selectexpensetype();
+                                    value.catogariesID = null;
+                                  }),
+                              const Text('Expense'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     sizedb,
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //---------selection category  field------------------//
-                        DropdownButton(
-                            underline: const SizedBox(),
-                            onTap: () => CategoriesDb.instance.refreshfuntion(),
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 17),
-                            hint: const Text(
-                              'select category',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            value: _catogariesID,
-                            focusColor: Colors.black,
-                            borderRadius: BorderRadius.circular(16),
-                            items: (_selectedcategory == CategoriesType.income
-                                    ? CategoriesDb().incomecategorieslistlistner
-                                    : CategoriesDb()
-                                        .expensecategorieslistlistner)
-                                .value
-                                .map((e) {
-                              return DropdownMenuItem(
-                                value: e.id,
-                                child: Text(
-                                  e.name,
-                                  selectionColor: Colors.black,
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    TransactionDb.instance.refreshtransaction();
-                                    CategoriesDb.instance.refreshfuntion();
-                                  });
-                                  _selectedcategorymodel = e;
-                                },
-                              );
-                            }).toList(),
-                            onChanged: (selectedvalue) {
-                              setState(() {
-                                CategoriesDb
-                                    .instance.expensecategorieslistlistner;
-                                TransactionDb.instance.refreshtransaction();
-                                CategoriesDb.instance.refreshfuntion();
-                                _catogariesID = selectedvalue as String?;
-                              });
-                            }),
+                        Consumer<Addtrasactionprovider>(
+                          builder: (context, value, child) =>
+                              DropdownButton<String>(
+                                  underline: const SizedBox(),
+                                  onTap: () =>
+                                      CategoriesDb.instance.refreshfuntion(),
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                  hint: const Text(
+                                    'select category',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  value: value.catogariesID,
+                                  focusColor: Colors.black,
+                                  borderRadius: BorderRadius.circular(16),
+                                  items: (value.selectedcategory ==
+                                              CategoriesType.income
+                                          ? CategoriesDb()
+                                              .incomecategorieslistlistner
+                                          : CategoriesDb()
+                                              .expensecategorieslistlistner)
+                                      .value
+                                      .map((e) {
+                                    return DropdownMenuItem(
+                                      value: e.id,
+                                      child: Text(
+                                        e.name,
+                                        selectionColor: Colors.black,
+                                      ),
+                                      onTap: () {
+                                        value.refreshtransacRefreshcateg();
+                                       
+                                        _selectedcategorymodel = e;
+                                      },
+                                    );
+                                  }).toList(),
+                                  onChanged: (selectedvalue) {
+                                    value.refreshtransacRefreshcateg();
+                                    value.categoryidchange(
+                                        selectedvalue.toString());
+                                  }),
+                        ),
                         IconButton(
                             onPressed: () {
                               //------------add new category---------------/
@@ -197,26 +174,29 @@ class _AddTransactionsState extends State<AddTransactions> {
                             icon: const Icon(Icons.add))
                       ],
                     ),
+
                     sizedb,
 
 //---------select date of transaction------------------//
 
-                    TextButton.icon(
-                        onPressed: () {
-                          calendar(context);
-                        },
-                        icon: const Icon(
-                          Icons.calendar_today,
-                          color: Colors.black,
-                        ),
-                        label: Text(
-                          selecteddate == null
-                              ? '  Select date'
-                              : parsedate(
-                                  selecteddate!,
-                                ).toString(),
-                          style: const TextStyle(color: Colors.black),
-                        )),
+                    Consumer<Addtrasactionprovider>(
+                      builder: (context, value, child) => TextButton.icon(
+                          onPressed: () {
+                            value.calendar(context);
+                          },
+                          icon: const Icon(
+                            Icons.calendar_today,
+                            color: Colors.black,
+                          ),
+                          label: Text(
+                            value.selecteddate == null
+                                ? '  Select date'
+                                : parsedate(
+                                    value.selecteddate!,
+                                  ).toString(),
+                            style: const TextStyle(color: Colors.black),
+                          )),
+                    ),
 
 //================notes================//
 
@@ -225,7 +205,6 @@ class _AddTransactionsState extends State<AddTransactions> {
                         controller: _purposetexteditingControler,
                         decoration: const InputDecoration(
                           labelText: 'Note...',
-                       
                         )),
                     sizedb,
 
@@ -240,29 +219,29 @@ class _AddTransactionsState extends State<AddTransactions> {
                           if (!isvalid) {
                             return;
                           }
-                          if (_catogariesID == null) {
-                            showpopoep("Select category", Colors.red);
+                          if (Provider.of<Addtrasactionprovider>(context,
+                                      listen: false)
+                                  .catogariesID ==
+                              null) {
+                            showpopoep("Select category", Colors.red, context);
                             return;
                           }
-                          if (selecteddate == null) {
-                            showpopoep("Date is required", Colors.red);
+                          if (Provider.of<Addtrasactionprovider>(context,listen: false).selecteddate == null) {
+                            showpopoep("Date is required", Colors.red, context);
                             return;
                           }
                           if (_selectedcategorymodel == null) {
                             return;
                           }
-                          addTransationfuntion();
+                          addTransationfuntion(context);
                         },
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size(350, 50),
                             maximumSize: const Size(350, 50),
                             backgroundColor: Colors.black),
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white
-                          ),
+                        child:  Text(
+                          'Submit'.toUpperCase(),
+                          style: const TextStyle(fontSize: 20, color: Colors.white),
                         )),
                     sizedb,
                   ]),
@@ -295,16 +274,16 @@ class _AddTransactionsState extends State<AddTransactions> {
                         if (value!.isEmpty) {
                           return "enter category name";
                         } else {
-                          for (var i = 0; i < incomecategorylist.length; i++) {
+                          for (var i = 0; i < TransactionDb.instance.incomecategorylist.length; i++) {
                             if (value.toLowerCase() ==
-                                incomecategorylist[i].name.toLowerCase()) {
+                                TransactionDb.instance.incomecategorylist[i].name.toLowerCase()) {
                               return 'Alredy exit';
                             }
                             for (var i = 0;
-                                i < expensecategorylist.length;
+                                i < TransactionDb.instance.expensecategorylist.length;
                                 i++) {
                               if (value.toLowerCase() ==
-                                  expensecategorylist[i].name.toLowerCase()) {
+                                  TransactionDb.instance.expensecategorylist[i].name.toLowerCase()) {
                                 return 'Alredy exit';
                               }
                             }
@@ -352,9 +331,8 @@ class _AddTransactionsState extends State<AddTransactions> {
 
                       CategoriesDb().incertCategories(catagory);
 
-                      setState(() {
-                        CategoriesDb.instance.refreshfuntion();
-                      });
+                      Provider.of<Addtrasactionprovider>(context, listen: false)
+                          .refreshtransacRefreshcateg();
                       CategoriesDb.instance.expensecategorieslistlistner;
                       CategoriesDb.instance.incomecategorieslistlistner;
                       Navigator.of(cntx).pop();
@@ -365,7 +343,10 @@ class _AddTransactionsState extends State<AddTransactions> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                   ),
-                  child: const Text('ADD',style: TextStyle(color: Colors.white),)),
+                  child: const Text(
+                    'ADD',
+                    style: TextStyle(color: Colors.white),
+                  )),
             )
           ],
         );
@@ -373,38 +354,10 @@ class _AddTransactionsState extends State<AddTransactions> {
     );
   }
 
-  //--------- for selection of date of transaction------------------//
-
-  calendar(BuildContext context) async {
-    datefirst = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 60)),
-      lastDate: DateTime.now(),
-      builder: (context, child) {
-        return Theme(
-            data: Theme.of(context).copyWith(
-                colorScheme: const ColorScheme.light(
-              primary: Colors.black,
-              onPrimary: Colors.white,
-              onSurface: Color.fromARGB(255, 66, 125, 145),
-            )),
-            child: child!);
-      },
-    );
-
-    // ignore: unnecessary_null_comparison
-    if (datefirst! == null) {
-      return;
-    } else {
-      setState(() {
-        selecteddate = datefirst;
-      });
-    }
-  }
+ 
 
 //--------- add to hive database------------------//
-  Future<void> addTransationfuntion() async {
+  Future<void> addTransationfuntion(BuildContext context) async {
     purpose = _purposetexteditingControler.text;
     final ammount = _amounttexteditingControler.text;
 
@@ -413,8 +366,9 @@ class _AddTransactionsState extends State<AddTransactions> {
     final model = TransactionModel(
         purpose: purpose,
         amount: _parsedAmount,
-        date: selecteddate!,
-        type: _selectedcategory!,
+        date:Provider.of<Addtrasactionprovider>(context,listen: false).selecteddate!,
+        type: Provider.of<Addtrasactionprovider>(context, listen: false)
+            .selectedcategory!,
         catogoryT: _selectedcategorymodel!);
 
     TransactionDb.instance.addtransaction(model);
@@ -435,7 +389,7 @@ class _AddTransactionsState extends State<AddTransactions> {
   }
   //--------- showing the errers in snackbar------------------//
 
-  void showpopoep(String popname, Color color) {
+  void showpopoep(String popname, Color color, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: const Duration(seconds: 3),
         content: Text(popname),
