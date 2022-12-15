@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 
 class Staticprovider extends ChangeNotifier{
@@ -7,9 +8,11 @@ class Staticprovider extends ChangeNotifier{
 onchange(value){
   dropdownvalue=value;
   notifyListeners();
+  
 }
-oninit(){
-  dropdownvalue=1;
-  notifyListeners();
-}
+oninit(BuildContext context){
+dropdownvalue=1;
+notifyListeners()
+;}
+
 }

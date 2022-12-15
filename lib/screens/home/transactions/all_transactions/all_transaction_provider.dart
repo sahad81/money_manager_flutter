@@ -4,6 +4,7 @@ import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
 
 class ProviderAllTransaction extends ChangeNotifier {
+  // ignore: prefer_typing_uninitialized_variables
   var dropdownvalues;
   List<dynamic> items = ["Today", "Income", "Expense", "Month", "All"];
   List<TransactionModel> dropdowntransaction = [];

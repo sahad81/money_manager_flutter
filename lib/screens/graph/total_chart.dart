@@ -23,13 +23,17 @@ class Chart2 extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
+   
+
     final List<Graphhh> data = [
       Graphhh("income", TransactionDb.instance.allincomeamount(), Colors.green),
       Graphhh("expense", TransactionDb.instance.allexpenseamount(),
           const Color.fromRGBO(244, 67, 54, 1))
     ];
     TransactionDb.instance.refreshtransaction;
-    return ValueListenableBuilder(
+    return
+    
+     ValueListenableBuilder(
       
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
@@ -42,8 +46,9 @@ class Chart2 extends StatelessWidget {
                 colorFn: (Graphhh h, _) =>
                     chartp.ColorUtil.fromDartColor(h.colors))
           ];
-    //Provider.of<Staticprovider>(context,listen: false).oninit();
+
           return Scaffold(
+     
             
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -56,6 +61,7 @@ class Chart2 extends StatelessWidget {
                 Consumer<Staticprovider>(
                   builder: (context, value, child) => 
                    DropdownButton(
+                    hint: const Text("Total "),
                       elevation: 5,
                       dropdownColor: Colors.grey,
                       underline: const SizedBox(),
@@ -69,7 +75,7 @@ class Chart2 extends StatelessWidget {
                       value.onchange(valuee);
                       }),
                 ),
-             Provider.of<Staticprovider>(context,listen: false).dropdownvalue    == 2
+             Provider.of<Staticprovider>(context,listen: true).dropdownvalue    == 2
                     ? Expanded(
                         child: Graph(
                         expenseamount:
@@ -77,7 +83,7 @@ class Chart2 extends StatelessWidget {
                         incomeamount: TransactionDb.instance
                             .todayallincomeTransactionAmount(),
                       ))
-                    :  Provider.of<Staticprovider>(context,listen: false).dropdownvalue  == 3
+                    :  Provider.of<Staticprovider>(context,listen: true).dropdownvalue  == 3
                         ? Expanded(
                             child: Graph(
                                 incomeamount: TransactionDb.instance

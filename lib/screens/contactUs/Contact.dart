@@ -26,7 +26,14 @@ final namecontroler = TextEditingController();
 
  @override
   Widget build(BuildContext context) {
-    Consumer<Contactprovider>(builder: (context, value, child) => value.onpressed(false),);
+  
+  Future.delayed(Duration.zero,(){
+    context.read<Contactprovider>().onpressed(false);
+      Provider.of<Contactprovider>(context,listen: false).start();
+  });
+
+  
+              
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

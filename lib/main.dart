@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  WidgetsFlutterBinding.ensureInitialized();
+ // WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
   if (!Hive.isAdapterRegistered(CategoriesTypeAdapter().typeId)) {

@@ -47,7 +47,7 @@ class Transaction extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () {
-   Provider.of<Addtrasactionprovider>(context,listen: false).initstate();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (con) {

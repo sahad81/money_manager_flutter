@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,7 @@ class TransactionDb implements TransactionDbFn {
     final db = await Hive.openBox<TransactionModel>(trnasactionDbName_);
 
     await db.put(object.id, object);
+    log(transactionlistnotifire.value.length.toString());
   }
 
   @override

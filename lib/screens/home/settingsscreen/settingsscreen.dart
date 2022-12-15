@@ -98,11 +98,11 @@ class SettingsScreen extends StatelessWidget {
                                     style: TextStyle(color: Colors.black),
                                   ))
                             ],
-                          )))),
+                          )))
+                          ),
               ListTile(
                 onTap: () {
-                Provider.of<Contactprovider>(context,listen: false).onpressed(false);
-                Provider.of<Contactprovider>(context,listen: false).start();
+               
                     Navigator.push(context, MaterialPageRoute(builder: (con) {
                   return  Contact();
                 }));},

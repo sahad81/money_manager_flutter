@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
-import 'package:moneymanagement/screens/graph/d_chart.dart';
-import 'package:moneymanagement/screens/home/transactions/home_balance_card_page.dart';
+
 
 class Incomelist extends StatelessWidget {
   const Incomelist({Key? key}) : super(key: key);

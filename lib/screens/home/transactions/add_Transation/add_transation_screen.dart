@@ -8,7 +8,7 @@ import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 import 'package:moneymanagement/models/transations/model_transations.dart';
-import 'package:moneymanagement/screens/graph/d_chart.dart';
+
 import 'package:moneymanagement/screens/home/category_screens/category_add_popup.dart';
 import 'package:moneymanagement/screens/home/transactions/add_Transation/provider_add_transaction.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +35,9 @@ class AddTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+  Future.delayed(Duration.zero,(){
+    context.read<Addtrasactionprovider>().initstate();
+  });
     return Scaffold(
       body: SafeArea(
           child: Form(
