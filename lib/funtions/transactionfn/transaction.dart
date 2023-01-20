@@ -171,7 +171,7 @@ class TransactionDb implements TransactionDbFn {
     balance1 = sumincomeAmount - sumexpenseAmount;
     return balance1.toDouble();
   }
-
+// 
   double todayallincomeTransactionAmount() {
     double sumincometodaytransaction = 0;
     for (var value in transactiontodayonlynotifire.value) {
