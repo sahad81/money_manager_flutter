@@ -44,8 +44,8 @@ class Graph extends StatelessWidget {
                     elevation: 6,
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 60,
+                         SizedBox(
+                          height: MediaQuery.of(context).size.height*0.07,
                         ),
                         PieChart(
                           dataMap: datamab,
@@ -53,9 +53,9 @@ class Graph extends StatelessWidget {
                           animationDuration: const Duration(milliseconds: 2000),
                           chartType: ChartType.ring,
                           chartRadius: MediaQuery.of(context).size.width / 1.7,
-                          ringStrokeWidth: 69,
+                          ringStrokeWidth: MediaQuery.of(context).size.height*0.08,
                           colorList: colorList,
-                          chartLegendSpacing: 60,
+                          chartLegendSpacing: MediaQuery.of(context).size.height*0.07,
                           chartValuesOptions: const ChartValuesOptions(
                             showChartValueBackground: true,
                             showChartValues: true,

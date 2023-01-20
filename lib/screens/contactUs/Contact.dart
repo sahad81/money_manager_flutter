@@ -7,33 +7,29 @@ import 'package:moneymanagement/screens/screenhome/screen_home.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-  
+
 class Contact extends StatelessWidget {
-   Contact({super.key});
-final namecontroler = TextEditingController();
+  Contact({super.key});
+  final namecontroler = TextEditingController();
   final emailcontroler = TextEditingController();
   final messagecontroler = TextEditingController();
   final subcontroler = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
- 
 //for textfiled
 
   bool condetion = false;
 //for internet connection
   bool internet = false;
 
- @override
+  @override
   Widget build(BuildContext context) {
-  
-  Future.delayed(Duration.zero,(){
-    context.read<Contactprovider>().onpressed(false);
-      Provider.of<Contactprovider>(context,listen: false).start();
-  });
+    Future.delayed(Duration.zero, () {
+      context.read<Contactprovider>().onpressed(false);
+      Provider.of<Contactprovider>(context, listen: false).start();
+    });
 
-  
-              
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -64,9 +60,7 @@ final namecontroler = TextEditingController();
                         child: TextFormField(
                           onChanged: (val) {
                             data.isnameiscrfn(val);
-                            // setState(() {
-                            //   isnameiscrt = isByteLength(, 2, 15);
-                            // });
+                           
                           },
                           controller: namecontroler,
                           decoration: InputDecoration(
@@ -97,11 +91,7 @@ final namecontroler = TextEditingController();
                       Focus(
                         onFocusChange: (suffixchange) {
                           data.focusmailfn(true);
-                          //   setState(
-                          //     () {
-                          //       focusmail = true;
-                          //     },
-                          //   );
+                         
                         },
 
                         //email-------------------
@@ -110,16 +100,7 @@ final namecontroler = TextEditingController();
                           controller: emailcontroler,
                           onChanged: (val) {
                             data.ismailiscrtfn(val);
-                            // setState(() {
-                            //   isemailcorrect = isEmail(val);
-                            // });
                           },
-                          // validator: ((value) {
-                          //   if (value!.isEmpty) {
-                          //     return 'Enter email address';
-                          //   }
-                          //   return null;
-                          // }),
                           decoration: InputDecoration(
                               suffixIcon: data.focusmail
                                   ? data.isemailcorrect == false
@@ -149,9 +130,7 @@ final namecontroler = TextEditingController();
                       Focus(
                         onFocusChange: (suffixchange) {
                           data.focussubfn(true);
-                          // setState(() {
-                          //   focusedsub = true;
-                          // });
+                     
                           //subject--------------------------------------------
                         },
                         child: TextFormField(
@@ -159,9 +138,7 @@ final namecontroler = TextEditingController();
                           controller: subcontroler,
                           onChanged: (vali) {
                             data.issubiscrtfn(vali);
-                            // setState(() {
-                            //   subcontrolercrt = isByteLength(vali, 2, 40);
-                            // });
+                           
                           },
                           decoration: InputDecoration(
                               suffixIcon: data.focusedsub
@@ -191,11 +168,7 @@ final namecontroler = TextEditingController();
                       Focus(
                         onFocusChange: (suffixchange) {
                           data.focusmsgfn(true);
-                          // setState(
-                          //   () {
-                          //     focusedmsg = true;
-                          //   },
-                          // );
+                    
                         },
 
                         //message------------------------------------
@@ -203,9 +176,7 @@ final namecontroler = TextEditingController();
                           controller: messagecontroler,
                           onChanged: (value) {
                             data.msgiscrtfn(value);
-                            // setState(() {
-                            //   messagecontrolercrt = isByteLength(vali, 4, 100);
-                            // });
+                       
                           },
                           decoration: InputDecoration(
                               suffixIcon: data.focusedmsg
@@ -238,12 +209,7 @@ final namecontroler = TextEditingController();
                       ElevatedButton(
                           onPressed: () async {
                             data.onpressed(true);
-                            // setState(() {
-                            //   focusname = true;
-                            //   focusmail = true;
-                            //   focusedmsg = true;
-                            //   focusedsub = true;
-                            // });
+                           
                             internet =
                                 await InternetConnectionChecker().hasConnection;
 
@@ -273,8 +239,8 @@ final namecontroler = TextEditingController();
         }));
   }
 
-    validation(BuildContext context) {
-     final data=Provider.of<Contactprovider>(context,listen: false);
+  validation(BuildContext context) {
+    final data = Provider.of<Contactprovider>(context, listen: false);
     if (data.isnameiscrt &&
         data.isemailcorrect &&
         data.messagecontrolercrt &&
@@ -289,9 +255,9 @@ final namecontroler = TextEditingController();
       Navigator.push(context, MaterialPageRoute(builder: (c) {
         return Homescreen();
       }));
-}
     }
-    
+  }
+
   Future sendmail(BuildContext context) async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
     const sarviesid = "service_z0yu4o8";
@@ -323,8 +289,7 @@ final namecontroler = TextEditingController();
     ));
     return responce.statusCode;
   }
-    
-    }
+}
 
 // send mail to my email // Email.js
 

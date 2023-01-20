@@ -16,9 +16,6 @@ import 'package:provider/provider.dart';
 class AddTransactions extends StatelessWidget {
   AddTransactions({super.key});
   static const routname = 'add_transaction';
-  Widget sizedb = const SizedBox(
-     height: 20,
-   );
 
   CategoriesModel? _selectedcategorymodel;
 
@@ -29,15 +26,19 @@ class AddTransactions extends StatelessWidget {
 
   late final String purpose;
 
-
- // ignore: prefer_typing_uninitialized_variables
- late final _parsedAmount;
+  // ignore: prefer_typing_uninitialized_variables
+  late final _parsedAmount;
 
   @override
   Widget build(BuildContext context) {
-  Future.delayed(Duration.zero,(){
-    context.read<Addtrasactionprovider>().initstate();
-  });
+    final sizew = MediaQuery.of(context).size.width;
+
+    final sizeh = MediaQuery.of(context).size.height;
+    Widget size20 = SizedBox(height: sizeh * 0.025);
+
+    Future.delayed(Duration.zero, () {
+      context.read<Addtrasactionprovider>().initstate();
+    });
     return Scaffold(
       body: SafeArea(
           child: Form(
@@ -46,20 +47,21 @@ class AddTransactions extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Column(children: [
-                sizedb,
-                sizedb,
+                size20,
+                size20,
+                size20,
                 Center(
                   child: Text(
                     'ADD TRANSACTIONS',
                     style: GoogleFonts.lateef(
-                        textStyle: const TextStyle(
-                            decorationColor: Colors.black,
-                            decorationThickness: 4,
-                            decorationStyle: TextDecorationStyle.dashed,
-                            fontSize: 35,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w800,
-                            fontStyle: FontStyle.italic)),
+                        textStyle: TextStyle(
+                      decorationColor: Colors.black,
+                      decorationThickness: 4,
+                      decorationStyle: TextDecorationStyle.dashed,
+                      fontSize: sizew * 0.09,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w800,
+                    )),
                   ),
                 ),
                 const SizedBox(
@@ -83,7 +85,7 @@ class AddTransactions extends StatelessWidget {
                         decoration:
                             const InputDecoration(labelText: "Enter Amount")),
 
-                    sizedb,
+                    size20,
 
                     Consumer<Addtrasactionprovider>(
                       builder: (context, value, child) => Row(
@@ -120,7 +122,7 @@ class AddTransactions extends StatelessWidget {
                         ],
                       ),
                     ),
-                    sizedb,
+                    size20,
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,10 +134,11 @@ class AddTransactions extends StatelessWidget {
                                   underline: const SizedBox(),
                                   onTap: () =>
                                       CategoriesDb.instance.refreshfuntion(),
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 17),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: sizew * 0.045),
                                   hint: const Text(
-                                    'select category',
+                                    'Select category',
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   value: value.catogariesID,
@@ -157,7 +160,7 @@ class AddTransactions extends StatelessWidget {
                                       ),
                                       onTap: () {
                                         value.refreshtransacRefreshcateg();
-                                       
+
                                         _selectedcategorymodel = e;
                                       },
                                     );
@@ -177,7 +180,7 @@ class AddTransactions extends StatelessWidget {
                       ],
                     ),
 
-                    sizedb,
+                    size20,
 
 //---------select date of transaction------------------//
 
@@ -208,11 +211,11 @@ class AddTransactions extends StatelessWidget {
                         decoration: const InputDecoration(
                           labelText: 'Note...',
                         )),
-                    sizedb,
+                    size20,
 
-                    //  sizedb,
+                    //  size20,
 
-                    sizedb,
+                    size20,
                     ElevatedButton(
                         onPressed: () {
 //----------------validation spot------------------//
@@ -228,7 +231,10 @@ class AddTransactions extends StatelessWidget {
                             showpopoep("Select category", Colors.red, context);
                             return;
                           }
-                          if (Provider.of<Addtrasactionprovider>(context,listen: false).selecteddate == null) {
+                          if (Provider.of<Addtrasactionprovider>(context,
+                                      listen: false)
+                                  .selecteddate ==
+                              null) {
                             showpopoep("Date is required", Colors.red, context);
                             return;
                           }
@@ -241,11 +247,12 @@ class AddTransactions extends StatelessWidget {
                             minimumSize: const Size(350, 50),
                             maximumSize: const Size(350, 50),
                             backgroundColor: Colors.black),
-                        child:  Text(
+                        child: Text(
                           'Submit'.toUpperCase(),
-                          style: const TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
                         )),
-                    sizedb,
+                    size20,
                   ]),
                 )
               ]),
@@ -276,16 +283,26 @@ class AddTransactions extends StatelessWidget {
                         if (value!.isEmpty) {
                           return "enter category name";
                         } else {
-                          for (var i = 0; i < TransactionDb.instance.incomecategorylist.length; i++) {
+                          for (var i = 0;
+                              i <
+                                  TransactionDb
+                                      .instance.incomecategorylist.length;
+                              i++) {
                             if (value.toLowerCase() ==
-                                TransactionDb.instance.incomecategorylist[i].name.toLowerCase()) {
+                                TransactionDb
+                                    .instance.incomecategorylist[i].name
+                                    .toLowerCase()) {
                               return 'Alredy exit';
                             }
                             for (var i = 0;
-                                i < TransactionDb.instance.expensecategorylist.length;
+                                i <
+                                    TransactionDb
+                                        .instance.expensecategorylist.length;
                                 i++) {
                               if (value.toLowerCase() ==
-                                  TransactionDb.instance.expensecategorylist[i].name.toLowerCase()) {
+                                  TransactionDb
+                                      .instance.expensecategorylist[i].name
+                                      .toLowerCase()) {
                                 return 'Alredy exit';
                               }
                             }
@@ -356,8 +373,6 @@ class AddTransactions extends StatelessWidget {
     );
   }
 
- 
-
 //--------- add to hive database------------------//
   Future<void> addTransationfuntion(BuildContext context) async {
     purpose = _purposetexteditingControler.text;
@@ -368,7 +383,8 @@ class AddTransactions extends StatelessWidget {
     final model = TransactionModel(
         purpose: purpose,
         amount: _parsedAmount,
-        date:Provider.of<Addtrasactionprovider>(context,listen: false).selecteddate!,
+        date: Provider.of<Addtrasactionprovider>(context, listen: false)
+            .selecteddate!,
         type: Provider.of<Addtrasactionprovider>(context, listen: false)
             .selectedcategory!,
         catogoryT: _selectedcategorymodel!);

@@ -11,6 +11,7 @@ import '../../../../models/transations/model_transations.dart';
  
 
 
+// ignore: must_be_immutable
 class Viewall extends StatelessWidget {
    Viewall({super.key});
  TextEditingController? seachcontroloer = TextEditingController();
@@ -18,7 +19,7 @@ class Viewall extends StatelessWidget {
 
    @override
   Widget build(BuildContext context) {
-
+final sizeh=MediaQuery.of(context).size.height;
 
     return ValueListenableBuilder(
         valueListenable: TransactionDb.instance.transactionlistnotifire,
@@ -164,18 +165,18 @@ class Viewall extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                       'Amount   : ${vAlue.amount}'),
-                                                  const SizedBox(
-                                                    height: 10,
+                                                   SizedBox(
+                                                    height: sizeh*0.012
                                                   ),
                                                   Text(
                                                       'Category : ${vAlue.catogoryT.name}'),
-                                                  const SizedBox(
-                                                    height: 10,
+                                                   SizedBox(
+                                               height: sizeh*0.012
                                                   ),
                                                   Text(
                                                       'Date         : ${parsedateforpopup(vAlue.date)}'),
-                                                  const SizedBox(
-                                                    height: 10,
+                                                   SizedBox(
+                                                   height: sizeh*0.012
                                                   ),
                                                   Text(
                                                       'notes       : ${vAlue.purpose}'),

@@ -10,6 +10,7 @@ import 'package:moneymanagement/screens/home/settingsscreen/settingsscreen.dart'
 import 'package:moneymanagement/screens/screenhome/widgets/bottomnavigation.dart';
 
  
+// ignore: must_be_immutable
 class Homescreen extends StatelessWidget {
    Homescreen({super.key});
  static ValueNotifier<int> selectedvaluenotifier = ValueNotifier(0);

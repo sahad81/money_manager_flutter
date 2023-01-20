@@ -27,8 +27,8 @@ List<TransactionModel> incometransaction =
       
           child: ListView(
             children: [
-              const SizedBox(
-                height: 100,
+               SizedBox(
+                height: MediaQuery.of(context).size.height*0.1,
               ),
               Center(
                 child: AspectRatio(

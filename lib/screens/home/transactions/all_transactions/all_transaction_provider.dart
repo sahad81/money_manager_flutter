@@ -48,13 +48,14 @@ class ProviderAllTransaction extends ChangeNotifier {
   }
 
   void initstate() {
-    dropdownvalues="All";
-    dropdowntransaction=transactions;
-notifyListeners();
+    dropdownvalues = "All";
+    dropdowntransaction = transactions;
+    notifyListeners();
   }
-void refreshfn(){
-   TransactionDb.instance.refreshtransaction();
+
+  void refreshfn() {
+    TransactionDb.instance.refreshtransaction();
     CategoriesDb.instance.refreshfuntion();
-notifyListeners();
-}
+    notifyListeners();
+  }
 }

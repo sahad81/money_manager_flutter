@@ -10,23 +10,25 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+ final sizem = MediaQuery.of(context).size.height;
+  final sizemw = MediaQuery.of(context).size.width;
     return AnimatedSplashScreen(
         splash: SingleChildScrollView(
           child: Column(
             children:[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child:Image.asset("assets/images/splash/Frame.png",height: 150,width: 150,),
+                child:Image.asset("assets/images/splash/Frame.png",height: sizem*0.20,width:  sizem*0.20,),
               ),
-              const SizedBox(
-                height: 10,
+               SizedBox(
+                height: sizem*0.013,
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "M O N E Y  M A N A G E R",
                   style: TextStyle(
-                      fontSize: 30,
+                      fontSize: sizemw*0.08,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Cormorant"
@@ -37,7 +39,7 @@ class SplashScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
-        splashIconSize: 300,
+        splashIconSize: sizemw*1,
         nextScreen:  Homescreen());
   }
 }

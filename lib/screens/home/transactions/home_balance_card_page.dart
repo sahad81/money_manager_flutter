@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../../models/transations/model_transations.dart';
 
+// ignore: must_be_immutable
 class Transaction extends StatelessWidget {
    Transaction({super.key});
   late double amountbalance = 0;
@@ -21,7 +22,8 @@ class Transaction extends StatelessWidget {
 
  @override
   Widget build(BuildContext context) {
-  
+  final  sizew =MediaQuery.of(context).size.width;
+  final sizeh =MediaQuery.of(context).size.height;
     TransactionDb.instance.refreshtransaction();
     CategoriesDb.instance.refreshfuntion();
 
@@ -66,21 +68,21 @@ class Transaction extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 09,
+                    width: sizew * 09,
                     margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                     decoration: const BoxDecoration(
                         color: Colors.black87,
                         borderRadius: BorderRadius.all(Radius.circular(24))),
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 8,
+                         SizedBox(
+                          height:sizeh*0.02,
                         ),
-                        const Text(
+                         Text(
                           'Total Balance',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 22.00,
+                              fontSize: sizeh*0.025,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -90,25 +92,25 @@ class Transaction extends StatelessWidget {
                         Text(
                           '₹  $amountbalance',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 26.00,
+                          style:  TextStyle(
+                              fontSize: sizeh*0.029,
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-                        const SizedBox(height: 10),
+                         SizedBox(height: sizeh*0.013),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 30, bottom: 20),
-                                child: incomeandexpenseAmount(amountincome,
+                                child: incomeandexpenseAmount(context,amountincome,
                                     Colors.white, Colors.green, "Income"),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     bottom: 20, right: 30),
-                                child: incomeandexpenseAmount(amountexpense,
+                                child: incomeandexpenseAmount(context,amountexpense,
                                     Colors.white, Colors.red, "Expense"),
                               ),
                             ]),
@@ -224,18 +226,18 @@ class Transaction extends StatelessWidget {
                                                   children: [
                                                     Text(
                                                         'Notes      : ${vAlue.purpose}'),
-                                                    const SizedBox(
-                                                      height: 10,
+                                                     SizedBox(
+                                                      height: sizeh*0.013,
                                                     ),
                                                     Text(
                                                         'Amount   : ${vAlue.amount}'),
-                                                    const SizedBox(
-                                                      height: 10,
+                                                     SizedBox(
+                                                      height: sizeh*0.013,
                                                     ),
                                                     Text(
                                                         'Category : ${vAlue.catogoryT.name}'),
-                                                    const SizedBox(
-                                                      height: 10,
+                                                     SizedBox(
+                                                      height: sizeh*0.013,
                                                     ),
                                                     Text(
                                                         'Date         : ${parsedateforpopup(vAlue.date)}'),
@@ -277,30 +279,34 @@ class Transaction extends StatelessWidget {
         });
   }
 
-//----------------ui for show income and expense-------------------
+//----------------car show income and expense-------------------
   Widget incomeandexpenseAmount(
+    BuildContext context,
     double amount,
     Color color2,
     Color color,
     String incomeorexpense,
-  ) {
+  ) 
+
+  {
+    final sizeh=MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           incomeorexpense,
           style: TextStyle(
-            fontSize: 22,
+            fontSize: sizeh*0.025,
             color: color,
           ),
         ),
-        const SizedBox(
-          height: 5,
+         SizedBox(
+          height:  sizeh*0.005,
         ),
         Text(
           "₹ $amount",
           style: TextStyle(
-            fontSize: 20,
+            fontSize:sizeh*0.0225,
             color: color2,
           ),
         ),
