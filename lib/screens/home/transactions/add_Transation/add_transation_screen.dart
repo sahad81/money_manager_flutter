@@ -36,9 +36,12 @@ class AddTransactions extends StatelessWidget {
     final sizeh = MediaQuery.of(context).size.height;
     Widget size20 = SizedBox(height: sizeh * 0.025);
 
-    Future.delayed(Duration.zero, () {
-      context.read<Addtrasactionprovider>().initstate();
-    });
+    // Future.delayed(Duration.zero, () {
+   
+    //   // context.read<Addtrasactionprovider>().initstate();
+    // }
+    // )
+    // ;
     return Scaffold(
       body: SafeArea(
           child: Form(
@@ -64,8 +67,8 @@ class AddTransactions extends StatelessWidget {
                     )),
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
+                 SizedBox(
+                  height: sizeh*0.033
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40),

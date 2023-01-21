@@ -3,7 +3,6 @@ import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
-
 class Incomelist extends StatelessWidget {
   const Incomelist({Key? key}) : super(key: key);
 
@@ -27,13 +26,11 @@ class Incomelist extends StatelessWidget {
                     ))),
                   ],
                 )
-                //---------showing income category list------------------//
+              //---------showing income category list------------------//
               : ListView.separated(
                   itemBuilder: ((context, index) {
                     final category = newlist[index];
-                    return
-             
-                        Padding(
+                    return Padding(
                       padding:
                           const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                       child: Card(
@@ -47,7 +44,7 @@ class Incomelist extends StatelessWidget {
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return AlertDialog(
+                                        return AlertDialog(
                                           title: const Text(
                                             'Delete',
                                             style: TextStyle(fontSize: 18),
@@ -87,5 +84,4 @@ class Incomelist extends StatelessWidget {
                   itemCount: newlist.length);
         });
   }
-
 }

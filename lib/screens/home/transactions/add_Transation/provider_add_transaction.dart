@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/models/catogaries/modelcatogaries.dart';
 
@@ -16,8 +16,8 @@ class Addtrasactionprovider with ChangeNotifier {
      DateTime? datefirst;
   initstate() {
     selectedcategory = CategoriesType.income;
-   selecteddate=null;
-   catogariesID=null;
+    selecteddate=null;
+    catogariesID=null;
     notifyListeners();
   }
 
@@ -64,6 +64,7 @@ class Addtrasactionprovider with ChangeNotifier {
 
     // ignore: unnecessary_null_comparison
     if (datefirst! == null) {
+
       return;
     } else {
       
