@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:charts_flutter_new/flutter.dart' as chartp;
@@ -11,30 +10,21 @@ import 'package:moneymanagement/screens/graph/todey_month_chart.dart';
 import 'package:provider/provider.dart';
 
 class Chart2 extends StatelessWidget {
-   Chart2({super.key});
+  Chart2({super.key});
 
- 
+  // ignore: prefer_typing_uninitialized_variables
 
+  // dropdownvalue = 1;
 
-  
- // ignore: prefer_typing_uninitialized_variables
-
- // dropdownvalue = 1;
- 
   @override
   Widget build(BuildContext context) {
-   
-
     final List<Graphhh> data = [
       Graphhh("income", TransactionDb.instance.allincomeamount(), Colors.green),
       Graphhh("expense", TransactionDb.instance.allexpenseamount(),
           const Color.fromRGBO(244, 67, 54, 1))
     ];
     TransactionDb.instance.refreshtransaction;
-    return
-    
-     ValueListenableBuilder(
-      
+    return ValueListenableBuilder(
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
           List<chartp.Series<Graphhh, String>> series = [
@@ -48,20 +38,21 @@ class Chart2 extends StatelessWidget {
           ];
 
           return Scaffold(
-     
-            
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: const Center(child: Text('MONEY MANAGER',style: TextStyle(color: Colors.white),)),
+              title: const Center(
+                  child: Text(
+                'MONEY MANAGER',
+                style: TextStyle(color: Colors.white),
+              )),
               backgroundColor: Colors.black,
             ),
             backgroundColor: Colors.grey.shade200,
             body: Column(
               children: [
                 Consumer<Staticprovider>(
-                  builder: (context, value, child) => 
-                   DropdownButton(
-                    hint: const Text("Total "),
+                  builder: (context, value, child) => DropdownButton(
+                      hint: const Text("Total "),
                       elevation: 5,
                       dropdownColor: Colors.grey,
                       underline: const SizedBox(),
@@ -72,10 +63,12 @@ class Chart2 extends StatelessWidget {
                         DropdownMenuItem(value: 3, child: Text("Monthly")),
                       ],
                       onChanged: (valuee) {
-                      value.onchange(valuee);
+                        value.onchange(valuee);
                       }),
                 ),
-             Provider.of<Staticprovider>(context,listen: true).dropdownvalue    == 2
+                Provider.of<Staticprovider>(context, listen: true)
+                            .dropdownvalue ==
+                        2
                     ? Expanded(
                         child: Graph(
                         expenseamount:
@@ -83,7 +76,9 @@ class Chart2 extends StatelessWidget {
                         incomeamount: TransactionDb.instance
                             .todayallincomeTransactionAmount(),
                       ))
-                    :  Provider.of<Staticprovider>(context,listen: true).dropdownvalue  == 3
+                    : Provider.of<Staticprovider>(context, listen: true)
+                                .dropdownvalue ==
+                            3
                         ? Expanded(
                             child: Graph(
                                 incomeamount: TransactionDb.instance
