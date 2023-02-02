@@ -8,23 +8,18 @@ import 'package:provider/provider.dart';
 import '../../../../funtions/transactionfn/transaction.dart';
 import '../../../../models/transations/model_transations.dart';
 
- 
-
-
 // ignore: must_be_immutable
 class Viewall extends StatelessWidget {
-   Viewall({super.key});
- TextEditingController? seachcontroloer = TextEditingController();
- 
+  Viewall({super.key});
+  TextEditingController? seachcontroloer = TextEditingController();
 
-   @override
+  @override
   Widget build(BuildContext context) {
-final sizeh=MediaQuery.of(context).size.height;
+    final sizeh = MediaQuery.of(context).size.height;
 
     return ValueListenableBuilder(
         valueListenable: TransactionDb.instance.transactionlistnotifire,
         builder: (BuildContext cnt, List<TransactionModel> newlist, Widget? _) {
-          
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -42,9 +37,8 @@ final sizeh=MediaQuery.of(context).size.height;
                 Align(
                   alignment: Alignment.center,
                   child: Consumer<ProviderAllTransaction>(
-                    builder: (context, value, child) => 
-                     DropdownButton(
-                      underline:const SizedBox(),
+                    builder: (context, value, child) => DropdownButton(
+                      underline: const SizedBox(),
                       elevation: 1,
                       value: value.dropdownvalues,
                       hint: const Text(
@@ -62,7 +56,7 @@ final sizeh=MediaQuery.of(context).size.height;
                               ))
                           .toList(),
                       onChanged: (newL) {
-                    value.filter(newL);
+                        value.filter(newL);
                       },
                     ),
                   ),
@@ -71,7 +65,7 @@ final sizeh=MediaQuery.of(context).size.height;
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     controller: seachcontroloer,
-                    onChanged: (value) => searchfuntion(value,context),
+                    onChanged: (value) => searchfuntion(value, context),
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                         filled: true,
@@ -85,7 +79,7 @@ final sizeh=MediaQuery.of(context).size.height;
                           Icons.search,
                           color: Colors.black,
                         )),
-                  ),                                                                                        
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -95,7 +89,9 @@ final sizeh=MediaQuery.of(context).size.height;
                           bottom: 10,
                         ),
                         itemBuilder: (context, index) {
-                          final vAlue = Provider.of<ProviderAllTransaction>(context).dropdowntransaction[index];
+                          final vAlue =
+                              Provider.of<ProviderAllTransaction>(context)
+                                  .dropdowntransaction[index];
                           final String purposename = vAlue.purpose;
                           return Slidable(
                               key: Key(vAlue.id!),
@@ -165,19 +161,16 @@ final sizeh=MediaQuery.of(context).size.height;
                                                 children: [
                                                   Text(
                                                       'Amount   : ${vAlue.amount}'),
-                                                   SizedBox(
-                                                    height: sizeh*0.012
-                                                  ),
+                                                  SizedBox(
+                                                      height: sizeh * 0.012),
                                                   Text(
                                                       'Category : ${vAlue.catogoryT.name}'),
-                                                   SizedBox(
-                                               height: sizeh*0.012
-                                                  ),
+                                                  SizedBox(
+                                                      height: sizeh * 0.012),
                                                   Text(
                                                       'Date         : ${parsedateforpopup(vAlue.date)}'),
-                                                   SizedBox(
-                                                   height: sizeh*0.012
-                                                  ),
+                                                  SizedBox(
+                                                      height: sizeh * 0.012),
                                                   Text(
                                                       'notes       : ${vAlue.purpose}'),
                                                 ]);
@@ -205,7 +198,9 @@ final sizeh=MediaQuery.of(context).size.height;
                         separatorBuilder: (cont, index1) {
                           return const SizedBox();
                         },
-                        itemCount: Provider.of<ProviderAllTransaction>(context).dropdowntransaction.length),
+                        itemCount: Provider.of<ProviderAllTransaction>(context)
+                            .dropdowntransaction
+                            .length),
                   ),
                 )
               ]),
@@ -215,8 +210,9 @@ final sizeh=MediaQuery.of(context).size.height;
   }
 
 //================search===============\\
-  void searchfuntion(String keywords ,BuildContext context) {
-    final provider =Provider.of<ProviderAllTransaction>(context,listen: false);
+  void searchfuntion(String keywords, BuildContext context) {
+    final provider =
+        Provider.of<ProviderAllTransaction>(context, listen: false);
     if (keywords.isEmpty) {
       provider.filterr = provider.transactions;
     } else {
@@ -227,8 +223,7 @@ final sizeh=MediaQuery.of(context).size.height;
               .contains(keywords.trim().toLowerCase()))
           .toList();
     }
-provider.filternotify();
-
+    provider.filternotify();
   }
 }
 
@@ -244,10 +239,3 @@ String parsedateforpopup(DateTime date) {
   var datelocal = DateFormat.yMMMMEEEEd().format(date);
   return datelocal;
 }
-
-
-
- 
-
-
- 

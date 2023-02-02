@@ -6,7 +6,7 @@ import 'package:moneymanagement/screens/home/category_screens/screencategories.d
 
 import 'package:moneymanagement/screens/home/transactions/home_balance_card_page.dart';
 import 'package:moneymanagement/screens/home/settingsscreen/settingsscreen.dart';
-import 'package:moneymanagement/screens/screenhome/widgets/bottomnavigation.dart';
+import 'package:moneymanagement/screens/BottomNavigation/bottomnavigation.dart';
 
  
 // ignore: must_be_immutable

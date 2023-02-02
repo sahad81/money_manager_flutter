@@ -6,7 +6,7 @@ import 'package:moneymanagement/screens/contactUs/providercontact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../screenhome/screen_home.dart';
+import '../../BottomNavigation/screen_home.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

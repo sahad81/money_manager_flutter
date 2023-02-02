@@ -87,49 +87,44 @@ class Chart2 extends StatelessWidget {
                                     .monthlyexpenseamount()))
                         : Column(
                             children: [
-                              Center(
-                                child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 60, right: 10, left: 10),
-                                    child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                2,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: TransactionDb
-                                                .instance
-                                                .transactionlistnotifire
-                                                .value
-                                                .isEmpty
-                                            ? Column(
-                                                children: const [
-                                                  Center(
-                                                    child: Expanded(
-                                                        child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 120),
-                                                      child: Center(
-                                                          child: Text(
-                                                        'Not enough Data to display',
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20),
-                                                      )),
-                                                    )),
-                                                  ),
-                                                ],
-                                              )
-                                            : chartp.BarChart(
-                                                series,
-                                                animate: true,
-                                              ))),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 60, right: 10, left: 10),
+                                child: Center(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: TransactionDb
+                                              .instance
+                                              .transactionlistnotifire
+                                              .value
+                                              .isEmpty
+                                          ? const Center(
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 120),
+                                                child: Center(
+                                                    child: Text(
+                                                  'Not enough Data to display',
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                )),
+                                              ),
+                                            )
+                                          : chartp.BarChart(
+                                              series,
+                                              animate: true,
+                                            )),
+                                ),
                               ),
                             ],
                           ),

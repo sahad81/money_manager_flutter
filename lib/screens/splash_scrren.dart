@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:moneymanagement/screens/screenhome/screen_home.dart';
+import 'package:moneymanagement/screens/BottomNavigation/screen_home.dart';
 
 
 class SplashScreen extends StatelessWidget {
@@ -25,14 +25,29 @@ class SplashScreen extends StatelessWidget {
               ),
                Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "M O N E Y  M A N A G E R",
-                  style: TextStyle(
-                      fontSize: sizemw*0.08,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Cormorant"
-                      ),
+                child: Column(
+                  children: [
+                          Text(
+                      "MONEFEE",
+                      style: TextStyle(
+                        letterSpacing: 2,
+                          fontSize: sizemw*0.08,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                       
+                          ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+                    Text(
+                      "M O N E Y  M A N A G E R",
+                      style: TextStyle(
+                          fontSize: sizemw*0.08,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Cormorant"
+                          ),
+                    ),
+                  ],
                 ),
               )
             ],

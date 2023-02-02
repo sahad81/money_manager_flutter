@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:moneymanagement/screens/screenhome/screen_home.dart';
+import 'package:moneymanagement/screens/BottomNavigation/screen_home.dart';
 
 // ignore: camel_case_types
 class bottimnavigationbar extends StatelessWidget {
