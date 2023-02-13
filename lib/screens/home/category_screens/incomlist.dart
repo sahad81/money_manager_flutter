@@ -21,8 +21,8 @@ class Incomelist extends StatelessWidget {
                       "No income categories added",
                       style: TextStyle(
                           color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                       //   fontWeight: FontWeight.bold,
+                          fontSize: 17),
                     ))),
                   ],
                 )

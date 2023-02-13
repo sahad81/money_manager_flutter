@@ -55,7 +55,7 @@ class AddTransactions extends StatelessWidget {
                 size20,
                 Center(
                   child: Text(
-                    'ADD TRANSACTIONS',
+                    'ADD TRANSACTION',
                     style: GoogleFonts.lateef(
                         textStyle: TextStyle(
                       decorationColor: Colors.black,

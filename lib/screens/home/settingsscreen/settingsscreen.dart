@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/funtions/transactionfn/transaction.dart';
 import 'package:moneymanagement/screens/contactUs/Contact.dart';
@@ -6,6 +7,7 @@ import 'package:moneymanagement/screens/contactUs/providercontact.dart';
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../const/const.dart';
 import '../../BottomNavigation/screen_home.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -43,8 +45,8 @@ class SettingsScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: const Text(
-            'MONEY MANAGER',
-            style: TextStyle(color: Colors.white),
+            appname,
+            style: TextStyle(color: Colors.white,letterSpacing: 2),
           ),
           centerTitle: true,
         ),
@@ -115,7 +117,72 @@ class SettingsScreen extends StatelessWidget {
                 title: const Text(
                   "Share App",
                 ),
-              )
+              ),
+                  ListTile(
+                onTap: () {
+              showDialog(
+  context: context,
+  builder: (_) => AlertDialog(
+  shape: const RoundedRectangleBorder(
+    borderRadius:
+      BorderRadius.all(
+        Radius.circular(10.0))),
+    content: Builder(
+      builder: (context) {
+        // Get available height and width of the build area of this widget. Make a choice depending on the size.                              
+        var height = MediaQuery.of(context).size.height;
+        var width = MediaQuery.of(context).size.width;
+
+        return SizedBox(
+          height: height*0.2,
+          width: width*0.9,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text("About App"),
+            SizedBox(height: height*0.05,),
+            Row(
+              children: [
+
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: Image(
+                    
+                    image: AssetImage("assets/images/splash/Frame.png")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(appname,style: TextStyle(letterSpacing: 2,fontWeight: FontWeight.bold),),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 7),
+                      child: Text("V.1.0.2",style: TextStyle(color: Colors.grey),),
+                    ),
+
+                  ],),
+                  
+                )
+              ],
+              
+            ),
+            SizedBox(height: height*0.03,),
+            Center(child: Text("Developed by sahad k",style: GoogleFonts.poppins(),)),
+          ]),
+        );
+      },
+    ),
+  )
+);
+                },
+                        
+                title: const Text(
+                  "About  App",
+                ),
+              ),
+              
             ],
           ),
         ));

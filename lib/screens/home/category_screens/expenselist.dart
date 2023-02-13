@@ -23,8 +23,8 @@ class Expenselist extends StatelessWidget {
                           "No expense category added",
                           style: TextStyle(
                               color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                             // fontWeight: FontWeight.bold,
+                              fontSize: 17),
                         ),
                       ),
                     )

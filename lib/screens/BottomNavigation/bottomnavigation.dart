@@ -32,11 +32,11 @@ class bottimnavigationbar extends StatelessWidget {
                   ),
                   GButton(
                     icon: Icons.category,
-                    text: 'Category',
+                    text: 'Categories',
                   ),
                   GButton(
                     icon: Icons.bar_chart,
-                    text: 'Statics',
+                    text: 'Statatics',
                   ),
                   GButton(
                     icon: Icons.settings_outlined,

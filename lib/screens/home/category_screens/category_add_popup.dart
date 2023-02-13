@@ -15,8 +15,10 @@ Future<void> showpopupADD(BuildContext context) async {
       CategoriesDb.instance.expensecategorieslistlistner.value;
 
   showDialog(
+    
     context: context,
     builder: (cntx) {
+         nameEditingControler.clear();
       return SimpleDialog(
         title: const Text('ADD CATEGORY'),
         children: [
@@ -91,7 +93,7 @@ Future<void> showpopupADD(BuildContext context) async {
                     CategoriesDb.instance.expensecategorieslistlistner;
                     CategoriesDb.instance.incomecategorieslistlistner;
                     Navigator.of(cntx).pop();
-                    nameEditingControler.clear;
+                    nameEditingControler.clear();
                     CategoriesDb().refreshfuntion();
                   }
                 },

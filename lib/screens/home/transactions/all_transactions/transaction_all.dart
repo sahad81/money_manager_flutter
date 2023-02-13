@@ -180,7 +180,7 @@ class Viewall extends StatelessWidget {
                                     },
                                     leading: Text(parsedate(vAlue.date)),
                                     title: Text(
-                                        "Category: ${vAlue.catogoryT.name}"),
+                                       vAlue.catogoryT.name),
                                     trailing:
                                         vAlue.type == CategoriesType.income
                                             ? Text(

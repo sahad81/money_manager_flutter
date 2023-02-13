@@ -11,6 +11,7 @@ import 'package:moneymanagement/screens/home/transactions/all_transactions/all_t
 import 'package:moneymanagement/screens/home/transactions/all_transactions/transaction_all.dart';
 import 'package:provider/provider.dart';
 
+import '../../../const/const.dart';
 import '../../../models/transations/model_transations.dart';
 
 // ignore: must_be_immutable
@@ -38,9 +39,10 @@ class Transaction extends StatelessWidget {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.black,
-              title: const Text(
-                'MONEY MANAGER',
+              title:  Text(
+                appname,
                 style: TextStyle(
+                  letterSpacing: 2,
                   color: Colors.white,
                 ),
               ),
@@ -253,7 +255,7 @@ class Transaction extends StatelessWidget {
                                             Text(parsedateforpopup(vAlue.date)),
                                       ),
                                       title: Text(
-                                          "Category: ${vAlue.catogoryT.name}"),
+                                          vAlue.catogoryT.name),
                                       trailing:
                                           vAlue.type == CategoriesType.income
                                               ? Text(

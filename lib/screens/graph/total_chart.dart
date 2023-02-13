@@ -9,6 +9,8 @@ import 'package:moneymanagement/screens/graph/staticprovider.dart';
 import 'package:moneymanagement/screens/graph/todey_month_chart.dart';
 import 'package:provider/provider.dart';
 
+import '../../const/const.dart';
+
 class Chart2 extends StatelessWidget {
   Chart2({super.key});
 
@@ -42,8 +44,8 @@ class Chart2 extends StatelessWidget {
               automaticallyImplyLeading: false,
               title: const Center(
                   child: Text(
-                'MONEY MANAGER',
-                style: TextStyle(color: Colors.white),
+                appname,
+                style: TextStyle(color: Colors.white,letterSpacing: 2),
               )),
               backgroundColor: Colors.black,
             ),
@@ -70,7 +72,20 @@ class Chart2 extends StatelessWidget {
                             .dropdownvalue ==
                         2
                     ? Expanded(
-                        child: Graph(
+                        child: 
+                          TransactionDb.instance.todayexpensetotalamout()==0&&TransactionDb.instance.todayallincomeTransactionAmount()==0?
+const Center(
+                                              child: Center(
+                                                  child: Text(
+                                                'Not enough Data to display',
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                   // fontWeight:
+                                                     //   FontWeight.bold,
+                                                    fontSize: 17),
+                                              )),
+                                            ):
+                        Graph(
                         expenseamount:
                             TransactionDb.instance.todayexpensetotalamout(),
                         incomeamount: TransactionDb.instance
@@ -80,7 +95,20 @@ class Chart2 extends StatelessWidget {
                                 .dropdownvalue ==
                             3
                         ? Expanded(
-                            child: Graph(
+                            child:
+                              TransactionDb.instance.monthlyincomeamount()==0&&TransactionDb.instance.monthlyexpenseamount()==0?
+const Center(
+                                              child: Center(
+                                                  child: Text(
+                                                'Not enough Data to display',
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                   // fontWeight:
+                                                     //   FontWeight.bold,
+                                                    fontSize: 17),
+                                              )),
+                                            ):
+                             Graph(
                                 incomeamount: TransactionDb.instance
                                     .monthlyincomeamount(),
                                 expenseamount: TransactionDb.instance
@@ -106,19 +134,15 @@ class Chart2 extends StatelessWidget {
                                               .value
                                               .isEmpty
                                           ? const Center(
-                                              child: Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 120),
-                                                child: Center(
-                                                    child: Text(
-                                                  'Not enough Data to display',
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                )),
-                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                'Not enough Data to display',
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                   // fontWeight:
+                                                     //   FontWeight.bold,
+                                                    fontSize: 17),
+                                              )),
                                             )
                                           : chartp.BarChart(
                                               series,

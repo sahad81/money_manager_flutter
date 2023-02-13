@@ -40,6 +40,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:moneymanagement/const/const.dart';
 import 'package:moneymanagement/funtions/categories_fn_db/categories.dart';
 import 'package:moneymanagement/screens/home/category_screens/category_add_popup.dart';
 import 'package:moneymanagement/screens/home/category_screens/expenselist.dart';
@@ -82,8 +83,8 @@ class _ScreenCategoryState extends State<ScreenCategory>
           automaticallyImplyLeading: false,
           title: const Center(
             child: Text(
-              'MONEY MANAGER',
-              style: TextStyle(color: Colors.white),
+              appname,
+              style: TextStyle(color: Colors.white,letterSpacing: 2),
             ),
           )),
       body: Column(

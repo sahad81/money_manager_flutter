@@ -11,10 +11,14 @@ import 'package:moneymanagement/screens/home/transactions/all_transactions/all_t
 import 'package:moneymanagement/screens/splash_scrren.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/services.dart';
 Future<void> main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
-
+SystemChrome.setPreferredOrientations([
+DeviceOrientation.portraitUp,
+DeviceOrientation.portraitDown,
+]);
   // WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
